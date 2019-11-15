@@ -4,7 +4,7 @@ from os import path
 
 DESCRIPTION = 'Library for type-2 fuzzy logic research'
 
-VERSION = '0.1.32'
+VERSION = '0.1.33'
 
 setup(
 	author = 'Carmel Gafa',
@@ -25,7 +25,7 @@ setup(
 		'Programming Language :: Python :: 3.5',
 		'Programming Language :: Python :: 3.6',
 	],
-	url = 'https://github.com/t2fuzz/type2fuzzy',
+	url = 'https://github.com/carmelgafa/type2fuzzy',
 	packages = 
 	[
 		'type2fuzzy', 

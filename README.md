@@ -17,7 +17,7 @@ All type2fuzzy wheels distributed on PyPI are BSD licensed.
 
 Examples of how this library was used to work some famous type-2 fuzzy logic papers can be found here:
 
-https://github.com/t2fuzz/type2fuzzy_examples
+https://github.com/carmelgafa/type2fuzzy_examples
 
 
 ## Website
@@ -25,6 +25,9 @@ https://github.com/t2fuzz/type2fuzzy_examples
 http://t2fuzz.com
 
 ## Change History:
+
+**version 0.1.33 - 15.11.2019**
+1. Updated repo information
 
 **version 0.1.32 - 15.11.2019**
 1. Get domain limits for a type-1 fuzzy set (http://t2fuzz.com/membership/type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.domain_limits)
