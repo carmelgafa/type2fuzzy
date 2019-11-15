@@ -1,0 +1,1651 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.1" />
+<title>type2fuzzy.membership.type1fuzzyset API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>type2fuzzy.membership.type1fuzzyset</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import numpy as np
+from type2fuzzy.membership.crispset import CrispSet
+
+class Type1FuzzySet:
+        &#39;&#39;&#39;
+        Reference:
+        ----------
+        Zadeh, Lotfi Asker. &#34;The concept of a linguistic variable and its 
+        application to approximate reasoning—I.&#34; Information sciences 8.3 (1975): 199-249.
+
+        &#39;&#39;&#39;
+        def __init__(self):
+                self._elements = {}
+                self._empty = True
+                self._precision = 3
+
+        def __eq__(self, value):
+                current_domain_len = len(self.domain_elements())
+                value_domain_len = len(value.domain_elements())
+                union_domain_len = len(list(set(self.domain_elements()).union(value.domain_elements())))
+
+                if current_domain_len != value_domain_len:
+                        return False
+
+                if union_domain_len != value_domain_len:
+                        return False
+
+                current_dom_len = len(self.degree_of_membership())
+                value_dom_len = len(value.degree_of_membership())
+                union_dom_len = len(list(set(self.degree_of_membership()).union(value.degree_of_membership())))
+
+                if current_dom_len != value_dom_len:
+                        return False
+
+                if union_dom_len != value_dom_len:
+                        return False
+
+                return True
+
+        def __getitem__(self, x_val):
+                &#39;&#39;&#39;
+                For a given value of x, return the degree of membership
+
+                Reference:
+                ----------
+                Zadeh, Lotfi Asker. &#34;The concept of a linguistic variable and its 
+                application to approximate reasoning—I.&#34; Information sciences 8.3 (1975): 199-249.
+
+                Arguments:
+                ----------
+                x_val -- value of x 
+
+                Returns:
+                --------
+                degree of membership -- float
+
+                &#39;&#39;&#39;
+                return self._elements[x_val]
+
+        def __str__(self):
+
+                set_elements = []
+                dec_places_formatter = &#39;&#39;&#39;%0.{}f&#39;&#39;&#39;.format(self._precision)
+
+                for domain_val, dom_val in self._elements.items():
+                        set_elements.append(f&#39;{dec_places_formatter % dom_val}/{dec_places_formatter % domain_val}&#39;)
+
+                set_representation = &#39; + &#39;.join(set_elements)
+
+                return set_representation
+
+        def __repr__(self):
+                return f&#39;{self.__class__.__name__}({str(self)})&#39;
+
+        @ classmethod
+        def from_representation(cls, set_representation):
+                &#39;&#39;&#39;
+                Creates a type-1 fuzzy set from a set representation of the form
+                &#39;a1/u1 + a2/u2 + ... + an/un&#39;
+
+                Reference:
+                ---------
+                Zadeh, Lotfi Asker. &#34;The concept of a linguistic variable and its 
+                application to approximate reasoning—I.&#34; Information sciences 8.3 (1975): 199-249.
+
+                Arguments:
+                ----------
+                set_representation -- string, representation of the t1fs
+
+                Returns:
+                --------
+                t1fs -- Type-1 Fuzzy Set
+
+                Raises:
+                -------
+                Exception -- if set_representation is empty, None or invalid
+                &#39;&#39;&#39;
+                if set_representation == None:
+                        raise Exception(&#39;Type-1 Set Representation cannot be null&#39;)
+                if set_representation == &#39;&#39;:
+                        raise Exception(&#39;Type-1 Set Representation cannot be empty&#39;)
+
+                t1fs = cls()
+
+                try:
+                        # remove spaces, tabs returns,
+                        translation_table = dict.fromkeys(map(ord, &#39; \t\n\r&#39;), None)
+                        set_representation = set_representation.translate(translation_table)
+
+                        # by splitting by + we will get 
+                        # the degree of memberships / domain combinations
+                        set_elements = set_representation.split(&#39;+&#39;)
+
+                        for element in set_elements:
+                                # we now split the membership function from the
+                                # primary domain value
+                                dom_val, domain_val = element.split(&#39;/&#39;)
+                                t1fs.add_element(float(domain_val), float(dom_val))
+
+                except ValueError:
+                        raise Exception(&#39;Invalid set type-1 format&#39;)
+
+                return t1fs
+
+        @ classmethod
+        def from_alphacut_type1_set(cls, alphacut_set):
+                
+                t1fs = cls()
+                for cut in alphacut_set.cuts():
+                        limits = alphacut_set[cut]
+                        t1fs.add_element(limits.left, cut)
+                        t1fs.add_element(limits.right, cut)
+
+                # sort dictionary with domain 
+                # TODO. do this if required only
+                domain_list = t1fs.domain_elements()
+                domain_list.sort()
+                new_elements = {}
+                for domain_value in domain_list:
+                        new_elements[domain_value] = t1fs._elements[domain_value]
+                t1fs._elements = new_elements
+
+                return t1fs
+
+        @classmethod
+        def create_triangular(cls, univ_low, univ_hi, univ_res, set_low, set_mid, set_hi):
+
+                &#39;&#39;&#39;
+                Creates a triangular type 1 fuzzy set in a defined universe of discourse
+                The triangle is mage of three points; the low where the dom is 0, the mid where the
+                dom is 1 and the high where the dom is 0
+
+                References
+                ----------
+                Pedrycz, Witold, and Fernando Gomide. 
+                An introduction to fuzzy sets: analysis and design. Mit Press, 1998.
+
+                Arguments:
+                ----------
+                univ_low -- lower value of the universe of discourse
+                univ_hi -- higher value of the universe of discourse
+                univ_res -- resolution of the universe of discourse
+                set_low -- sel low point, where dom is 0
+                set_mid -- sel mid point, where dom is 1
+                set_hi -- sel high point, where dom is 0
+
+                Returns:
+                --------
+                The new type1 triangular fuzzy set
+                &#39;&#39;&#39;
+
+                if univ_hi &lt;= univ_low:
+                        raise Exception(&#39;Error in universe definition&#39;)
+                if (set_hi &lt; set_mid) or (set_mid &lt; set_low):
+                        raise Exception(&#39;Error in triangular set definition&#39;)
+
+                t1fs = cls()
+
+                precision = len(str(univ_res))
+                domain_elements =  np.round(np.linspace(univ_low, univ_hi, univ_res), precision)
+
+                idx = (np.abs(domain_elements - set_mid)).argmin()
+                set_mid = domain_elements[idx]
+
+                idx = (np.abs(domain_elements - set_low)).argmin()
+                set_low = domain_elements[idx]
+
+                idx = (np.abs(domain_elements - set_hi)).argmin()
+                set_hi = domain_elements[idx]
+
+                for domain_val in domain_elements:
+                        # get the dom of the set at the point
+                        dom = max(min((domain_val-set_low)/(set_mid-set_low), (set_hi-domain_val)/(set_hi-set_mid)), 0)
+
+                        # idx = (np.abs(domain_elements - set_mid)).argmin()
+                        # dom = domain_elements[idx]
+
+                        t1fs.add_element(domain_val, dom)
+
+                return t1fs
+
+        @classmethod
+        def create_triangular_ex(cls, primary_domain, a, b, c):
+
+                &#39;&#39;&#39;
+                Creates a triangular type 1 fuzzy set in a defined universe of discourse
+                The triangle is mage of three points; the low where the dom is 0, the mid where the
+                dom is 1 and the high where the dom is 0
+
+                References
+                ----------
+                Pedrycz, Witold, and Fernando Gomide. 
+                An introduction to fuzzy sets: analysis and design. Mit Press, 1998.
+
+                Arguments:
+                ----------
+
+                a -- set low point, where dom is 0
+                b -- set mid point, where dom is 1
+                c -- set high point, where dom is 0
+
+                Returns:
+                --------
+                The new type1 triangular fuzzy set
+                &#39;&#39;&#39;
+                if (c &lt;= b) or (b &lt;= a):
+                        raise Exception(&#39;Error in triangular set definition&#39;)
+
+                t1fs = cls()
+
+                for x in primary_domain:
+                        dom = max(min((x - a)/(b - a), (c - x)/(c - b)), 0)
+                        t1fs.add_element(x, dom)
+
+                return t1fs
+
+        @staticmethod
+        def adjust_value(val, val_array):
+                idx = (np.abs(val_array - val)).argmin()
+                return val_array[idx]
+
+        @classmethod
+        def create_trapezoidal(cls, domain, a, b, c, d):
+                &#39;&#39;&#39;
+                &#39;&#39;&#39;
+                t1fs = cls()
+
+                for domain_val in domain:
+                        if domain_val &gt; a and domain_val &lt; d:
+                                if b == a:
+                                        dom = min(max((d-domain_val)/(d-c), 0), 1)
+                                elif d==c:
+                                        dom = min(max((domain_val-a)/(b-a), 0), 1)
+                                else:
+                                        dom = min(max(min((domain_val-a)/(b-a), (d-domain_val)/(d-c)), 0), 1)
+
+                                t1fs.add_element(domain_val, dom)
+
+                return t1fs
+
+        @property
+        def empty(self):
+                &#39;&#39;&#39;
+                True if the set is empty, i.e. there is no element with dom &gt; 0
+                &#39;&#39;&#39;
+                return self._empty
+
+        def elements(self):
+                &#39;&#39;&#39;
+                Returns a copy of the elements making up this t1fs in the form a dictionary
+
+                Arguments:
+                ----------
+
+                Returns:
+                --------
+                elements - dict, containing domain:degree_of_membership pairs
+                &#39;&#39;&#39;
+                elements = self._elements
+                return elements
+
+        def element_count(self):
+                return len(self._elements)
+
+        def add_element(self, domain_val, dom_val):
+                &#39;&#39;&#39;
+                Adds a new element to the t1fs. If there is already an element at the stated
+                domain value the maximum degree of membership value is kept
+
+                Arguments:
+                ----------
+                domain_val -- float, the value of x
+                degree_of_membership, float value between 0 and 1. The degree of membership
+                &#39;&#39;&#39;
+                if dom_val &gt; 1:
+                        raise ValueError(&#39;degree of membership must not be greater than 1, {} : {}&#39;.format(domain_val, dom_val))
+
+                if domain_val in self._elements:
+                        self._elements[domain_val] = max(self._elements[domain_val], dom_val)
+                else:
+                        self._elements[domain_val] = dom_val
+                        self._empty = False
+
+        def domain_elements(self):
+                &#39;&#39;&#39;
+                Return a list of all the domain elements
+
+                Returns:
+                --------
+                domain_vals -- list, containing all the values of the domain
+                &#39;&#39;&#39;
+                domain_vals = list(self._elements.keys())
+                return domain_vals
+        
+        def dom_elements(self):
+                &#39;&#39;&#39;
+                Returns a list of all the doms in the set
+
+                Returns:
+                --------
+                dom_vals -- list, containing all the values of the dom
+                &#39;&#39;&#39;
+                dom_vals = list(self._elements.values())
+                return dom_vals
+
+        def degree_of_membership(self):
+                &#39;&#39;&#39;
+                Return a list of all the degree of membership values
+
+                Returns:
+                --------
+                doms -- list, containing all the values of the degree of membership values
+                &#39;&#39;&#39;
+                doms = list(self._elements.values())
+                return doms
+
+        def size(self):
+                &#39;&#39;&#39;
+                The size of the set
+
+                Returns:
+                --------
+                set_size: int, the number of elements in the set
+                &#39;&#39;&#39;
+                set_size = len(self._elements)
+                return set_size
+
+        def domain_limits(self):
+                &#39;&#39;&#39;
+                Returns the domain limits of this t1fs
+
+                Reference:
+                ----------
+
+                Arguments:
+                ----------
+
+                Returns:
+                --------
+                limits -- CrispSet containting the smallest an largest domain value
+                &#39;&#39;&#39;
+                limits = CrispSet(min(self._elements.keys()), max(self._elements.keys()))
+                return limits
+        
+        def alpha_cut(self, alpha_val):
+
+                if alpha_val == 0:
+                        filter_idx = (np.array(self.degree_of_membership()) &gt; 0).nonzero()[0]
+
+                else:
+                # create a filter of the degrees of membership that exceed the cut value
+                        filter_idx = (np.array(self.degree_of_membership()) &gt;= alpha_val).nonzero()[0]
+
+                # appply the filter on the domain to get the values included in the alpha-cut
+                cut = np.array(self.domain_elements())[filter_idx]
+
+                limits = CrispSet()
+
+                if len(cut&gt;0):
+                        limits.left = min(cut)
+                        limits.right = max(cut)
+
+                return limits
+
+        def extend(self, func):
+
+                resultant_set = Type1FuzzySet()
+
+                for domain_val in self.domain_elements():
+                        resultant_set.add_element(func(domain_val), self[domain_val])
+                
+                return resultant_set
+
+        # operators
+        def join(self, a_set):
+
+                resultant_set = Type1FuzzySet()
+
+                for domain_element in self.domain_elements():
+                        for a_set_domain_element in a_set.domain_elements():
+                                
+                                resultant_set.add_element(max(domain_element, a_set_domain_element), 
+                                                                                        min(self[domain_element], a_set[a_set_domain_element]))
+
+                return resultant_set
+
+        def meet(self, a_set):
+
+                resultant_set = Type1FuzzySet()
+
+                for domain_element in self.domain_elements():
+                        for a_set_domain_element in a_set.domain_elements():
+                                
+                                resultant_set.add_element(min(domain_element, a_set_domain_element), 
+                                                                                        min(self[domain_element], a_set[a_set_domain_element]))
+
+                return resultant_set
+
+        def negation(self):
+                resultant_set = Type1FuzzySet()
+
+                for domain_element in self.domain_elements():
+                                resultant_set.add_element(1 - domain_element, 
+                                                                                        self[domain_element])
+
+                return resultant_set
+
+        def union(self, other_smf):
+                resultant_set = set.intersection(set(self._elements), set(other_smf._elements))
+
+                resultant_smf = {}
+                for  domain_val in resultant_set:
+                        resultant_smf[domain_val] = max(self._elements[domain_val], other_smf.elements[domain_val])
+
+                return resultant_smf
+
+        def intersection(self, other_smf):
+                &#39;&#39;&#39;
+                &#39;&#39;&#39;
+                resultant_set = set.intersection(set(self._elements), set(other_smf._elements))
+
+                resultant_smf = {}
+                for  domain_val in resultant_set:
+                        resultant_smf[domain_val] = min(self._elements[domain_val], other_smf.elements[domain_val])
+
+                return resultant_smf</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet"><code class="flex name class">
+<span>class <span class="ident">Type1FuzzySet</span></span>
+</code></dt>
+<dd>
+<section class="desc"><h2 id="reference">Reference:</h2>
+<p>Zadeh, Lotfi Asker. "The concept of a linguistic variable and its
+application to approximate reasoning—I." Information sciences 8.3 (1975): 199-249.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Type1FuzzySet:
+        &#39;&#39;&#39;
+        Reference:
+        ----------
+        Zadeh, Lotfi Asker. &#34;The concept of a linguistic variable and its 
+        application to approximate reasoning—I.&#34; Information sciences 8.3 (1975): 199-249.
+
+        &#39;&#39;&#39;
+        def __init__(self):
+                self._elements = {}
+                self._empty = True
+                self._precision = 3
+
+        def __eq__(self, value):
+                current_domain_len = len(self.domain_elements())
+                value_domain_len = len(value.domain_elements())
+                union_domain_len = len(list(set(self.domain_elements()).union(value.domain_elements())))
+
+                if current_domain_len != value_domain_len:
+                        return False
+
+                if union_domain_len != value_domain_len:
+                        return False
+
+                current_dom_len = len(self.degree_of_membership())
+                value_dom_len = len(value.degree_of_membership())
+                union_dom_len = len(list(set(self.degree_of_membership()).union(value.degree_of_membership())))
+
+                if current_dom_len != value_dom_len:
+                        return False
+
+                if union_dom_len != value_dom_len:
+                        return False
+
+                return True
+
+        def __getitem__(self, x_val):
+                &#39;&#39;&#39;
+                For a given value of x, return the degree of membership
+
+                Reference:
+                ----------
+                Zadeh, Lotfi Asker. &#34;The concept of a linguistic variable and its 
+                application to approximate reasoning—I.&#34; Information sciences 8.3 (1975): 199-249.
+
+                Arguments:
+                ----------
+                x_val -- value of x 
+
+                Returns:
+                --------
+                degree of membership -- float
+
+                &#39;&#39;&#39;
+                return self._elements[x_val]
+
+        def __str__(self):
+
+                set_elements = []
+                dec_places_formatter = &#39;&#39;&#39;%0.{}f&#39;&#39;&#39;.format(self._precision)
+
+                for domain_val, dom_val in self._elements.items():
+                        set_elements.append(f&#39;{dec_places_formatter % dom_val}/{dec_places_formatter % domain_val}&#39;)
+
+                set_representation = &#39; + &#39;.join(set_elements)
+
+                return set_representation
+
+        def __repr__(self):
+                return f&#39;{self.__class__.__name__}({str(self)})&#39;
+
+        @ classmethod
+        def from_representation(cls, set_representation):
+                &#39;&#39;&#39;
+                Creates a type-1 fuzzy set from a set representation of the form
+                &#39;a1/u1 + a2/u2 + ... + an/un&#39;
+
+                Reference:
+                ---------
+                Zadeh, Lotfi Asker. &#34;The concept of a linguistic variable and its 
+                application to approximate reasoning—I.&#34; Information sciences 8.3 (1975): 199-249.
+
+                Arguments:
+                ----------
+                set_representation -- string, representation of the t1fs
+
+                Returns:
+                --------
+                t1fs -- Type-1 Fuzzy Set
+
+                Raises:
+                -------
+                Exception -- if set_representation is empty, None or invalid
+                &#39;&#39;&#39;
+                if set_representation == None:
+                        raise Exception(&#39;Type-1 Set Representation cannot be null&#39;)
+                if set_representation == &#39;&#39;:
+                        raise Exception(&#39;Type-1 Set Representation cannot be empty&#39;)
+
+                t1fs = cls()
+
+                try:
+                        # remove spaces, tabs returns,
+                        translation_table = dict.fromkeys(map(ord, &#39; \t\n\r&#39;), None)
+                        set_representation = set_representation.translate(translation_table)
+
+                        # by splitting by + we will get 
+                        # the degree of memberships / domain combinations
+                        set_elements = set_representation.split(&#39;+&#39;)
+
+                        for element in set_elements:
+                                # we now split the membership function from the
+                                # primary domain value
+                                dom_val, domain_val = element.split(&#39;/&#39;)
+                                t1fs.add_element(float(domain_val), float(dom_val))
+
+                except ValueError:
+                        raise Exception(&#39;Invalid set type-1 format&#39;)
+
+                return t1fs
+
+        @ classmethod
+        def from_alphacut_type1_set(cls, alphacut_set):
+                
+                t1fs = cls()
+                for cut in alphacut_set.cuts():
+                        limits = alphacut_set[cut]
+                        t1fs.add_element(limits.left, cut)
+                        t1fs.add_element(limits.right, cut)
+
+                # sort dictionary with domain 
+                # TODO. do this if required only
+                domain_list = t1fs.domain_elements()
+                domain_list.sort()
+                new_elements = {}
+                for domain_value in domain_list:
+                        new_elements[domain_value] = t1fs._elements[domain_value]
+                t1fs._elements = new_elements
+
+                return t1fs
+
+        @classmethod
+        def create_triangular(cls, univ_low, univ_hi, univ_res, set_low, set_mid, set_hi):
+
+                &#39;&#39;&#39;
+                Creates a triangular type 1 fuzzy set in a defined universe of discourse
+                The triangle is mage of three points; the low where the dom is 0, the mid where the
+                dom is 1 and the high where the dom is 0
+
+                References
+                ----------
+                Pedrycz, Witold, and Fernando Gomide. 
+                An introduction to fuzzy sets: analysis and design. Mit Press, 1998.
+
+                Arguments:
+                ----------
+                univ_low -- lower value of the universe of discourse
+                univ_hi -- higher value of the universe of discourse
+                univ_res -- resolution of the universe of discourse
+                set_low -- sel low point, where dom is 0
+                set_mid -- sel mid point, where dom is 1
+                set_hi -- sel high point, where dom is 0
+
+                Returns:
+                --------
+                The new type1 triangular fuzzy set
+                &#39;&#39;&#39;
+
+                if univ_hi &lt;= univ_low:
+                        raise Exception(&#39;Error in universe definition&#39;)
+                if (set_hi &lt; set_mid) or (set_mid &lt; set_low):
+                        raise Exception(&#39;Error in triangular set definition&#39;)
+
+                t1fs = cls()
+
+                precision = len(str(univ_res))
+                domain_elements =  np.round(np.linspace(univ_low, univ_hi, univ_res), precision)
+
+                idx = (np.abs(domain_elements - set_mid)).argmin()
+                set_mid = domain_elements[idx]
+
+                idx = (np.abs(domain_elements - set_low)).argmin()
+                set_low = domain_elements[idx]
+
+                idx = (np.abs(domain_elements - set_hi)).argmin()
+                set_hi = domain_elements[idx]
+
+                for domain_val in domain_elements:
+                        # get the dom of the set at the point
+                        dom = max(min((domain_val-set_low)/(set_mid-set_low), (set_hi-domain_val)/(set_hi-set_mid)), 0)
+
+                        # idx = (np.abs(domain_elements - set_mid)).argmin()
+                        # dom = domain_elements[idx]
+
+                        t1fs.add_element(domain_val, dom)
+
+                return t1fs
+
+        @classmethod
+        def create_triangular_ex(cls, primary_domain, a, b, c):
+
+                &#39;&#39;&#39;
+                Creates a triangular type 1 fuzzy set in a defined universe of discourse
+                The triangle is mage of three points; the low where the dom is 0, the mid where the
+                dom is 1 and the high where the dom is 0
+
+                References
+                ----------
+                Pedrycz, Witold, and Fernando Gomide. 
+                An introduction to fuzzy sets: analysis and design. Mit Press, 1998.
+
+                Arguments:
+                ----------
+
+                a -- set low point, where dom is 0
+                b -- set mid point, where dom is 1
+                c -- set high point, where dom is 0
+
+                Returns:
+                --------
+                The new type1 triangular fuzzy set
+                &#39;&#39;&#39;
+                if (c &lt;= b) or (b &lt;= a):
+                        raise Exception(&#39;Error in triangular set definition&#39;)
+
+                t1fs = cls()
+
+                for x in primary_domain:
+                        dom = max(min((x - a)/(b - a), (c - x)/(c - b)), 0)
+                        t1fs.add_element(x, dom)
+
+                return t1fs
+
+        @staticmethod
+        def adjust_value(val, val_array):
+                idx = (np.abs(val_array - val)).argmin()
+                return val_array[idx]
+
+        @classmethod
+        def create_trapezoidal(cls, domain, a, b, c, d):
+                &#39;&#39;&#39;
+                &#39;&#39;&#39;
+                t1fs = cls()
+
+                for domain_val in domain:
+                        if domain_val &gt; a and domain_val &lt; d:
+                                if b == a:
+                                        dom = min(max((d-domain_val)/(d-c), 0), 1)
+                                elif d==c:
+                                        dom = min(max((domain_val-a)/(b-a), 0), 1)
+                                else:
+                                        dom = min(max(min((domain_val-a)/(b-a), (d-domain_val)/(d-c)), 0), 1)
+
+                                t1fs.add_element(domain_val, dom)
+
+                return t1fs
+
+        @property
+        def empty(self):
+                &#39;&#39;&#39;
+                True if the set is empty, i.e. there is no element with dom &gt; 0
+                &#39;&#39;&#39;
+                return self._empty
+
+        def elements(self):
+                &#39;&#39;&#39;
+                Returns a copy of the elements making up this t1fs in the form a dictionary
+
+                Arguments:
+                ----------
+
+                Returns:
+                --------
+                elements - dict, containing domain:degree_of_membership pairs
+                &#39;&#39;&#39;
+                elements = self._elements
+                return elements
+
+        def element_count(self):
+                return len(self._elements)
+
+        def add_element(self, domain_val, dom_val):
+                &#39;&#39;&#39;
+                Adds a new element to the t1fs. If there is already an element at the stated
+                domain value the maximum degree of membership value is kept
+
+                Arguments:
+                ----------
+                domain_val -- float, the value of x
+                degree_of_membership, float value between 0 and 1. The degree of membership
+                &#39;&#39;&#39;
+                if dom_val &gt; 1:
+                        raise ValueError(&#39;degree of membership must not be greater than 1, {} : {}&#39;.format(domain_val, dom_val))
+
+                if domain_val in self._elements:
+                        self._elements[domain_val] = max(self._elements[domain_val], dom_val)
+                else:
+                        self._elements[domain_val] = dom_val
+                        self._empty = False
+
+        def domain_elements(self):
+                &#39;&#39;&#39;
+                Return a list of all the domain elements
+
+                Returns:
+                --------
+                domain_vals -- list, containing all the values of the domain
+                &#39;&#39;&#39;
+                domain_vals = list(self._elements.keys())
+                return domain_vals
+        
+        def dom_elements(self):
+                &#39;&#39;&#39;
+                Returns a list of all the doms in the set
+
+                Returns:
+                --------
+                dom_vals -- list, containing all the values of the dom
+                &#39;&#39;&#39;
+                dom_vals = list(self._elements.values())
+                return dom_vals
+
+        def degree_of_membership(self):
+                &#39;&#39;&#39;
+                Return a list of all the degree of membership values
+
+                Returns:
+                --------
+                doms -- list, containing all the values of the degree of membership values
+                &#39;&#39;&#39;
+                doms = list(self._elements.values())
+                return doms
+
+        def size(self):
+                &#39;&#39;&#39;
+                The size of the set
+
+                Returns:
+                --------
+                set_size: int, the number of elements in the set
+                &#39;&#39;&#39;
+                set_size = len(self._elements)
+                return set_size
+
+        def domain_limits(self):
+                &#39;&#39;&#39;
+                Returns the domain limits of this t1fs
+
+                Reference:
+                ----------
+
+                Arguments:
+                ----------
+
+                Returns:
+                --------
+                limits -- CrispSet containting the smallest an largest domain value
+                &#39;&#39;&#39;
+                limits = CrispSet(min(self._elements.keys()), max(self._elements.keys()))
+                return limits
+        
+        def alpha_cut(self, alpha_val):
+
+                if alpha_val == 0:
+                        filter_idx = (np.array(self.degree_of_membership()) &gt; 0).nonzero()[0]
+
+                else:
+                # create a filter of the degrees of membership that exceed the cut value
+                        filter_idx = (np.array(self.degree_of_membership()) &gt;= alpha_val).nonzero()[0]
+
+                # appply the filter on the domain to get the values included in the alpha-cut
+                cut = np.array(self.domain_elements())[filter_idx]
+
+                limits = CrispSet()
+
+                if len(cut&gt;0):
+                        limits.left = min(cut)
+                        limits.right = max(cut)
+
+                return limits
+
+        def extend(self, func):
+
+                resultant_set = Type1FuzzySet()
+
+                for domain_val in self.domain_elements():
+                        resultant_set.add_element(func(domain_val), self[domain_val])
+                
+                return resultant_set
+
+        # operators
+        def join(self, a_set):
+
+                resultant_set = Type1FuzzySet()
+
+                for domain_element in self.domain_elements():
+                        for a_set_domain_element in a_set.domain_elements():
+                                
+                                resultant_set.add_element(max(domain_element, a_set_domain_element), 
+                                                                                        min(self[domain_element], a_set[a_set_domain_element]))
+
+                return resultant_set
+
+        def meet(self, a_set):
+
+                resultant_set = Type1FuzzySet()
+
+                for domain_element in self.domain_elements():
+                        for a_set_domain_element in a_set.domain_elements():
+                                
+                                resultant_set.add_element(min(domain_element, a_set_domain_element), 
+                                                                                        min(self[domain_element], a_set[a_set_domain_element]))
+
+                return resultant_set
+
+        def negation(self):
+                resultant_set = Type1FuzzySet()
+
+                for domain_element in self.domain_elements():
+                                resultant_set.add_element(1 - domain_element, 
+                                                                                        self[domain_element])
+
+                return resultant_set
+
+        def union(self, other_smf):
+                resultant_set = set.intersection(set(self._elements), set(other_smf._elements))
+
+                resultant_smf = {}
+                for  domain_val in resultant_set:
+                        resultant_smf[domain_val] = max(self._elements[domain_val], other_smf.elements[domain_val])
+
+                return resultant_smf
+
+        def intersection(self, other_smf):
+                &#39;&#39;&#39;
+                &#39;&#39;&#39;
+                resultant_set = set.intersection(set(self._elements), set(other_smf._elements))
+
+                resultant_smf = {}
+                for  domain_val in resultant_set:
+                        resultant_smf[domain_val] = min(self._elements[domain_val], other_smf.elements[domain_val])
+
+                return resultant_smf</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="type2fuzzy.membership.secondarymf.SecondaryMembershipFunction" href="secondarymf.html#type2fuzzy.membership.secondarymf.SecondaryMembershipFunction">SecondaryMembershipFunction</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.adjust_value"><code class="name flex">
+<span>def <span class="ident">adjust_value</span></span>(<span>val, val_array)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def adjust_value(val, val_array):
+        idx = (np.abs(val_array - val)).argmin()
+        return val_array[idx]</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_trapezoidal"><code class="name flex">
+<span>def <span class="ident">create_trapezoidal</span></span>(<span>domain, a, b, c, d)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def create_trapezoidal(cls, domain, a, b, c, d):
+        &#39;&#39;&#39;
+        &#39;&#39;&#39;
+        t1fs = cls()
+
+        for domain_val in domain:
+                if domain_val &gt; a and domain_val &lt; d:
+                        if b == a:
+                                dom = min(max((d-domain_val)/(d-c), 0), 1)
+                        elif d==c:
+                                dom = min(max((domain_val-a)/(b-a), 0), 1)
+                        else:
+                                dom = min(max(min((domain_val-a)/(b-a), (d-domain_val)/(d-c)), 0), 1)
+
+                        t1fs.add_element(domain_val, dom)
+
+        return t1fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_triangular"><code class="name flex">
+<span>def <span class="ident">create_triangular</span></span>(<span>univ_low, univ_hi, univ_res, set_low, set_mid, set_hi)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates a triangular type 1 fuzzy set in a defined universe of discourse
+The triangle is mage of three points; the low where the dom is 0, the mid where the
+dom is 1 and the high where the dom is 0</p>
+<h2 id="references">References</h2>
+<p>Pedrycz, Witold, and Fernando Gomide.
+An introduction to fuzzy sets: analysis and design. Mit Press, 1998.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>univ_low &ndash; lower value of the universe of discourse
+univ_hi &ndash; higher value of the universe of discourse
+univ_res &ndash; resolution of the universe of discourse
+set_low &ndash; sel low point, where dom is 0
+set_mid &ndash; sel mid point, where dom is 1
+set_hi &ndash; sel high point, where dom is 0</p>
+<h2 id="returns">Returns:</h2>
+<p>The new type1 triangular fuzzy set</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def create_triangular(cls, univ_low, univ_hi, univ_res, set_low, set_mid, set_hi):
+
+        &#39;&#39;&#39;
+        Creates a triangular type 1 fuzzy set in a defined universe of discourse
+        The triangle is mage of three points; the low where the dom is 0, the mid where the
+        dom is 1 and the high where the dom is 0
+
+        References
+        ----------
+        Pedrycz, Witold, and Fernando Gomide. 
+        An introduction to fuzzy sets: analysis and design. Mit Press, 1998.
+
+        Arguments:
+        ----------
+        univ_low -- lower value of the universe of discourse
+        univ_hi -- higher value of the universe of discourse
+        univ_res -- resolution of the universe of discourse
+        set_low -- sel low point, where dom is 0
+        set_mid -- sel mid point, where dom is 1
+        set_hi -- sel high point, where dom is 0
+
+        Returns:
+        --------
+        The new type1 triangular fuzzy set
+        &#39;&#39;&#39;
+
+        if univ_hi &lt;= univ_low:
+                raise Exception(&#39;Error in universe definition&#39;)
+        if (set_hi &lt; set_mid) or (set_mid &lt; set_low):
+                raise Exception(&#39;Error in triangular set definition&#39;)
+
+        t1fs = cls()
+
+        precision = len(str(univ_res))
+        domain_elements =  np.round(np.linspace(univ_low, univ_hi, univ_res), precision)
+
+        idx = (np.abs(domain_elements - set_mid)).argmin()
+        set_mid = domain_elements[idx]
+
+        idx = (np.abs(domain_elements - set_low)).argmin()
+        set_low = domain_elements[idx]
+
+        idx = (np.abs(domain_elements - set_hi)).argmin()
+        set_hi = domain_elements[idx]
+
+        for domain_val in domain_elements:
+                # get the dom of the set at the point
+                dom = max(min((domain_val-set_low)/(set_mid-set_low), (set_hi-domain_val)/(set_hi-set_mid)), 0)
+
+                # idx = (np.abs(domain_elements - set_mid)).argmin()
+                # dom = domain_elements[idx]
+
+                t1fs.add_element(domain_val, dom)
+
+        return t1fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_triangular_ex"><code class="name flex">
+<span>def <span class="ident">create_triangular_ex</span></span>(<span>primary_domain, a, b, c)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates a triangular type 1 fuzzy set in a defined universe of discourse
+The triangle is mage of three points; the low where the dom is 0, the mid where the
+dom is 1 and the high where the dom is 0</p>
+<h2 id="references">References</h2>
+<p>Pedrycz, Witold, and Fernando Gomide.
+An introduction to fuzzy sets: analysis and design. Mit Press, 1998.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>a &ndash; set low point, where dom is 0
+b &ndash; set mid point, where dom is 1
+c &ndash; set high point, where dom is 0</p>
+<h2 id="returns">Returns:</h2>
+<p>The new type1 triangular fuzzy set</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def create_triangular_ex(cls, primary_domain, a, b, c):
+
+        &#39;&#39;&#39;
+        Creates a triangular type 1 fuzzy set in a defined universe of discourse
+        The triangle is mage of three points; the low where the dom is 0, the mid where the
+        dom is 1 and the high where the dom is 0
+
+        References
+        ----------
+        Pedrycz, Witold, and Fernando Gomide. 
+        An introduction to fuzzy sets: analysis and design. Mit Press, 1998.
+
+        Arguments:
+        ----------
+
+        a -- set low point, where dom is 0
+        b -- set mid point, where dom is 1
+        c -- set high point, where dom is 0
+
+        Returns:
+        --------
+        The new type1 triangular fuzzy set
+        &#39;&#39;&#39;
+        if (c &lt;= b) or (b &lt;= a):
+                raise Exception(&#39;Error in triangular set definition&#39;)
+
+        t1fs = cls()
+
+        for x in primary_domain:
+                dom = max(min((x - a)/(b - a), (c - x)/(c - b)), 0)
+                t1fs.add_element(x, dom)
+
+        return t1fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.from_alphacut_type1_set"><code class="name flex">
+<span>def <span class="ident">from_alphacut_type1_set</span></span>(<span>alphacut_set)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@ classmethod
+def from_alphacut_type1_set(cls, alphacut_set):
+        
+        t1fs = cls()
+        for cut in alphacut_set.cuts():
+                limits = alphacut_set[cut]
+                t1fs.add_element(limits.left, cut)
+                t1fs.add_element(limits.right, cut)
+
+        # sort dictionary with domain 
+        # TODO. do this if required only
+        domain_list = t1fs.domain_elements()
+        domain_list.sort()
+        new_elements = {}
+        for domain_value in domain_list:
+                new_elements[domain_value] = t1fs._elements[domain_value]
+        t1fs._elements = new_elements
+
+        return t1fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.from_representation"><code class="name flex">
+<span>def <span class="ident">from_representation</span></span>(<span>set_representation)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates a type-1 fuzzy set from a set representation of the form
+'a1/u1 + a2/u2 + &hellip; + an/un'</p>
+<h2 id="reference">Reference:</h2>
+<p>Zadeh, Lotfi Asker. "The concept of a linguistic variable and its
+application to approximate reasoning—I." Information sciences 8.3 (1975): 199-249.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>set_representation &ndash; string, representation of the t1fs</p>
+<h2 id="returns">Returns:</h2>
+<p>t1fs &ndash; Type-1 Fuzzy Set</p>
+<h2 id="raises">Raises:</h2>
+<p>Exception &ndash; if set_representation is empty, None or invalid</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@ classmethod
+def from_representation(cls, set_representation):
+        &#39;&#39;&#39;
+        Creates a type-1 fuzzy set from a set representation of the form
+        &#39;a1/u1 + a2/u2 + ... + an/un&#39;
+
+        Reference:
+        ---------
+        Zadeh, Lotfi Asker. &#34;The concept of a linguistic variable and its 
+        application to approximate reasoning—I.&#34; Information sciences 8.3 (1975): 199-249.
+
+        Arguments:
+        ----------
+        set_representation -- string, representation of the t1fs
+
+        Returns:
+        --------
+        t1fs -- Type-1 Fuzzy Set
+
+        Raises:
+        -------
+        Exception -- if set_representation is empty, None or invalid
+        &#39;&#39;&#39;
+        if set_representation == None:
+                raise Exception(&#39;Type-1 Set Representation cannot be null&#39;)
+        if set_representation == &#39;&#39;:
+                raise Exception(&#39;Type-1 Set Representation cannot be empty&#39;)
+
+        t1fs = cls()
+
+        try:
+                # remove spaces, tabs returns,
+                translation_table = dict.fromkeys(map(ord, &#39; \t\n\r&#39;), None)
+                set_representation = set_representation.translate(translation_table)
+
+                # by splitting by + we will get 
+                # the degree of memberships / domain combinations
+                set_elements = set_representation.split(&#39;+&#39;)
+
+                for element in set_elements:
+                        # we now split the membership function from the
+                        # primary domain value
+                        dom_val, domain_val = element.split(&#39;/&#39;)
+                        t1fs.add_element(float(domain_val), float(dom_val))
+
+        except ValueError:
+                raise Exception(&#39;Invalid set type-1 format&#39;)
+
+        return t1fs</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.empty"><code class="name">var <span class="ident">empty</span></code></dt>
+<dd>
+<section class="desc"><p>True if the set is empty, i.e. there is no element with dom &gt; 0</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def empty(self):
+        &#39;&#39;&#39;
+        True if the set is empty, i.e. there is no element with dom &gt; 0
+        &#39;&#39;&#39;
+        return self._empty</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.add_element"><code class="name flex">
+<span>def <span class="ident">add_element</span></span>(<span>self, domain_val, dom_val)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Adds a new element to the t1fs. If there is already an element at the stated
+domain value the maximum degree of membership value is kept</p>
+<h2 id="arguments">Arguments:</h2>
+<p>domain_val &ndash; float, the value of x
+degree_of_membership, float value between 0 and 1. The degree of membership</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_element(self, domain_val, dom_val):
+        &#39;&#39;&#39;
+        Adds a new element to the t1fs. If there is already an element at the stated
+        domain value the maximum degree of membership value is kept
+
+        Arguments:
+        ----------
+        domain_val -- float, the value of x
+        degree_of_membership, float value between 0 and 1. The degree of membership
+        &#39;&#39;&#39;
+        if dom_val &gt; 1:
+                raise ValueError(&#39;degree of membership must not be greater than 1, {} : {}&#39;.format(domain_val, dom_val))
+
+        if domain_val in self._elements:
+                self._elements[domain_val] = max(self._elements[domain_val], dom_val)
+        else:
+                self._elements[domain_val] = dom_val
+                self._empty = False</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.alpha_cut"><code class="name flex">
+<span>def <span class="ident">alpha_cut</span></span>(<span>self, alpha_val)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def alpha_cut(self, alpha_val):
+
+        if alpha_val == 0:
+                filter_idx = (np.array(self.degree_of_membership()) &gt; 0).nonzero()[0]
+
+        else:
+        # create a filter of the degrees of membership that exceed the cut value
+                filter_idx = (np.array(self.degree_of_membership()) &gt;= alpha_val).nonzero()[0]
+
+        # appply the filter on the domain to get the values included in the alpha-cut
+        cut = np.array(self.domain_elements())[filter_idx]
+
+        limits = CrispSet()
+
+        if len(cut&gt;0):
+                limits.left = min(cut)
+                limits.right = max(cut)
+
+        return limits</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.degree_of_membership"><code class="name flex">
+<span>def <span class="ident">degree_of_membership</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Return a list of all the degree of membership values</p>
+<h2 id="returns">Returns:</h2>
+<p>doms &ndash; list, containing all the values of the degree of membership values</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def degree_of_membership(self):
+        &#39;&#39;&#39;
+        Return a list of all the degree of membership values
+
+        Returns:
+        --------
+        doms -- list, containing all the values of the degree of membership values
+        &#39;&#39;&#39;
+        doms = list(self._elements.values())
+        return doms</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.dom_elements"><code class="name flex">
+<span>def <span class="ident">dom_elements</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns a list of all the doms in the set</p>
+<h2 id="returns">Returns:</h2>
+<p>dom_vals &ndash; list, containing all the values of the dom</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dom_elements(self):
+        &#39;&#39;&#39;
+        Returns a list of all the doms in the set
+
+        Returns:
+        --------
+        dom_vals -- list, containing all the values of the dom
+        &#39;&#39;&#39;
+        dom_vals = list(self._elements.values())
+        return dom_vals</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.domain_elements"><code class="name flex">
+<span>def <span class="ident">domain_elements</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Return a list of all the domain elements</p>
+<h2 id="returns">Returns:</h2>
+<p>domain_vals &ndash; list, containing all the values of the domain</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def domain_elements(self):
+        &#39;&#39;&#39;
+        Return a list of all the domain elements
+
+        Returns:
+        --------
+        domain_vals -- list, containing all the values of the domain
+        &#39;&#39;&#39;
+        domain_vals = list(self._elements.keys())
+        return domain_vals</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.domain_limits"><code class="name flex">
+<span>def <span class="ident">domain_limits</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns the domain limits of this t1fs</p>
+<h2 id="reference">Reference:</h2>
+<h2 id="arguments">Arguments:</h2>
+<h2 id="returns">Returns:</h2>
+<p>limits &ndash; CrispSet containting the smallest an largest domain value</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def domain_limits(self):
+        &#39;&#39;&#39;
+        Returns the domain limits of this t1fs
+
+        Reference:
+        ----------
+
+        Arguments:
+        ----------
+
+        Returns:
+        --------
+        limits -- CrispSet containting the smallest an largest domain value
+        &#39;&#39;&#39;
+        limits = CrispSet(min(self._elements.keys()), max(self._elements.keys()))
+        return limits</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.element_count"><code class="name flex">
+<span>def <span class="ident">element_count</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def element_count(self):
+        return len(self._elements)</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.elements"><code class="name flex">
+<span>def <span class="ident">elements</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns a copy of the elements making up this t1fs in the form a dictionary</p>
+<h2 id="arguments">Arguments:</h2>
+<h2 id="returns">Returns:</h2>
+<p>elements - dict, containing domain:degree_of_membership pairs</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def elements(self):
+        &#39;&#39;&#39;
+        Returns a copy of the elements making up this t1fs in the form a dictionary
+
+        Arguments:
+        ----------
+
+        Returns:
+        --------
+        elements - dict, containing domain:degree_of_membership pairs
+        &#39;&#39;&#39;
+        elements = self._elements
+        return elements</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.extend"><code class="name flex">
+<span>def <span class="ident">extend</span></span>(<span>self, func)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extend(self, func):
+
+        resultant_set = Type1FuzzySet()
+
+        for domain_val in self.domain_elements():
+                resultant_set.add_element(func(domain_val), self[domain_val])
+        
+        return resultant_set</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.intersection"><code class="name flex">
+<span>def <span class="ident">intersection</span></span>(<span>self, other_smf)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def intersection(self, other_smf):
+        &#39;&#39;&#39;
+        &#39;&#39;&#39;
+        resultant_set = set.intersection(set(self._elements), set(other_smf._elements))
+
+        resultant_smf = {}
+        for  domain_val in resultant_set:
+                resultant_smf[domain_val] = min(self._elements[domain_val], other_smf.elements[domain_val])
+
+        return resultant_smf</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.join"><code class="name flex">
+<span>def <span class="ident">join</span></span>(<span>self, a_set)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def join(self, a_set):
+
+        resultant_set = Type1FuzzySet()
+
+        for domain_element in self.domain_elements():
+                for a_set_domain_element in a_set.domain_elements():
+                        
+                        resultant_set.add_element(max(domain_element, a_set_domain_element), 
+                                                                                min(self[domain_element], a_set[a_set_domain_element]))
+
+        return resultant_set</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.meet"><code class="name flex">
+<span>def <span class="ident">meet</span></span>(<span>self, a_set)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def meet(self, a_set):
+
+        resultant_set = Type1FuzzySet()
+
+        for domain_element in self.domain_elements():
+                for a_set_domain_element in a_set.domain_elements():
+                        
+                        resultant_set.add_element(min(domain_element, a_set_domain_element), 
+                                                                                min(self[domain_element], a_set[a_set_domain_element]))
+
+        return resultant_set</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.negation"><code class="name flex">
+<span>def <span class="ident">negation</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def negation(self):
+        resultant_set = Type1FuzzySet()
+
+        for domain_element in self.domain_elements():
+                        resultant_set.add_element(1 - domain_element, 
+                                                                                self[domain_element])
+
+        return resultant_set</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.size"><code class="name flex">
+<span>def <span class="ident">size</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>The size of the set</p>
+<h2 id="returns">Returns:</h2>
+<p>set_size: int, the number of elements in the set</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def size(self):
+        &#39;&#39;&#39;
+        The size of the set
+
+        Returns:
+        --------
+        set_size: int, the number of elements in the set
+        &#39;&#39;&#39;
+        set_size = len(self._elements)
+        return set_size</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.union"><code class="name flex">
+<span>def <span class="ident">union</span></span>(<span>self, other_smf)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def union(self, other_smf):
+        resultant_set = set.intersection(set(self._elements), set(other_smf._elements))
+
+        resultant_smf = {}
+        for  domain_val in resultant_set:
+                resultant_smf[domain_val] = max(self._elements[domain_val], other_smf.elements[domain_val])
+
+        return resultant_smf</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="type2fuzzy.membership" href="index.html">type2fuzzy.membership</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet">Type1FuzzySet</a></code></h4>
+<ul class="">
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.add_element" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.add_element">add_element</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.adjust_value" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.adjust_value">adjust_value</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.alpha_cut" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.alpha_cut">alpha_cut</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_trapezoidal" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_trapezoidal">create_trapezoidal</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_triangular" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_triangular">create_triangular</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_triangular_ex" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_triangular_ex">create_triangular_ex</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.degree_of_membership" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.degree_of_membership">degree_of_membership</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.dom_elements" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.dom_elements">dom_elements</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.domain_elements" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.domain_elements">domain_elements</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.domain_limits" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.domain_limits">domain_limits</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.element_count" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.element_count">element_count</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.elements" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.elements">elements</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.empty" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.empty">empty</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.extend" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.extend">extend</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.from_alphacut_type1_set" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.from_alphacut_type1_set">from_alphacut_type1_set</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.from_representation" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.from_representation">from_representation</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.intersection" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.intersection">intersection</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.join" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.join">join</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.meet" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.meet">meet</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.negation" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.negation">negation</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.size" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.size">size</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.union" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.union">union</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

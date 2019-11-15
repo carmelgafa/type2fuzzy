@@ -1,0 +1,14 @@
+version: 2 								# This key is used to issue warnings about breaking changes
+jobs:									# A run is comprised of one or more jobs
+	build:								# Because this run does not use workflows, it must have a build job.
+		working_directory: ~/project	# Default working dir
+		docker:							# The steps of a job occur in a virtual environment called an executor
+										# In this example, the docker executor is used to specify a custom Docker image
+			 - image: circleci/python:3.6.4
+		steps:							# create steps to run specific commands.
+			- checkout:					# Use the checkout step to check out source code to the path specified by working_directory.
+			- run:
+				command: |
+					sudo pip install pipenv
+					pipenv install
+					pipenv run python -m unittest

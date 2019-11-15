@@ -1,0 +1,4269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.1" />
+<title>type2fuzzy.membership API documentation</title>
+<meta name="description" content="type2.membership : type-2 fuzzy membership" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>type2fuzzy.membership</code></h1>
+</header>
+<section id="section-intro">
+<p>type2.membership : type-2 fuzzy membership</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+type2.membership : type-2 fuzzy membership 
+&#34;&#34;&#34;
+
+from type2fuzzy.membership.secondarymf import SecondaryMembershipFunction
+from type2fuzzy.membership.secondarymf import Type1FuzzySet
+from type2fuzzy.membership.generaltype2fuzzyset import GeneralType2FuzzySet
+from type2fuzzy.membership.intervaltype2fuzzyset import IntervalType2FuzzySet
+from type2fuzzy.membership.zslicetype2fuzzyset import ZSliceType2FuzzySet
+from type2fuzzy.membership.crispset import CrispSet
+from type2fuzzy.membership.alphacuttype1fuzzyset import AlphaCutType1FuzzySet
+
+__all__ = [&#39;SecondaryMembershipFunction&#39;, &#39;GeneralType2FuzzySet&#39;, 
+                        &#39;Type1FuzzySet&#39;, &#39;IntervalType2FuzzySet&#39;, &#39;ZSliceType2FuzzySet&#39;, 
+                        &#39;CrispSet&#39;, &#39;AlphaCutType1FuzzySet&#39;]</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="type2fuzzy.membership.alphacuttype1fuzzyset" href="alphacuttype1fuzzyset.html">type2fuzzy.membership.alphacuttype1fuzzyset</a></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt><code class="name"><a title="type2fuzzy.membership.crispset" href="crispset.html">type2fuzzy.membership.crispset</a></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt><code class="name"><a title="type2fuzzy.membership.generaltype2fuzzyset" href="generaltype2fuzzyset.html">type2fuzzy.membership.generaltype2fuzzyset</a></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt><code class="name"><a title="type2fuzzy.membership.generate_gt2mf" href="generate_gt2mf.html">type2fuzzy.membership.generate_gt2mf</a></code></dt>
+<dd>
+<section class="desc"><p>Creation, loading and represenation of general type 2 fuzzy sets</p></section>
+</dd>
+<dt><code class="name"><a title="type2fuzzy.membership.generate_it2fs" href="generate_it2fs.html">type2fuzzy.membership.generate_it2fs</a></code></dt>
+<dd>
+<section class="desc"><p>generation of interval type 2 fuzzy sets</p></section>
+</dd>
+<dt><code class="name"><a title="type2fuzzy.membership.intervaltype2fuzzyset" href="intervaltype2fuzzyset.html">type2fuzzy.membership.intervaltype2fuzzyset</a></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt><code class="name"><a title="type2fuzzy.membership.secondarymf" href="secondarymf.html">type2fuzzy.membership.secondarymf</a></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt><code class="name"><a title="type2fuzzy.membership.type1fuzzyset" href="type1fuzzyset.html">type2fuzzy.membership.type1fuzzyset</a></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt><code class="name"><a title="type2fuzzy.membership.zslicetype2fuzzyset" href="zslicetype2fuzzyset.html">type2fuzzy.membership.zslicetype2fuzzyset</a></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="type2fuzzy.membership.AlphaCutType1FuzzySet"><code class="flex name class">
+<span>class <span class="ident">AlphaCutType1FuzzySet</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>datastructure defining an alpha-slice type-1 fuzzy set
+is a dictionary having an crisp set for every alpha-cut such as:
+key: value of alpha-cut
+value: corresponding crisp set</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AlphaCutType1FuzzySet:
+
+        def __init__(self):
+                &#39;&#39;&#39;
+                datastructure defining an alpha-slice type-1 fuzzy set 
+                is a dictionary having an crisp set for every alpha-cut such as:
+                key: value of alpha-cut
+                value: corresponding crisp set
+                &#39;&#39;&#39;
+                self._set_definition={}
+                self._empty = True
+
+        def __getitem__(self, cut):
+                return self._set_definition[cut]
+
+        def alpha_slices(self):
+                return self._set_definition.keys()
+
+        @classmethod
+        def from_type1fuzzyset(cls, t1fs, number_of_cuts):
+                &#39;&#39;&#39;
+                Converts a Type-1 Fuzzy Set into the union of slices
+
+                Arguments:
+                ----------
+                t1fs -- Type1FuzzySet, the set to convert
+                number_of_cuts -- the number of alpha slices
+                &#39;&#39;&#39;
+                
+                at1fs = cls()
+                
+                delta = 1 / number_of_cuts
+                precision = len(str(number_of_cuts))
+
+                limits = None
+                # TODO: go back to other version?
+                #for cut in np.linspace(delta, 1, number_of_cuts):
+                for cut in np.linspace(0, 1, number_of_cuts):
+                        
+                        cut = round(cut, precision)
+                        limits = t1fs.alpha_cut(cut)
+                        
+                        if not limits.empty:
+                                at1fs.add_element(cut, limits)
+                
+                return at1fs
+
+        @property
+        def empty(self):
+                &#39;&#39;&#39;
+                Return True if the set is empty
+                &#39;&#39;&#39;
+                return self._empty
+
+        def add_element(self, alpha_cut, limits):
+                &#39;&#39;&#39;
+                &#39;&#39;&#39;
+                if not limits.empty:
+                        self._set_definition[alpha_cut] = limits
+                        self._empty = False
+
+        def cuts(self):
+                &#39;&#39;&#39;
+                returns the alpha-cuts that make this set
+                &#39;&#39;&#39;
+                return self._set_definition.keys()
+
+        def __str__(self):
+                &#39;&#39;&#39;
+                returns a string representation of the alpha-cut type-1 fuzzy set in the form:
+                
+                alpha-cut_value_1: [left_limit_1, right_limit_1]
+                ...
+                alpha-cut_value_n: [left_limit_n, right_limit_n]
+
+                &#39;&#39;&#39;
+                representation = []
+                for alpha_cut in self._set_definition.keys():
+                        representation.append(f&#39;{alpha_cut} : {self._set_definition[alpha_cut]}&#39;)
+                
+                return &#39;\n&#39;.join(representation)
+
+        def __repr__(self):
+                return f&#39;{self.__class__.__name__}(str(self))&#39;</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="type2fuzzy.membership.AlphaCutType1FuzzySet.from_type1fuzzyset"><code class="name flex">
+<span>def <span class="ident">from_type1fuzzyset</span></span>(<span>t1fs, number_of_cuts)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Converts a Type-1 Fuzzy Set into the union of slices</p>
+<h2 id="arguments">Arguments:</h2>
+<p>t1fs &ndash; Type1FuzzySet, the set to convert
+number_of_cuts &ndash; the number of alpha slices</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_type1fuzzyset(cls, t1fs, number_of_cuts):
+        &#39;&#39;&#39;
+        Converts a Type-1 Fuzzy Set into the union of slices
+
+        Arguments:
+        ----------
+        t1fs -- Type1FuzzySet, the set to convert
+        number_of_cuts -- the number of alpha slices
+        &#39;&#39;&#39;
+        
+        at1fs = cls()
+        
+        delta = 1 / number_of_cuts
+        precision = len(str(number_of_cuts))
+
+        limits = None
+        # TODO: go back to other version?
+        #for cut in np.linspace(delta, 1, number_of_cuts):
+        for cut in np.linspace(0, 1, number_of_cuts):
+                
+                cut = round(cut, precision)
+                limits = t1fs.alpha_cut(cut)
+                
+                if not limits.empty:
+                        at1fs.add_element(cut, limits)
+        
+        return at1fs</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="type2fuzzy.membership.AlphaCutType1FuzzySet.empty"><code class="name">var <span class="ident">empty</span></code></dt>
+<dd>
+<section class="desc"><p>Return True if the set is empty</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def empty(self):
+        &#39;&#39;&#39;
+        Return True if the set is empty
+        &#39;&#39;&#39;
+        return self._empty</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="type2fuzzy.membership.AlphaCutType1FuzzySet.add_element"><code class="name flex">
+<span>def <span class="ident">add_element</span></span>(<span>self, alpha_cut, limits)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_element(self, alpha_cut, limits):
+        &#39;&#39;&#39;
+        &#39;&#39;&#39;
+        if not limits.empty:
+                self._set_definition[alpha_cut] = limits
+                self._empty = False</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.AlphaCutType1FuzzySet.alpha_slices"><code class="name flex">
+<span>def <span class="ident">alpha_slices</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def alpha_slices(self):
+        return self._set_definition.keys()</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.AlphaCutType1FuzzySet.cuts"><code class="name flex">
+<span>def <span class="ident">cuts</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>returns the alpha-cuts that make this set</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cuts(self):
+        &#39;&#39;&#39;
+        returns the alpha-cuts that make this set
+        &#39;&#39;&#39;
+        return self._set_definition.keys()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="type2fuzzy.membership.CrispSet"><code class="flex name class">
+<span>class <span class="ident">CrispSet</span></span>
+<span>(</span><span>left_val=None, right_val=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Implements a Crisp set</p>
+<p>Creates a crisp set. Initially the set is empty with left and right
+limit values set to None</p>
+<h2 id="arguments">Arguments:</h2>
+<p>left_val &ndash; float, the value of the left limit
+right_val &ndash; float, the value of the right limit</p>
+<h2 id="raises">Raises:</h2>
+<p>Exception if both limits are not None and if the left limit is
+greater than the right limit</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CrispSet:
+        &#39;&#39;&#39;
+        Implements a Crisp set
+        &#39;&#39;&#39;
+        def __init__(self, left_val=None, right_val=None):
+                &#39;&#39;&#39;
+                Creates a crisp set. Initially the set is empty with left and right 
+                limit values set to None
+
+                Arguments:
+                ----------
+                left_val -- float, the value of the left limit
+                right_val -- float, the value of the right limit
+
+                Raises:
+                -------
+                Exception if both limits are not None and if the left limit is
+                greater than the right limit
+                &#39;&#39;&#39;
+                self._empty = True
+                self._left_val = None
+                self._right_val = None
+                self._precision = 5
+
+                if (left_val != None) and (right_val != None):
+                        if left_val &gt; right_val:
+                                raise Exception(&#39;ERROR: Incorrect crisp set limits. Left&#39;)
+                        self._empty= False
+                        self._left_val = left_val
+                        self._right_val = right_val
+
+        @property
+        def empty(self):
+                &#39;&#39;&#39;
+                Returns True if the set is empty
+                &#39;&#39;&#39;
+                return self._empty
+
+        @property
+        def left(self):
+                &#39;&#39;&#39;
+                Returns the left limit of the set
+                &#39;&#39;&#39;
+                return self._left_val
+
+        @left.setter
+        def left(self, value):
+                &#39;&#39;&#39;
+                Sets the left limit of the set. Check is bot left and right limit and sets the 
+                set as not empty if both are not None
+                &#39;&#39;&#39;
+
+                if (self.right != None) and value != None and value &gt; self.right:
+                        raise Exception(&#39;ERROR: invalid left value&#39;)
+
+                self._left_val = value
+
+                if (self._left_val != None) and (self._right_val != None):
+                        self._empty= False
+
+                if (self._left_val is None) and (self._right_val is None):
+                        self._empty= True
+
+        @property
+        def right(self):
+                &#39;&#39;&#39;
+                Returns the right limit of the set
+                &#39;&#39;&#39;
+                return self._right_val
+
+        @right.setter
+        def right(self, value):
+                &#39;&#39;&#39;
+                Sets the right limit of the set. Check is bot left and right limit and sets the 
+                set as not empty if both are not None
+                &#39;&#39;&#39;
+                
+                if (self.left != None) and value != None and value &lt; self.left:
+                        raise Exception(&#39;ERROR: invalid left value&#39;)
+                
+                self._right_val = value
+                
+                if (self._left_val != None) and (self._right_val != None):
+                        self._empty= False
+
+                if (self._left_val is None) and (self._right_val is None):
+                        self._empty= True
+
+        @property
+        def mid(self):
+                &#39;&#39;&#39;
+                Computes the mid point to the crisp set.
+                
+                Returns:
+                --------
+                mid_point -- float, the crisp set mid point
+
+                Raises:
+                -------
+                Exception if the set is empty
+                &#39;&#39;&#39;
+
+                if self.left is None or self.right is None:
+                        raise Exception(&#39;ERROR: Mid point cannot be found for this set.&#39;)
+
+                if self._empty:
+                        raise Exception(&#39;ERROR: Mid point cannot be found for an empty set.&#39;)
+                
+                mid_point = (self._left_val+self._right_val)/2
+                return mid_point
+
+        def union(self, crisp_set):
+
+                self._left_val = min(self._left_val, crisp_set.left)
+                self._right_val = max(self._right_val, crisp_set.right)
+
+        def __str__(self):
+
+                dec_places_formatter = &#39;&#39;&#39;%0.{}f&#39;&#39;&#39;.format(self._precision)
+                representation = &#39;&#39;
+                if self._left_val == self._right_val:
+                        representation = f&#39;[{ dec_places_formatter % self._left_val}]&#39;
+                else:
+                        representation = f&#39;[{ dec_places_formatter % self._left_val}, {dec_places_formatter % self._right_val}]&#39;
+
+                return representation
+
+        def __repr__(self):
+                return f&#39;{self.__class__.__name__}({str(self)})&#39;</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="type2fuzzy.membership.CrispSet.empty"><code class="name">var <span class="ident">empty</span></code></dt>
+<dd>
+<section class="desc"><p>Returns True if the set is empty</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def empty(self):
+        &#39;&#39;&#39;
+        Returns True if the set is empty
+        &#39;&#39;&#39;
+        return self._empty</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.CrispSet.left"><code class="name">var <span class="ident">left</span></code></dt>
+<dd>
+<section class="desc"><p>Returns the left limit of the set</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def left(self):
+        &#39;&#39;&#39;
+        Returns the left limit of the set
+        &#39;&#39;&#39;
+        return self._left_val</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.CrispSet.mid"><code class="name">var <span class="ident">mid</span></code></dt>
+<dd>
+<section class="desc"><p>Computes the mid point to the crisp set.</p>
+<h2 id="returns">Returns:</h2>
+<p>mid_point &ndash; float, the crisp set mid point</p>
+<h2 id="raises">Raises:</h2>
+<p>Exception if the set is empty</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def mid(self):
+        &#39;&#39;&#39;
+        Computes the mid point to the crisp set.
+        
+        Returns:
+        --------
+        mid_point -- float, the crisp set mid point
+
+        Raises:
+        -------
+        Exception if the set is empty
+        &#39;&#39;&#39;
+
+        if self.left is None or self.right is None:
+                raise Exception(&#39;ERROR: Mid point cannot be found for this set.&#39;)
+
+        if self._empty:
+                raise Exception(&#39;ERROR: Mid point cannot be found for an empty set.&#39;)
+        
+        mid_point = (self._left_val+self._right_val)/2
+        return mid_point</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.CrispSet.right"><code class="name">var <span class="ident">right</span></code></dt>
+<dd>
+<section class="desc"><p>Returns the right limit of the set</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def right(self):
+        &#39;&#39;&#39;
+        Returns the right limit of the set
+        &#39;&#39;&#39;
+        return self._right_val</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="type2fuzzy.membership.CrispSet.union"><code class="name flex">
+<span>def <span class="ident">union</span></span>(<span>self, crisp_set)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def union(self, crisp_set):
+
+        self._left_val = min(self._left_val, crisp_set.left)
+        self._right_val = max(self._right_val, crisp_set.right)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet"><code class="flex name class">
+<span>class <span class="ident">GeneralType2FuzzySet</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p : function membership object primary_domain_val secondary>An implementation of a general type 2 fuzzy set
+As a data structure, the general type-2 fuzzy set
+is represented by a dict of</p>
+<p : function membership object primary_domain_val secondary>The data structure, the general type-2 fuzzy set
+is represented by a dict of</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GeneralType2FuzzySet:
+        &#39;&#39;&#39;
+        An implementation of a general type 2 fuzzy set
+        As a data structure, the general type-2 fuzzy set
+        is represented by a dict of
+        {primary_domain_val : secondary membership function object}
+        &#39;&#39;&#39;
+
+        def __init__(self):
+                &#39;&#39;&#39;
+                The data structure, the general type-2 fuzzy set
+                is represented by a dict of
+                {primary_domain_val : secondary membership function object}
+                &#39;&#39;&#39;
+                self.vertical_slices = {}
+                self._precision = 4
+
+        def __getitem__(self, primary_domain_val):
+                &#39;&#39;&#39;
+                For a given value of the primary domain, 
+                return the secondary membership function object
+
+                Arguments:
+                ----------
+                primary_domain_val -- value of primary domain
+
+                Returns:
+                --------
+                secondary_membership_function - smf object
+                &#39;&#39;&#39;
+                if primary_domain_val not in self.vertical_slices:
+                        raise Exception(&#39;Primary domain value of {} not in this set.&#39;.format(primary_domain_val))
+
+                return self.vertical_slices[primary_domain_val]
+
+        def __eq__(self, value):
+
+                current_primary_len = len(self.primary_domain())
+                value_primary_len = len(value.primary_domain())
+                union_primary_len = len(list(set(self.primary_domain()).union(value.primary_domain())))
+
+                if current_primary_len != value_primary_len:
+                        return False 
+
+                if union_primary_len != value_primary_len:
+                        return False
+
+                for pri_domain in self.primary_domain():
+                        if self[pri_domain] != value[pri_domain]:
+                                return False
+
+                return True
+
+        def __str__(self):
+                &#39;&#39;&#39;
+                Returns a formal representation of the general type-2 fuzzy set in the form:
+                &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + ... + (b1/u1 + b2/u2 + ... + bn/un)/xn&#39;
+
+                Reference:
+                ----------
+                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+                Arguments:
+                ----------
+                num_dec_places  -- number of decimal places
+
+                Returns:
+                --------
+                set_representation -- string representation of gt2fs
+                &#39;&#39;&#39;
+                represented_slices = []
+                dec_places_formatter = &#39;&#39;&#39;%0.{}f&#39;&#39;&#39;.format(self._precision)
+
+                for primary_domain_val in self.primary_domain():
+                        sec_domains = list(self.vertical_slice(primary_domain_val).domain_elements())
+                        doms = list(self.vertical_slices[primary_domain_val].dom_elements())
+                        
+                        def slice_rep_creation(sec_domains, doms): return dec_places_formatter % (
+                                doms)+&#39; / &#39;+ dec_places_formatter % (sec_domains)
+
+                        m = map(slice_rep_creation, sec_domains, doms)
+
+                        slice_rep = &#39; + &#39;.join(m)
+                        represented_slices.append(&#39;(&#39; + slice_rep + &#39;)&#39;)
+
+                def f2(sec_domains, doms): return doms + &#39; / &#39;+ dec_places_formatter % (sec_domains)
+                m2 = map(f2, self.primary_domain(), represented_slices)
+                set_representation = &#39; + &#39;.join(m2)
+
+                return set_representation
+
+        def __repr__(self):
+                return f&#39;{self.__class__.__name__}({str(self)})&#39;
+
+        @classmethod
+        def from_representation(cls, set_representation):
+                &#39;&#39;&#39;
+                Creates a general type-2 fuzzy set from a set representation of the form
+                &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + ... +(b1/u1 + b2/u2 + ... + bn/un)/xm&#39;
+
+                Reference:
+                ---------
+                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+                Definition of secondary grade - pg 119
+
+                Arguments:
+                ----------
+                set_representation -- string, representation of the gt2fs
+
+                Returns:
+                --------
+                gt2fs -- GeneralType2FuzzySet
+
+                Raises:
+                -------
+                Exception -- if set_representation is empty, None or invalid
+                &#39;&#39;&#39;
+                if set_representation == None:
+                        raise Exception(&#39;Type-2 Set Representation cannot be null&#39;)
+                if set_representation == &#39;&#39;:
+                        raise Exception(&#39;Type-2 Set Representation cannot be empty&#39;)
+
+                gt2fs = cls()
+
+                try:
+                        # remove spaces, tabs returns,
+                        translation_table = dict.fromkeys(map(ord, &#39; \t\n\r&#39;), None)
+                        set_representation = set_representation.translate(translation_table)
+
+                        # by splitting by +( we will get the secondary mfs
+                        # we would lose the initial ( of each mf except for the
+                        # first one - this will be removed lated
+                        sec_mfs_s = set_representation.split(&#39;+(&#39;)
+
+                        # so lets go through the membership functions
+                        for sec_mf in sec_mfs_s:
+                                # remove the leading &#39;(&#39;
+                                # this will only happen in the first mf
+                                translation_table = dict.fromkeys(map(ord, &#39;(&#39;), None)
+                                sec_mf = sec_mf.translate(translation_table)
+
+                                # we now split the secondary membership function from the
+                                # primary domain value
+                                vertical_slice_points_s, pri_dom_val_s = sec_mf.split(&#39;)/&#39;)
+
+                                # get the primary domain value and its corresponding
+                                # index
+                                primary_domain_val = float(pri_dom_val_s)
+
+                                # split by the &#39;+&#39; so that we will obtain the individual
+                                # dom / sec domain points
+                                points_s = vertical_slice_points_s.split(&#39;+&#39;)
+
+                                # we then examine each point to add them to the set
+                                for point_s in points_s:
+                                        # split by / so to obtain the dom and the sec domain value
+                                        sec_grade_val_s, sec_dom_val_s = point_s.split(&#39;/&#39;)
+
+                                        # get the secondary domain value and its corresponding
+                                        # index
+                                        secondary_domain_val = float(sec_dom_val_s)
+
+                                        sec_grade = float(sec_grade_val_s)
+                                        # add the point to the set
+                                        gt2fs.add_element(primary_domain_val, secondary_domain_val, sec_grade)
+                except ValueError:
+                        raise Exception(&#39;Invalid set format&#39;)
+
+                return gt2fs
+
+        @classmethod
+        def from_array(cls, primary_domain, secondary_domain, set_array):
+                &#39;&#39;&#39;
+                Creates a general type-2 fuzzy set from an array representation 
+                of set where given is
+                x -- a list containing the values of the primary domain
+                u -- a list containing the values of the secondary domain
+                set_array -- a 2D array where the rows map to the values of the u list
+                                                                        the cols map to the values of the x list
+                                                                        each value is the secondary grade value for
+                                                                        the particular x / u combination
+                
+
+                Reference:
+                ---------
+
+                Arguments:
+                ----------
+                set_array -- 2D array containing the secondary grade values of the gt2fs
+                x -- list containing the values of the primary domain
+                u -- list containing the values of the secondary domain
+
+                Returns:
+                --------
+                gt2fs -- GeneralType2FuzzySet
+
+                Raises:
+                -------
+                Exception -- if there is a mismatch between the x, u and set_array dimensions
+                &#39;&#39;&#39;
+                set_array = np.array(set_array)
+
+                # check that array sizes are correct
+                (secondary_domain_size, primary_domain_size) = np.shape(set_array)
+
+                if secondary_domain_size != len(secondary_domain):
+                        raise Exception(&#39;Secondary domain size mismatch&#39;)
+
+                if primary_domain_size != len(primary_domain):
+                        raise Exception(&#39;Primary domain size mismatch&#39;)
+
+                gt2fs = cls()
+
+                # load all the elements in the array
+                for pri_dom_val_idx, pri_dom_val in enumerate(primary_domain):
+                        for sec_dom_val_idx, sec_dom_val in enumerate(secondary_domain):
+                                gt2fs.add_element(pri_dom_val, sec_dom_val, set_array[sec_dom_val_idx][pri_dom_val_idx])
+
+                return gt2fs
+
+        @classmethod
+        def load_file(cls, set_filename):
+                &#39;&#39;&#39;
+                Loads a general type-2 fuzzy set from a file. File must have the
+                following format:
+                &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + (b1/u1 + b2/u2 + ... + bn/un)/xn&#39;
+
+                Reference:
+                ---------
+                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+                Definition of secondary grade - pg 119
+
+                Arguments:
+                ----------
+                set_filename -- string, filename of the set
+
+                Returns:
+                --------
+                gt2fs -- GeneralType2FuzzySet
+
+                Raises:
+                -------
+                Exception -- if set_filename is empty, None or invalid
+                &#39;&#39;&#39;
+                representation = &#39;&#39;
+                
+                try:
+                        with open(set_filename, &#39;r&#39;) as file:
+                                representation = file.read()
+                except IOError:
+                        raise Exception(&#39;Could not read file {}&#39;.format(set_filename))
+                
+                gt2fs = cls()
+                gt2fs = GeneralType2FuzzySet.from_representation(representation)
+
+                return gt2fs
+
+        @classmethod
+        def from_horizontal_representation(cls, primary_domain, secondary_domain, set_def):
+                &#39;&#39;&#39;
+                Experimental method of representing a general type-2 fuzzy set by defining the
+                spread at the points of piecewise type-1 parts.
+                each point is a tuple (x, u, delta_left, delta_right); where:
+                x is the primary domain value of the point
+                u is the secondary domain value of the point
+                delta_left is the spread of the type 2 set to the left and
+                delta_right is the spread to the right of the type 2 set such that
+                a triangular function is formed at u with values x-delta_left, x, x+delta_right
+
+                Reference:
+                ----------
+
+                Arguments:
+                ----------
+                None
+
+                Returns:
+                --------
+                gt2fs -- GeneralType2FuzzySet
+                &#39;&#39;&#39;
+                set_array = generate_gt2set_horizontal(primary_domain, secondary_domain, set_def)
+                return GeneralType2FuzzySet.from_array(primary_domain, secondary_domain, set_array)
+
+        def vertical_slice(self, primary_domain_val):
+                &#39;&#39;&#39;
+                For a given value of the primary domain, 
+                returns a representation of the vertical slice
+                in the form of a dict
+                {secondary_domain : secondary_grade,  ... }
+
+                Reference:
+                ----------
+                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+                Arguments:
+                ----------
+                primary_domain_val -- value of primary domain
+
+                Returns:
+                --------
+                vertical_slice - dict representing the values if the vertical slice
+                &#39;&#39;&#39;
+                return self[primary_domain_val]
+
+        def save_file(self, set_filename, num_dec_places=4):
+                &#39;&#39;&#39;
+                Writes a formal representation of the general type-2 fuzzy set of the form:
+                &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + ... + (b1/u1 + b2/u2 + ... + bn/un)/xn&#39;
+                in a file
+
+                Reference:
+                ----------
+                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+                Arguments:
+                ----------
+                set_filename -- string containing the path of the file to be written
+                num_dec_places -- number of decimal places used for secondary membership function, default 4
+
+                Returns:
+                --------
+                None
+                &#39;&#39;&#39;
+                try:
+                        with open(set_filename, &#39;w&#39;) as fuzzy_file:
+                                fuzzy_file.write(self.__str__())
+                except IOError:
+                        raise Exception(&#39;Unable to write file {}&#39;.format(set_filename))
+
+        def to_array_explicit(self):
+                &#39;&#39;&#39;
+                Transforms a General type 2 fuzzy set into a 2D array
+
+                Arguments:
+                ----------
+                None
+
+                Returns:
+                --------
+                primary_domain -- 1D array containing all the values in the primary domain
+                secondary_domain -- 1D array containing all the values in the secondary domain
+                set_array -- 2D array containing the degree of membership for the corresponding
+                                        primary/secondary combination
+                &#39;&#39;&#39;
+
+                # get all possible value of the secondary domain by a union with all the elements of
+                # each vertical slice
+                secondary_domain = []
+                for primary_domain_val in self.vertical_slices:
+                        secondary_domain = list(set().union(secondary_domain, list(self[primary_domain_val].domain_elements())))
+
+                secondary_domain.sort()
+
+                # get all possible value of the primary domain
+                primary_domain =  list(self.vertical_slices.keys())
+                primary_domain.sort()
+
+                # create an array to hold the dom
+                set_array = np.zeros((len(secondary_domain), len(primary_domain)))
+
+                for primary_domain_val in self.vertical_slices:
+                        pri_domain_idx = primary_domain.index(primary_domain_val)
+                        
+                        for sec_domain_val in self.vertical_slice(primary_domain_val).elements():
+                                sec_domain_idx = secondary_domain.index(sec_domain_val)
+
+                                set_array[sec_domain_idx, pri_domain_idx] = self.vertical_slice(primary_domain_val)[sec_domain_val]
+
+                return primary_domain, secondary_domain, set_array
+
+        def to_array_implicit(self, primary_domain, secondary_domain):
+                &#39;&#39;&#39;
+                Transforms a General type 2 fuzzy set into a 2D array but specifying the primary
+                and secondary domain discrete values. The values of the set are thereby approximated 
+                to these specified values
+
+                Arguments:
+                ----------
+                primary_domain -- 1D array containing all the values in the primary domain
+                secondary_domain -- 1D array containing all the values in the secondary domain
+
+                Returns:
+                --------
+                set_array -- 2D array containing the degree of membership for the corresponding
+                                                primary/secondary combination
+                &#39;&#39;&#39;
+
+                # convert domain lists to numpy arrays
+                primary_domain = np.array(primary_domain)
+                secondary_domain = np.array(secondary_domain)
+                
+                # create resultant set
+                set_array = np.zeros((len(secondary_domain), len(primary_domain)))
+
+                # for each primary domain element, get closest element form list
+                for primary_domain_val in self.vertical_slices:
+                        pri_dom_val_idx = np.argmin(np.abs(primary_domain - primary_domain_val))
+
+                        # for each secondary domain element, get closest element form list
+                        for sec_domain_val in self.vertical_slices[primary_domain_val]._elements:
+                                sec_dom_val_idx = np.argmin(np.abs(secondary_domain-sec_domain_val))
+
+                                # add set element in array
+                                set_array[sec_dom_val_idx, pri_dom_val_idx] = self.vertical_slice(primary_domain_val)[sec_domain_val]
+
+                return set_array
+
+        def primary_domain(self):
+                &#39;&#39;&#39;
+                The primary domain of this fuzzy set
+
+                Arguments:
+                ----------
+                None
+
+                Returns:
+                --------
+                primary_domain -- 1D array containing all the values in the primary domain
+                &#39;&#39;&#39;
+                primary_domain = list(self.vertical_slices.keys())
+                return primary_domain
+
+        def add_element(self, primary_domain_val, secondary_domain_val, secondary_grade):
+                &#39;&#39;&#39;
+                Adds a new element to the general type-2 fuzzy set. 
+                Will not add the element if the secondary grade is 0
+                Will raise and exception if secondary domain is &lt;1 and &gt;0
+                or secondary grade is &lt;1 and &gt;0
+
+                Arguments:
+                ----------
+                primary_domain_val -- float, value of the primary domain
+                secondary_domain_val -- float, value of the secondary domain, must be &lt;1 and &gt;0
+                secondary_grade -- float value of the secondary grade, must be &lt;1 and &gt;0
+
+                Returns:
+                --------
+                None
+
+                Raises:
+                -------
+                Exception if secondary domain is &lt;1 and &gt;0
+                or secondary grade is &lt;1 and &gt;0
+                &#39;&#39;&#39;
+                # ignore if secondary grade = 0
+                # if secondary_grade == 0:
+                #       return
+                
+                # raise exception if secondary grade &gt;1 or &lt;0
+                if secondary_grade &gt; 1 or secondary_grade &lt; 0:
+                        raise Exception(&#39;Invalid secondary grade value {} at x={} and u={}&#39;.format(secondary_grade, primary_domain_val, secondary_domain_val))
+
+                # raise exception if secondary domain &gt;1 or &lt;0
+                if secondary_domain_val &gt; 1 or secondary_domain_val &lt; 0:
+                        raise Exception(&#39;Invalid secondary domain value {} at x={}&#39;.format(secondary_domain_val, primary_domain_val))
+
+                # if the primary domain exists just add the value of the smf
+                # if not create a new smf to that primary domain value and
+                # add that value
+                if primary_domain_val in self.vertical_slices:
+                        self.vertical_slices[primary_domain_val].add_element(
+                                secondary_domain_val, secondary_grade)
+                else:
+                        secondary_function = smf()
+                        secondary_function.add_element(secondary_domain_val, secondary_grade)
+                        self.vertical_slices[primary_domain_val] = secondary_function
+
+        def add_membership_function(self, primary_domain_val, membership_function):
+                &#39;&#39;&#39;
+                Adds a membership function to the general type-2 fuzzy set. 
+                uses the add_element() method and uses the checks implemented in
+                that function
+                
+                Arguments:
+                ----------
+                primary_domain_val -- float, value of the primary domain
+                membership_function -- TYpe1FuzzySet, membership function to be added
+
+                Returns:
+                --------
+                None
+                &#39;&#39;&#39;
+                for secondary_domain_val in membership_function.domain_elements():
+                        self.add_element(primary_domain_val, secondary_domain_val, membership_function[secondary_domain_val])
+
+        def footprint_of_uncertainty(self):
+                &#39;&#39;&#39;
+                For all values of x, return the limits of the values of u where 
+                the secondary grade &gt; 0
+
+                Reference:
+                ----------
+                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+                Arguments:
+                ----------
+                None
+                
+                Returns:
+                --------
+                footprint -- dict of primary domain element : (limits tuple)
+                &#39;&#39;&#39;
+                fou = {}
+
+                for primary_domain_val in self.primary_domain():
+                        limits = self.vertical_slices[primary_domain_val].domain_limits()
+                        if not limits.empty:
+                                fou[primary_domain_val] = limits
+
+                return fou
+
+        def z_slice(self, slice_value):
+                &#39;&#39;&#39;
+
+                &#39;&#39;&#39;
+                sliced_set = IntervalType2FuzzySet()
+
+                for primary_domain_val in self.primary_domain():
+                        cut = self.vertical_slices[primary_domain_val].alpha_cut(slice_value)
+
+                        if not cut.empty:
+                                sliced_set.add_element(primary_domain_val, cut)
+
+                return sliced_set
+
+        def primary_membership(self, primary_domain_val):
+                &#39;&#39;&#39;
+                Returns the domain of the secondary membership function that is called the
+                primary membership
+
+                Reference:
+                ----------
+                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+                Arguments:
+                ----------
+                None
+
+                Returns:
+                --------
+                _primary_membership -- list containing the domain of the secondary function
+                                                                at X = primary_domain_val
+                &#39;&#39;&#39;
+                if primary_domain_val not in self.vertical_slices:
+                        raise Exception(&#39;Primary domain value not in this set.&#39;)
+
+                _primary_membership = self.vertical_slices[primary_domain_val].domain_elements()
+                return _primary_membership
+
+        def secondary_grade(self, primary_domain_val, secondary_domain_val):
+                &#39;&#39;&#39;
+                returns the amplitude of a secondary membership function,
+                that is the secondary grade.
+                
+                Reference:
+                ----------
+                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+                Arguments:
+                ----------
+                primary_domain_val -- float, value of primary domain
+                secondary_domain_val -- float, value of secondary domain
+
+                Returns:
+                --------
+                secondary_grade -- float, value of secondary grade
+                &#39;&#39;&#39;
+
+                if secondary_domain_val &gt; 1 or secondary_domain_val &lt; 0:
+                        raise Exception(&#39;Invalid secondary domain value&#39;)
+
+                if primary_domain_val not in self.primary_domain():
+                        raise Exception(&#39;Invalid primary domain value&#39;)
+
+                secondary_grade = self.vertical_slices[primary_domain_val].elements()[secondary_domain_val]
+                return secondary_grade
+
+        def embedded_type2_sets_count(self):
+                &#39;&#39;&#39;
+                returns the number of embedded type-2 fuzzy sets that can be 
+                generated from this general type-2 fuzzy set.
+                
+                Reference:
+                ----------
+                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+                Arguments:
+                ----------
+                None
+
+                Returns:
+                --------
+                embedded_count -- float, number of et2fs
+                &#39;&#39;&#39;
+                count = 1
+                for primary_domain_val in self.primary_domain():
+                        count = count * self.vertical_slice(primary_domain_val).element_count()
+                
+                return count
+
+        def embedded_type2_sets(self):
+                &#39;&#39;&#39;
+                Lists all the type 2 embedded sets of this gt2fs.
+                List will contain tuples in the form
+                [(sec_grade_1, sec_domain_1, pri_domain_1), ... , (sec_grade_n, sec_domain_n, pri_domain_n)]
+
+                Reference:
+                ----------
+                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+                Arguments:
+                ----------
+                None
+
+                Returns:
+                --------
+                results -- list, containing embedded type 2 sets
+
+                &#39;&#39;&#39;
+                set_array = []
+                primary_domain, secondary_domain, set_array = self.to_array_explicit()
+
+                # get an index array
+                index_array = np.indices(set_array.shape)[0]
+
+                # create a list with the number of non zero elements in each vertical slice
+                # i.e. the number of non zero element in each column
+                col_gen = [index_array[set_array[:, x] &gt; 0, x] for x in range((set_array.shape)[1])]
+
+                # the number of columns is the number of elements in the domain
+                domain_index = range(0, (set_array.shape)[1])
+
+                results = []
+                # for every combination of the column elemnets create a type 2 embedded fuzzy set
+                for t in itertools.product(*col_gen):
+                        embedded = list(map(lambda i: (set_array[t[i]][i], secondary_domain[t[i]], primary_domain[i]) , domain_index))
+                        results.append(embedded)
+
+                return results
+
+        def _format_slice(self, vertical_slice):
+                x = list(vertical_slice.elements.keys())
+                y = list(vertical_slice.elements.values())
+
+                def f(x, y): return &#34;%0.4f&#34; % (y)+&#39;/&#39;+&#34;%0.2f&#34; % (x)
+                m = map(f, x, y)
+                slice_rep = &#39; + &#39;.join(m)
+                return slice_rep
+
+        def union(self, gt2fs):
+                
+                resultant_gt2fs = GeneralType2FuzzySet()
+
+                primary_domain_a = self.primary_domain()
+                primary_domain_b = gt2fs.primary_domain()
+
+                primary_domain_union = list(set().union(primary_domain_a, primary_domain_b))
+
+                for primary_domain_element in primary_domain_union:
+                        if primary_domain_element not in primary_domain_a:
+                                resultant_gt2fs.add_membership_function(primary_domain_element, gt2fs[primary_domain_element])
+                        elif primary_domain_element not in primary_domain_b:
+                                resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element])
+                        else:
+                                resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].join(gt2fs[primary_domain_element]))
+
+                return resultant_gt2fs
+
+        def intersection(self, gt2fs):
+                &#39;&#39;&#39;
+                intersection  
+                &#39;&#39;&#39;
+                resultant_gt2fs = GeneralType2FuzzySet()
+
+                primary_domain_a = self.primary_domain()
+                primary_domain_b = gt2fs.primary_domain()
+
+                primary_domain_union = list(set().union(primary_domain_a, primary_domain_b))
+
+                for primary_domain_element in primary_domain_union:
+                        if primary_domain_element not in primary_domain_a:
+                                resultant_gt2fs.add_membership_function(primary_domain_element, gt2fs[primary_domain_element])
+                        elif primary_domain_element not in primary_domain_b:
+                                resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element])
+                        else:
+                                resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].meet(gt2fs[primary_domain_element]))
+
+                return resultant_gt2fs
+
+        def complement(self):
+                &#39;&#39;&#39;
+                finds the complement of a general type 2 fuzzy set 
+                &#39;&#39;&#39;
+                resultant_gt2fs = GeneralType2FuzzySet()
+
+                for primary_domain_element in self.primary_domain():
+                                        resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].negation())
+
+                return resultant_gt2fs</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.from_array"><code class="name flex">
+<span>def <span class="ident">from_array</span></span>(<span>primary_domain, secondary_domain, set_array)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates a general type-2 fuzzy set from an array representation
+of set where given is
+x &ndash; a list containing the values of the primary domain
+u &ndash; a list containing the values of the secondary domain
+set_array &ndash; a 2D array where the rows map to the values of the u list
+the cols map to the values of the x list
+each value is the secondary grade value for
+the particular x / u combination</p>
+<h2 id="reference">Reference:</h2>
+<h2 id="arguments">Arguments:</h2>
+<p>set_array &ndash; 2D array containing the secondary grade values of the gt2fs
+x &ndash; list containing the values of the primary domain
+u &ndash; list containing the values of the secondary domain</p>
+<h2 id="returns">Returns:</h2>
+<p>gt2fs &ndash; GeneralType2FuzzySet</p>
+<h2 id="raises">Raises:</h2>
+<p>Exception &ndash; if there is a mismatch between the x, u and set_array dimensions</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_array(cls, primary_domain, secondary_domain, set_array):
+        &#39;&#39;&#39;
+        Creates a general type-2 fuzzy set from an array representation 
+        of set where given is
+        x -- a list containing the values of the primary domain
+        u -- a list containing the values of the secondary domain
+        set_array -- a 2D array where the rows map to the values of the u list
+                                                                the cols map to the values of the x list
+                                                                each value is the secondary grade value for
+                                                                the particular x / u combination
+        
+
+        Reference:
+        ---------
+
+        Arguments:
+        ----------
+        set_array -- 2D array containing the secondary grade values of the gt2fs
+        x -- list containing the values of the primary domain
+        u -- list containing the values of the secondary domain
+
+        Returns:
+        --------
+        gt2fs -- GeneralType2FuzzySet
+
+        Raises:
+        -------
+        Exception -- if there is a mismatch between the x, u and set_array dimensions
+        &#39;&#39;&#39;
+        set_array = np.array(set_array)
+
+        # check that array sizes are correct
+        (secondary_domain_size, primary_domain_size) = np.shape(set_array)
+
+        if secondary_domain_size != len(secondary_domain):
+                raise Exception(&#39;Secondary domain size mismatch&#39;)
+
+        if primary_domain_size != len(primary_domain):
+                raise Exception(&#39;Primary domain size mismatch&#39;)
+
+        gt2fs = cls()
+
+        # load all the elements in the array
+        for pri_dom_val_idx, pri_dom_val in enumerate(primary_domain):
+                for sec_dom_val_idx, sec_dom_val in enumerate(secondary_domain):
+                        gt2fs.add_element(pri_dom_val, sec_dom_val, set_array[sec_dom_val_idx][pri_dom_val_idx])
+
+        return gt2fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.from_horizontal_representation"><code class="name flex">
+<span>def <span class="ident">from_horizontal_representation</span></span>(<span>primary_domain, secondary_domain, set_def)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Experimental method of representing a general type-2 fuzzy set by defining the
+spread at the points of piecewise type-1 parts.
+each point is a tuple (x, u, delta_left, delta_right); where:
+x is the primary domain value of the point
+u is the secondary domain value of the point
+delta_left is the spread of the type 2 set to the left and
+delta_right is the spread to the right of the type 2 set such that
+a triangular function is formed at u with values x-delta_left, x, x+delta_right</p>
+<h2 id="reference">Reference:</h2>
+<h2 id="arguments">Arguments:</h2>
+<p>None</p>
+<h2 id="returns">Returns:</h2>
+<p>gt2fs &ndash; GeneralType2FuzzySet</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_horizontal_representation(cls, primary_domain, secondary_domain, set_def):
+        &#39;&#39;&#39;
+        Experimental method of representing a general type-2 fuzzy set by defining the
+        spread at the points of piecewise type-1 parts.
+        each point is a tuple (x, u, delta_left, delta_right); where:
+        x is the primary domain value of the point
+        u is the secondary domain value of the point
+        delta_left is the spread of the type 2 set to the left and
+        delta_right is the spread to the right of the type 2 set such that
+        a triangular function is formed at u with values x-delta_left, x, x+delta_right
+
+        Reference:
+        ----------
+
+        Arguments:
+        ----------
+        None
+
+        Returns:
+        --------
+        gt2fs -- GeneralType2FuzzySet
+        &#39;&#39;&#39;
+        set_array = generate_gt2set_horizontal(primary_domain, secondary_domain, set_def)
+        return GeneralType2FuzzySet.from_array(primary_domain, secondary_domain, set_array)</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.from_representation"><code class="name flex">
+<span>def <span class="ident">from_representation</span></span>(<span>set_representation)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates a general type-2 fuzzy set from a set representation of the form
+'(a1/u1 + a2/u2 + &hellip; + an/un)/x1 + &hellip; +(b1/u1 + b2/u2 + &hellip; + bn/un)/xm'</p>
+<h2 id="reference">Reference:</h2>
+<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
+<p>Definition of secondary grade - pg 119</p>
+<h2 id="arguments">Arguments:</h2>
+<p>set_representation &ndash; string, representation of the gt2fs</p>
+<h2 id="returns">Returns:</h2>
+<p>gt2fs &ndash; GeneralType2FuzzySet</p>
+<h2 id="raises">Raises:</h2>
+<p>Exception &ndash; if set_representation is empty, None or invalid</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_representation(cls, set_representation):
+        &#39;&#39;&#39;
+        Creates a general type-2 fuzzy set from a set representation of the form
+        &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + ... +(b1/u1 + b2/u2 + ... + bn/un)/xm&#39;
+
+        Reference:
+        ---------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Definition of secondary grade - pg 119
+
+        Arguments:
+        ----------
+        set_representation -- string, representation of the gt2fs
+
+        Returns:
+        --------
+        gt2fs -- GeneralType2FuzzySet
+
+        Raises:
+        -------
+        Exception -- if set_representation is empty, None or invalid
+        &#39;&#39;&#39;
+        if set_representation == None:
+                raise Exception(&#39;Type-2 Set Representation cannot be null&#39;)
+        if set_representation == &#39;&#39;:
+                raise Exception(&#39;Type-2 Set Representation cannot be empty&#39;)
+
+        gt2fs = cls()
+
+        try:
+                # remove spaces, tabs returns,
+                translation_table = dict.fromkeys(map(ord, &#39; \t\n\r&#39;), None)
+                set_representation = set_representation.translate(translation_table)
+
+                # by splitting by +( we will get the secondary mfs
+                # we would lose the initial ( of each mf except for the
+                # first one - this will be removed lated
+                sec_mfs_s = set_representation.split(&#39;+(&#39;)
+
+                # so lets go through the membership functions
+                for sec_mf in sec_mfs_s:
+                        # remove the leading &#39;(&#39;
+                        # this will only happen in the first mf
+                        translation_table = dict.fromkeys(map(ord, &#39;(&#39;), None)
+                        sec_mf = sec_mf.translate(translation_table)
+
+                        # we now split the secondary membership function from the
+                        # primary domain value
+                        vertical_slice_points_s, pri_dom_val_s = sec_mf.split(&#39;)/&#39;)
+
+                        # get the primary domain value and its corresponding
+                        # index
+                        primary_domain_val = float(pri_dom_val_s)
+
+                        # split by the &#39;+&#39; so that we will obtain the individual
+                        # dom / sec domain points
+                        points_s = vertical_slice_points_s.split(&#39;+&#39;)
+
+                        # we then examine each point to add them to the set
+                        for point_s in points_s:
+                                # split by / so to obtain the dom and the sec domain value
+                                sec_grade_val_s, sec_dom_val_s = point_s.split(&#39;/&#39;)
+
+                                # get the secondary domain value and its corresponding
+                                # index
+                                secondary_domain_val = float(sec_dom_val_s)
+
+                                sec_grade = float(sec_grade_val_s)
+                                # add the point to the set
+                                gt2fs.add_element(primary_domain_val, secondary_domain_val, sec_grade)
+        except ValueError:
+                raise Exception(&#39;Invalid set format&#39;)
+
+        return gt2fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.load_file"><code class="name flex">
+<span>def <span class="ident">load_file</span></span>(<span>set_filename)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Loads a general type-2 fuzzy set from a file. File must have the
+following format:
+'(a1/u1 + a2/u2 + &hellip; + an/un)/x1 + (b1/u1 + b2/u2 + &hellip; + bn/un)/xn'</p>
+<h2 id="reference">Reference:</h2>
+<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
+<p>Definition of secondary grade - pg 119</p>
+<h2 id="arguments">Arguments:</h2>
+<p>set_filename &ndash; string, filename of the set</p>
+<h2 id="returns">Returns:</h2>
+<p>gt2fs &ndash; GeneralType2FuzzySet</p>
+<h2 id="raises">Raises:</h2>
+<p>Exception &ndash; if set_filename is empty, None or invalid</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def load_file(cls, set_filename):
+        &#39;&#39;&#39;
+        Loads a general type-2 fuzzy set from a file. File must have the
+        following format:
+        &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + (b1/u1 + b2/u2 + ... + bn/un)/xn&#39;
+
+        Reference:
+        ---------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Definition of secondary grade - pg 119
+
+        Arguments:
+        ----------
+        set_filename -- string, filename of the set
+
+        Returns:
+        --------
+        gt2fs -- GeneralType2FuzzySet
+
+        Raises:
+        -------
+        Exception -- if set_filename is empty, None or invalid
+        &#39;&#39;&#39;
+        representation = &#39;&#39;
+        
+        try:
+                with open(set_filename, &#39;r&#39;) as file:
+                        representation = file.read()
+        except IOError:
+                raise Exception(&#39;Could not read file {}&#39;.format(set_filename))
+        
+        gt2fs = cls()
+        gt2fs = GeneralType2FuzzySet.from_representation(representation)
+
+        return gt2fs</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.add_element"><code class="name flex">
+<span>def <span class="ident">add_element</span></span>(<span>self, primary_domain_val, secondary_domain_val, secondary_grade)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Adds a new element to the general type-2 fuzzy set.
+Will not add the element if the secondary grade is 0
+Will raise and exception if secondary domain is &lt;1 and &gt;0
+or secondary grade is &lt;1 and &gt;0</p>
+<h2 id="arguments">Arguments:</h2>
+<p>primary_domain_val &ndash; float, value of the primary domain
+secondary_domain_val &ndash; float, value of the secondary domain, must be &lt;1 and &gt;0
+secondary_grade &ndash; float value of the secondary grade, must be &lt;1 and &gt;0</p>
+<h2 id="returns">Returns:</h2>
+<p>None</p>
+<h2 id="raises">Raises:</h2>
+<p>Exception if secondary domain is &lt;1 and &gt;0
+or secondary grade is &lt;1 and &gt;0</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_element(self, primary_domain_val, secondary_domain_val, secondary_grade):
+        &#39;&#39;&#39;
+        Adds a new element to the general type-2 fuzzy set. 
+        Will not add the element if the secondary grade is 0
+        Will raise and exception if secondary domain is &lt;1 and &gt;0
+        or secondary grade is &lt;1 and &gt;0
+
+        Arguments:
+        ----------
+        primary_domain_val -- float, value of the primary domain
+        secondary_domain_val -- float, value of the secondary domain, must be &lt;1 and &gt;0
+        secondary_grade -- float value of the secondary grade, must be &lt;1 and &gt;0
+
+        Returns:
+        --------
+        None
+
+        Raises:
+        -------
+        Exception if secondary domain is &lt;1 and &gt;0
+        or secondary grade is &lt;1 and &gt;0
+        &#39;&#39;&#39;
+        # ignore if secondary grade = 0
+        # if secondary_grade == 0:
+        #       return
+        
+        # raise exception if secondary grade &gt;1 or &lt;0
+        if secondary_grade &gt; 1 or secondary_grade &lt; 0:
+                raise Exception(&#39;Invalid secondary grade value {} at x={} and u={}&#39;.format(secondary_grade, primary_domain_val, secondary_domain_val))
+
+        # raise exception if secondary domain &gt;1 or &lt;0
+        if secondary_domain_val &gt; 1 or secondary_domain_val &lt; 0:
+                raise Exception(&#39;Invalid secondary domain value {} at x={}&#39;.format(secondary_domain_val, primary_domain_val))
+
+        # if the primary domain exists just add the value of the smf
+        # if not create a new smf to that primary domain value and
+        # add that value
+        if primary_domain_val in self.vertical_slices:
+                self.vertical_slices[primary_domain_val].add_element(
+                        secondary_domain_val, secondary_grade)
+        else:
+                secondary_function = smf()
+                secondary_function.add_element(secondary_domain_val, secondary_grade)
+                self.vertical_slices[primary_domain_val] = secondary_function</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.add_membership_function"><code class="name flex">
+<span>def <span class="ident">add_membership_function</span></span>(<span>self, primary_domain_val, membership_function)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Adds a membership function to the general type-2 fuzzy set.
+uses the add_element() method and uses the checks implemented in
+that function</p>
+<h2 id="arguments">Arguments:</h2>
+<p>primary_domain_val &ndash; float, value of the primary domain
+membership_function &ndash; TYpe1FuzzySet, membership function to be added</p>
+<h2 id="returns">Returns:</h2>
+<p>None</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_membership_function(self, primary_domain_val, membership_function):
+        &#39;&#39;&#39;
+        Adds a membership function to the general type-2 fuzzy set. 
+        uses the add_element() method and uses the checks implemented in
+        that function
+        
+        Arguments:
+        ----------
+        primary_domain_val -- float, value of the primary domain
+        membership_function -- TYpe1FuzzySet, membership function to be added
+
+        Returns:
+        --------
+        None
+        &#39;&#39;&#39;
+        for secondary_domain_val in membership_function.domain_elements():
+                self.add_element(primary_domain_val, secondary_domain_val, membership_function[secondary_domain_val])</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.complement"><code class="name flex">
+<span>def <span class="ident">complement</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>finds the complement of a general type 2 fuzzy set</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def complement(self):
+        &#39;&#39;&#39;
+        finds the complement of a general type 2 fuzzy set 
+        &#39;&#39;&#39;
+        resultant_gt2fs = GeneralType2FuzzySet()
+
+        for primary_domain_element in self.primary_domain():
+                                resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].negation())
+
+        return resultant_gt2fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.embedded_type2_sets"><code class="name flex">
+<span>def <span class="ident">embedded_type2_sets</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Lists all the type 2 embedded sets of this gt2fs.
+List will contain tuples in the form
+[(sec_grade_1, sec_domain_1, pri_domain_1), &hellip; , (sec_grade_n, sec_domain_n, pri_domain_n)]</p>
+<h2 id="reference">Reference:</h2>
+<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>None</p>
+<h2 id="returns">Returns:</h2>
+<p>results &ndash; list, containing embedded type 2 sets</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def embedded_type2_sets(self):
+        &#39;&#39;&#39;
+        Lists all the type 2 embedded sets of this gt2fs.
+        List will contain tuples in the form
+        [(sec_grade_1, sec_domain_1, pri_domain_1), ... , (sec_grade_n, sec_domain_n, pri_domain_n)]
+
+        Reference:
+        ----------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Arguments:
+        ----------
+        None
+
+        Returns:
+        --------
+        results -- list, containing embedded type 2 sets
+
+        &#39;&#39;&#39;
+        set_array = []
+        primary_domain, secondary_domain, set_array = self.to_array_explicit()
+
+        # get an index array
+        index_array = np.indices(set_array.shape)[0]
+
+        # create a list with the number of non zero elements in each vertical slice
+        # i.e. the number of non zero element in each column
+        col_gen = [index_array[set_array[:, x] &gt; 0, x] for x in range((set_array.shape)[1])]
+
+        # the number of columns is the number of elements in the domain
+        domain_index = range(0, (set_array.shape)[1])
+
+        results = []
+        # for every combination of the column elemnets create a type 2 embedded fuzzy set
+        for t in itertools.product(*col_gen):
+                embedded = list(map(lambda i: (set_array[t[i]][i], secondary_domain[t[i]], primary_domain[i]) , domain_index))
+                results.append(embedded)
+
+        return results</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.embedded_type2_sets_count"><code class="name flex">
+<span>def <span class="ident">embedded_type2_sets_count</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>returns the number of embedded type-2 fuzzy sets that can be
+generated from this general type-2 fuzzy set.</p>
+<h2 id="reference">Reference:</h2>
+<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>None</p>
+<h2 id="returns">Returns:</h2>
+<p>embedded_count &ndash; float, number of et2fs</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def embedded_type2_sets_count(self):
+        &#39;&#39;&#39;
+        returns the number of embedded type-2 fuzzy sets that can be 
+        generated from this general type-2 fuzzy set.
+        
+        Reference:
+        ----------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Arguments:
+        ----------
+        None
+
+        Returns:
+        --------
+        embedded_count -- float, number of et2fs
+        &#39;&#39;&#39;
+        count = 1
+        for primary_domain_val in self.primary_domain():
+                count = count * self.vertical_slice(primary_domain_val).element_count()
+        
+        return count</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.footprint_of_uncertainty"><code class="name flex">
+<span>def <span class="ident">footprint_of_uncertainty</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>For all values of x, return the limits of the values of u where
+the secondary grade &gt; 0</p>
+<h2 id="reference">Reference:</h2>
+<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>None</p>
+<h2 id="returns">Returns:</h2>
+<p>footprint &ndash; dict of primary domain element : (limits tuple)</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def footprint_of_uncertainty(self):
+        &#39;&#39;&#39;
+        For all values of x, return the limits of the values of u where 
+        the secondary grade &gt; 0
+
+        Reference:
+        ----------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Arguments:
+        ----------
+        None
+        
+        Returns:
+        --------
+        footprint -- dict of primary domain element : (limits tuple)
+        &#39;&#39;&#39;
+        fou = {}
+
+        for primary_domain_val in self.primary_domain():
+                limits = self.vertical_slices[primary_domain_val].domain_limits()
+                if not limits.empty:
+                        fou[primary_domain_val] = limits
+
+        return fou</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.intersection"><code class="name flex">
+<span>def <span class="ident">intersection</span></span>(<span>self, gt2fs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>intersection</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def intersection(self, gt2fs):
+        &#39;&#39;&#39;
+        intersection  
+        &#39;&#39;&#39;
+        resultant_gt2fs = GeneralType2FuzzySet()
+
+        primary_domain_a = self.primary_domain()
+        primary_domain_b = gt2fs.primary_domain()
+
+        primary_domain_union = list(set().union(primary_domain_a, primary_domain_b))
+
+        for primary_domain_element in primary_domain_union:
+                if primary_domain_element not in primary_domain_a:
+                        resultant_gt2fs.add_membership_function(primary_domain_element, gt2fs[primary_domain_element])
+                elif primary_domain_element not in primary_domain_b:
+                        resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element])
+                else:
+                        resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].meet(gt2fs[primary_domain_element]))
+
+        return resultant_gt2fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.primary_domain"><code class="name flex">
+<span>def <span class="ident">primary_domain</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>The primary domain of this fuzzy set</p>
+<h2 id="arguments">Arguments:</h2>
+<p>None</p>
+<h2 id="returns">Returns:</h2>
+<p>primary_domain &ndash; 1D array containing all the values in the primary domain</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def primary_domain(self):
+        &#39;&#39;&#39;
+        The primary domain of this fuzzy set
+
+        Arguments:
+        ----------
+        None
+
+        Returns:
+        --------
+        primary_domain -- 1D array containing all the values in the primary domain
+        &#39;&#39;&#39;
+        primary_domain = list(self.vertical_slices.keys())
+        return primary_domain</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.primary_membership"><code class="name flex">
+<span>def <span class="ident">primary_membership</span></span>(<span>self, primary_domain_val)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns the domain of the secondary membership function that is called the
+primary membership</p>
+<h2 id="reference">Reference:</h2>
+<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>None</p>
+<h2 id="returns">Returns:</h2>
+<p>_primary_membership &ndash; list containing the domain of the secondary function
+at X = primary_domain_val</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def primary_membership(self, primary_domain_val):
+        &#39;&#39;&#39;
+        Returns the domain of the secondary membership function that is called the
+        primary membership
+
+        Reference:
+        ----------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Arguments:
+        ----------
+        None
+
+        Returns:
+        --------
+        _primary_membership -- list containing the domain of the secondary function
+                                                        at X = primary_domain_val
+        &#39;&#39;&#39;
+        if primary_domain_val not in self.vertical_slices:
+                raise Exception(&#39;Primary domain value not in this set.&#39;)
+
+        _primary_membership = self.vertical_slices[primary_domain_val].domain_elements()
+        return _primary_membership</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.save_file"><code class="name flex">
+<span>def <span class="ident">save_file</span></span>(<span>self, set_filename, num_dec_places=4)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Writes a formal representation of the general type-2 fuzzy set of the form:
+'(a1/u1 + a2/u2 + &hellip; + an/un)/x1 + &hellip; + (b1/u1 + b2/u2 + &hellip; + bn/un)/xn'
+in a file</p>
+<h2 id="reference">Reference:</h2>
+<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>set_filename &ndash; string containing the path of the file to be written
+num_dec_places &ndash; number of decimal places used for secondary membership function, default 4</p>
+<h2 id="returns">Returns:</h2>
+<p>None</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_file(self, set_filename, num_dec_places=4):
+        &#39;&#39;&#39;
+        Writes a formal representation of the general type-2 fuzzy set of the form:
+        &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + ... + (b1/u1 + b2/u2 + ... + bn/un)/xn&#39;
+        in a file
+
+        Reference:
+        ----------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Arguments:
+        ----------
+        set_filename -- string containing the path of the file to be written
+        num_dec_places -- number of decimal places used for secondary membership function, default 4
+
+        Returns:
+        --------
+        None
+        &#39;&#39;&#39;
+        try:
+                with open(set_filename, &#39;w&#39;) as fuzzy_file:
+                        fuzzy_file.write(self.__str__())
+        except IOError:
+                raise Exception(&#39;Unable to write file {}&#39;.format(set_filename))</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.secondary_grade"><code class="name flex">
+<span>def <span class="ident">secondary_grade</span></span>(<span>self, primary_domain_val, secondary_domain_val)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>returns the amplitude of a secondary membership function,
+that is the secondary grade.</p>
+<h2 id="reference">Reference:</h2>
+<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>primary_domain_val &ndash; float, value of primary domain
+secondary_domain_val &ndash; float, value of secondary domain</p>
+<h2 id="returns">Returns:</h2>
+<p>secondary_grade &ndash; float, value of secondary grade</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def secondary_grade(self, primary_domain_val, secondary_domain_val):
+        &#39;&#39;&#39;
+        returns the amplitude of a secondary membership function,
+        that is the secondary grade.
+        
+        Reference:
+        ----------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Arguments:
+        ----------
+        primary_domain_val -- float, value of primary domain
+        secondary_domain_val -- float, value of secondary domain
+
+        Returns:
+        --------
+        secondary_grade -- float, value of secondary grade
+        &#39;&#39;&#39;
+
+        if secondary_domain_val &gt; 1 or secondary_domain_val &lt; 0:
+                raise Exception(&#39;Invalid secondary domain value&#39;)
+
+        if primary_domain_val not in self.primary_domain():
+                raise Exception(&#39;Invalid primary domain value&#39;)
+
+        secondary_grade = self.vertical_slices[primary_domain_val].elements()[secondary_domain_val]
+        return secondary_grade</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.to_array_explicit"><code class="name flex">
+<span>def <span class="ident">to_array_explicit</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Transforms a General type 2 fuzzy set into a 2D array</p>
+<h2 id="arguments">Arguments:</h2>
+<p>None</p>
+<h2 id="returns">Returns:</h2>
+<p>primary_domain &ndash; 1D array containing all the values in the primary domain
+secondary_domain &ndash; 1D array containing all the values in the secondary domain
+set_array &ndash; 2D array containing the degree of membership for the corresponding
+primary/secondary combination</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_array_explicit(self):
+        &#39;&#39;&#39;
+        Transforms a General type 2 fuzzy set into a 2D array
+
+        Arguments:
+        ----------
+        None
+
+        Returns:
+        --------
+        primary_domain -- 1D array containing all the values in the primary domain
+        secondary_domain -- 1D array containing all the values in the secondary domain
+        set_array -- 2D array containing the degree of membership for the corresponding
+                                primary/secondary combination
+        &#39;&#39;&#39;
+
+        # get all possible value of the secondary domain by a union with all the elements of
+        # each vertical slice
+        secondary_domain = []
+        for primary_domain_val in self.vertical_slices:
+                secondary_domain = list(set().union(secondary_domain, list(self[primary_domain_val].domain_elements())))
+
+        secondary_domain.sort()
+
+        # get all possible value of the primary domain
+        primary_domain =  list(self.vertical_slices.keys())
+        primary_domain.sort()
+
+        # create an array to hold the dom
+        set_array = np.zeros((len(secondary_domain), len(primary_domain)))
+
+        for primary_domain_val in self.vertical_slices:
+                pri_domain_idx = primary_domain.index(primary_domain_val)
+                
+                for sec_domain_val in self.vertical_slice(primary_domain_val).elements():
+                        sec_domain_idx = secondary_domain.index(sec_domain_val)
+
+                        set_array[sec_domain_idx, pri_domain_idx] = self.vertical_slice(primary_domain_val)[sec_domain_val]
+
+        return primary_domain, secondary_domain, set_array</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.to_array_implicit"><code class="name flex">
+<span>def <span class="ident">to_array_implicit</span></span>(<span>self, primary_domain, secondary_domain)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Transforms a General type 2 fuzzy set into a 2D array but specifying the primary
+and secondary domain discrete values. The values of the set are thereby approximated
+to these specified values</p>
+<h2 id="arguments">Arguments:</h2>
+<p>primary_domain &ndash; 1D array containing all the values in the primary domain
+secondary_domain &ndash; 1D array containing all the values in the secondary domain</p>
+<h2 id="returns">Returns:</h2>
+<p>set_array &ndash; 2D array containing the degree of membership for the corresponding
+primary/secondary combination</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_array_implicit(self, primary_domain, secondary_domain):
+        &#39;&#39;&#39;
+        Transforms a General type 2 fuzzy set into a 2D array but specifying the primary
+        and secondary domain discrete values. The values of the set are thereby approximated 
+        to these specified values
+
+        Arguments:
+        ----------
+        primary_domain -- 1D array containing all the values in the primary domain
+        secondary_domain -- 1D array containing all the values in the secondary domain
+
+        Returns:
+        --------
+        set_array -- 2D array containing the degree of membership for the corresponding
+                                        primary/secondary combination
+        &#39;&#39;&#39;
+
+        # convert domain lists to numpy arrays
+        primary_domain = np.array(primary_domain)
+        secondary_domain = np.array(secondary_domain)
+        
+        # create resultant set
+        set_array = np.zeros((len(secondary_domain), len(primary_domain)))
+
+        # for each primary domain element, get closest element form list
+        for primary_domain_val in self.vertical_slices:
+                pri_dom_val_idx = np.argmin(np.abs(primary_domain - primary_domain_val))
+
+                # for each secondary domain element, get closest element form list
+                for sec_domain_val in self.vertical_slices[primary_domain_val]._elements:
+                        sec_dom_val_idx = np.argmin(np.abs(secondary_domain-sec_domain_val))
+
+                        # add set element in array
+                        set_array[sec_dom_val_idx, pri_dom_val_idx] = self.vertical_slice(primary_domain_val)[sec_domain_val]
+
+        return set_array</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.union"><code class="name flex">
+<span>def <span class="ident">union</span></span>(<span>self, gt2fs)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def union(self, gt2fs):
+        
+        resultant_gt2fs = GeneralType2FuzzySet()
+
+        primary_domain_a = self.primary_domain()
+        primary_domain_b = gt2fs.primary_domain()
+
+        primary_domain_union = list(set().union(primary_domain_a, primary_domain_b))
+
+        for primary_domain_element in primary_domain_union:
+                if primary_domain_element not in primary_domain_a:
+                        resultant_gt2fs.add_membership_function(primary_domain_element, gt2fs[primary_domain_element])
+                elif primary_domain_element not in primary_domain_b:
+                        resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element])
+                else:
+                        resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].join(gt2fs[primary_domain_element]))
+
+        return resultant_gt2fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.vertical_slice"><code class="name flex">
+<span>def <span class="ident">vertical_slice</span></span>(<span>self, primary_domain_val)</span>
+</code></dt>
+<dd>
+<section class="desc"><p : class=".." secondary_domain secondary_grade_="secondary_grade,">For a given value of the primary domain,
+returns a representation of the vertical slice
+in the form of a dict</p>
+<h2 id="reference">Reference:</h2>
+<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>primary_domain_val &ndash; value of primary domain</p>
+<h2 id="returns">Returns:</h2>
+<p>vertical_slice - dict representing the values if the vertical slice</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def vertical_slice(self, primary_domain_val):
+        &#39;&#39;&#39;
+        For a given value of the primary domain, 
+        returns a representation of the vertical slice
+        in the form of a dict
+        {secondary_domain : secondary_grade,  ... }
+
+        Reference:
+        ----------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Arguments:
+        ----------
+        primary_domain_val -- value of primary domain
+
+        Returns:
+        --------
+        vertical_slice - dict representing the values if the vertical slice
+        &#39;&#39;&#39;
+        return self[primary_domain_val]</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.z_slice"><code class="name flex">
+<span>def <span class="ident">z_slice</span></span>(<span>self, slice_value)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def z_slice(self, slice_value):
+        &#39;&#39;&#39;
+
+        &#39;&#39;&#39;
+        sliced_set = IntervalType2FuzzySet()
+
+        for primary_domain_val in self.primary_domain():
+                cut = self.vertical_slices[primary_domain_val].alpha_cut(slice_value)
+
+                if not cut.empty:
+                        sliced_set.add_element(primary_domain_val, cut)
+
+        return sliced_set</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="type2fuzzy.membership.IntervalType2FuzzySet"><code class="flex name class">
+<span>class <span class="ident">IntervalType2FuzzySet</span></span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class IntervalType2FuzzySet:
+
+        def __init__(self):
+                self._interval_set_elements = {}
+                self._empty=True
+
+        def __getitem__(self, primary_domain_val):
+                &#39;&#39;&#39;
+                For a given value of the primary domain, 
+                return the crisp set
+
+                Arguments:
+                ----------
+                primary_domain_val -- value of primary domain
+
+                Returns:
+                --------
+                crisp_set - corresponding crisp set
+                &#39;&#39;&#39;
+                if primary_domain_val not in self._interval_set_elements:
+                        raise Exception(f&#39;Primary domain value of {primary_domain_val} not in this set.&#39;)
+
+                return self._interval_set_elements[primary_domain_val]
+
+        @property
+        def empty(self):
+                &#39;&#39;&#39;
+                Returns True if set is empty
+                &#39;&#39;&#39;
+                return self._empty
+
+        @ classmethod
+        def from_general_type2_set(cls, gt2fs):
+                &#39;&#39;&#39;
+                Creates an Interval Type-2 Fuzzy Set from a General
+                Type-2 Fuzzy Set
+
+                Arguments:
+                ----------
+                gt2fs -- the general type-2 fuzzy set
+
+                Returns:
+                --------
+                it2fs -- the resulting interval type-2 fuzzy set
+                &#39;&#39;&#39;
+                it2fs = cls()
+
+                it2fs = gt2fs.z_slice(0)
+
+                return it2fs
+
+        @classmethod
+        def from_representation(cls, set_representation):
+                if set_representation == None:
+                        raise Exception(&#39;Interval Type-2 Set Representation cannot be null&#39;)
+                if set_representation == &#39;&#39;:
+                        raise Exception(&#39;Interval Type-2 Set Representation cannot be empty&#39;)
+
+                it2fs = cls()
+
+                try:
+                        # remove spaces, tabs returns,
+                        translation_table = dict.fromkeys(map(ord, &#39; \t\n\r&#39;), None)
+                        set_representation = set_representation.translate(translation_table)
+
+                        # by splitting by &#39;+&#39; we will get the secondary mfs
+                        sec_mfs_s = set_representation.split(&#39;+&#39;)
+
+                        # so lets go through the membership functions
+                        for sec_mf in sec_mfs_s:
+
+                                # we now split the membership function from the
+                                # primary domain value
+                                vslice_points_s, pri_dom_val_s = sec_mf.split(&#39;/&#39;)
+
+                                # get the primary domain value and its corresponding
+                                # index
+                                primary_domain_val = float(pri_dom_val_s)
+
+                                # the vertical slice points is represnted by [left, right]
+                                # remove the braces
+                                translation_table = dict.fromkeys(map(ord, &#39;[]&#39;), None)
+                                vslice_points_s = vslice_points_s.translate(translation_table)
+
+                                # split by the &#39;+&#39; so that we will obtain the individual
+                                # dom / sec domain points
+                                left_s, right_s = vslice_points_s.split(&#39;,&#39;)
+
+                                left = float(left_s)
+                                right = float(right_s)
+
+                                it2fs.add_element(primary_domain_val, CrispSet(left, right))
+                except ValueError:
+                        raise Exception(&#39;Invalid set format&#39;)
+
+                return it2fs
+
+        @classmethod
+        def load_file(cls, set_filename):
+                &#39;&#39;&#39;
+                Loads a interval type-2 fuzzy set from a file. File must have the
+                following format:
+                &#39;[l1, h1]/x1 + [l2, h2]/x2 + ... + [ln, hn]/xn&#39;
+
+                Reference:
+                ---------
+
+                Arguments:
+                ----------
+                set_filename -- string, filename of the set
+
+                Returns:
+                --------
+                it2fs -- IntervalType2FuzzySet
+
+                Raises:
+                -------
+                Exception -- if set_filename is empty, None or invalid
+                &#39;&#39;&#39;
+                representation = &#39;&#39;
+                
+                try:
+                        with open(set_filename, &#39;r&#39;) as file:
+                                representation = file.read()
+                except IOError:
+                        raise Exception(&#39;Could not read file {}&#39;.format(set_filename))
+                
+                it2fs = cls()
+                it2fs = IntervalType2FuzzySet.from_representation(representation)
+
+                return it2fs
+
+        @classmethod
+        def from_hmf_lmf(cls, primary_domain, hmf, lmf):
+                &#39;&#39;&#39;
+                &#39;&#39;&#39;
+                it2fs = cls()
+                for idx, primary_domain_element in enumerate(primary_domain):
+                        it2fs.add_element(primary_domain_element, CrispSet(lmf[idx], hmf[idx]))
+
+                return it2fs
+
+        def primary_domain(self):
+                &#39;&#39;&#39;
+                The primary domain of this fuzzy set
+
+                Arguments:
+                ----------
+                None
+
+                Returns:
+                --------
+                primary_domain -- list, containing all the values in the primary domain
+                &#39;&#39;&#39;
+                primary_domain = list(self._interval_set_elements.keys())
+                return primary_domain
+
+        def mid_domain_element(self):
+                &#39;&#39;&#39;
+                returns the middle domain element
+                &#39;&#39;&#39;
+                return self.primary_domain()[int(len(self.primary_domain())/2)]
+
+        def __str__(self):
+                &#39;&#39;&#39;
+                Creates a string representation of the interval type 2 fuzzy set in the form:
+                (lower_1, upper_1)/domain_1 + ... + (lower_n, upper_n)/domain_n
+                &#39;&#39;&#39;
+                set_representation_list = []
+
+                for primary_domain_element in self.primary_domain():
+                        set_representation_list.append(f&#39;{self._interval_set_elements[primary_domain_element]}/{primary_domain_element}\n&#39;)
+
+                set_representation = &#39;+&#39;.join(set_representation_list)
+
+                return set_representation
+
+        def __repr__(self):
+                return f&#39;{self.__class__.__name__}(str(self))&#39;
+
+        def add_element(self, primary_domain_val, crisp_set):
+                &#39;&#39;&#39;
+                adds a new element to the interval type 2 set
+                if the set already contains a range at the domain value,
+                the minimum left and the maximum right are selected.
+
+                Arguments:
+                ----------
+                primary_domain_val -- float, value of the primary domain
+                left_val -- the left (minimum) value
+                right_val -- the right (maximum) value
+                &#39;&#39;&#39;
+
+                if crisp_set.empty:
+                        return
+
+                if primary_domain_val in self._interval_set_elements:
+                        self._interval_set_elements[primary_domain_val].union(crisp_set)
+                else:
+                        self._interval_set_elements[primary_domain_val] = crisp_set
+
+                if self._empty:
+                        self._empty = False
+
+
+        def lower_membership_function(self):
+
+                umf = []
+
+                for limits in self._interval_set_elements.values():
+                        umf.append(limits.left)
+                
+                return umf
+
+        def higher_membership_function(self):
+
+                hmf = []
+
+                for limits in self._interval_set_elements.values():
+                        hmf.append(limits.right)
+                
+                return hmf</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="type2fuzzy.membership.IntervalType2FuzzySet.from_general_type2_set"><code class="name flex">
+<span>def <span class="ident">from_general_type2_set</span></span>(<span>gt2fs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates an Interval Type-2 Fuzzy Set from a General
+Type-2 Fuzzy Set</p>
+<h2 id="arguments">Arguments:</h2>
+<p>gt2fs &ndash; the general type-2 fuzzy set</p>
+<h2 id="returns">Returns:</h2>
+<p>it2fs &ndash; the resulting interval type-2 fuzzy set</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@ classmethod
+def from_general_type2_set(cls, gt2fs):
+        &#39;&#39;&#39;
+        Creates an Interval Type-2 Fuzzy Set from a General
+        Type-2 Fuzzy Set
+
+        Arguments:
+        ----------
+        gt2fs -- the general type-2 fuzzy set
+
+        Returns:
+        --------
+        it2fs -- the resulting interval type-2 fuzzy set
+        &#39;&#39;&#39;
+        it2fs = cls()
+
+        it2fs = gt2fs.z_slice(0)
+
+        return it2fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.IntervalType2FuzzySet.from_hmf_lmf"><code class="name flex">
+<span>def <span class="ident">from_hmf_lmf</span></span>(<span>primary_domain, hmf, lmf)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_hmf_lmf(cls, primary_domain, hmf, lmf):
+        &#39;&#39;&#39;
+        &#39;&#39;&#39;
+        it2fs = cls()
+        for idx, primary_domain_element in enumerate(primary_domain):
+                it2fs.add_element(primary_domain_element, CrispSet(lmf[idx], hmf[idx]))
+
+        return it2fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.IntervalType2FuzzySet.from_representation"><code class="name flex">
+<span>def <span class="ident">from_representation</span></span>(<span>set_representation)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_representation(cls, set_representation):
+        if set_representation == None:
+                raise Exception(&#39;Interval Type-2 Set Representation cannot be null&#39;)
+        if set_representation == &#39;&#39;:
+                raise Exception(&#39;Interval Type-2 Set Representation cannot be empty&#39;)
+
+        it2fs = cls()
+
+        try:
+                # remove spaces, tabs returns,
+                translation_table = dict.fromkeys(map(ord, &#39; \t\n\r&#39;), None)
+                set_representation = set_representation.translate(translation_table)
+
+                # by splitting by &#39;+&#39; we will get the secondary mfs
+                sec_mfs_s = set_representation.split(&#39;+&#39;)
+
+                # so lets go through the membership functions
+                for sec_mf in sec_mfs_s:
+
+                        # we now split the membership function from the
+                        # primary domain value
+                        vslice_points_s, pri_dom_val_s = sec_mf.split(&#39;/&#39;)
+
+                        # get the primary domain value and its corresponding
+                        # index
+                        primary_domain_val = float(pri_dom_val_s)
+
+                        # the vertical slice points is represnted by [left, right]
+                        # remove the braces
+                        translation_table = dict.fromkeys(map(ord, &#39;[]&#39;), None)
+                        vslice_points_s = vslice_points_s.translate(translation_table)
+
+                        # split by the &#39;+&#39; so that we will obtain the individual
+                        # dom / sec domain points
+                        left_s, right_s = vslice_points_s.split(&#39;,&#39;)
+
+                        left = float(left_s)
+                        right = float(right_s)
+
+                        it2fs.add_element(primary_domain_val, CrispSet(left, right))
+        except ValueError:
+                raise Exception(&#39;Invalid set format&#39;)
+
+        return it2fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.IntervalType2FuzzySet.load_file"><code class="name flex">
+<span>def <span class="ident">load_file</span></span>(<span>set_filename)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Loads a interval type-2 fuzzy set from a file. File must have the
+following format:
+'[l1, h1]/x1 + [l2, h2]/x2 + &hellip; + [ln, hn]/xn'</p>
+<h2 id="reference">Reference:</h2>
+<h2 id="arguments">Arguments:</h2>
+<p>set_filename &ndash; string, filename of the set</p>
+<h2 id="returns">Returns:</h2>
+<p>it2fs &ndash; IntervalType2FuzzySet</p>
+<h2 id="raises">Raises:</h2>
+<p>Exception &ndash; if set_filename is empty, None or invalid</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def load_file(cls, set_filename):
+        &#39;&#39;&#39;
+        Loads a interval type-2 fuzzy set from a file. File must have the
+        following format:
+        &#39;[l1, h1]/x1 + [l2, h2]/x2 + ... + [ln, hn]/xn&#39;
+
+        Reference:
+        ---------
+
+        Arguments:
+        ----------
+        set_filename -- string, filename of the set
+
+        Returns:
+        --------
+        it2fs -- IntervalType2FuzzySet
+
+        Raises:
+        -------
+        Exception -- if set_filename is empty, None or invalid
+        &#39;&#39;&#39;
+        representation = &#39;&#39;
+        
+        try:
+                with open(set_filename, &#39;r&#39;) as file:
+                        representation = file.read()
+        except IOError:
+                raise Exception(&#39;Could not read file {}&#39;.format(set_filename))
+        
+        it2fs = cls()
+        it2fs = IntervalType2FuzzySet.from_representation(representation)
+
+        return it2fs</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="type2fuzzy.membership.IntervalType2FuzzySet.empty"><code class="name">var <span class="ident">empty</span></code></dt>
+<dd>
+<section class="desc"><p>Returns True if set is empty</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def empty(self):
+        &#39;&#39;&#39;
+        Returns True if set is empty
+        &#39;&#39;&#39;
+        return self._empty</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="type2fuzzy.membership.IntervalType2FuzzySet.add_element"><code class="name flex">
+<span>def <span class="ident">add_element</span></span>(<span>self, primary_domain_val, crisp_set)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>adds a new element to the interval type 2 set
+if the set already contains a range at the domain value,
+the minimum left and the maximum right are selected.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>primary_domain_val &ndash; float, value of the primary domain
+left_val &ndash; the left (minimum) value
+right_val &ndash; the right (maximum) value</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_element(self, primary_domain_val, crisp_set):
+        &#39;&#39;&#39;
+        adds a new element to the interval type 2 set
+        if the set already contains a range at the domain value,
+        the minimum left and the maximum right are selected.
+
+        Arguments:
+        ----------
+        primary_domain_val -- float, value of the primary domain
+        left_val -- the left (minimum) value
+        right_val -- the right (maximum) value
+        &#39;&#39;&#39;
+
+        if crisp_set.empty:
+                return
+
+        if primary_domain_val in self._interval_set_elements:
+                self._interval_set_elements[primary_domain_val].union(crisp_set)
+        else:
+                self._interval_set_elements[primary_domain_val] = crisp_set
+
+        if self._empty:
+                self._empty = False</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.IntervalType2FuzzySet.higher_membership_function"><code class="name flex">
+<span>def <span class="ident">higher_membership_function</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def higher_membership_function(self):
+
+        hmf = []
+
+        for limits in self._interval_set_elements.values():
+                hmf.append(limits.right)
+        
+        return hmf</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.IntervalType2FuzzySet.lower_membership_function"><code class="name flex">
+<span>def <span class="ident">lower_membership_function</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def lower_membership_function(self):
+
+        umf = []
+
+        for limits in self._interval_set_elements.values():
+                umf.append(limits.left)
+        
+        return umf</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.IntervalType2FuzzySet.mid_domain_element"><code class="name flex">
+<span>def <span class="ident">mid_domain_element</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>returns the middle domain element</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mid_domain_element(self):
+        &#39;&#39;&#39;
+        returns the middle domain element
+        &#39;&#39;&#39;
+        return self.primary_domain()[int(len(self.primary_domain())/2)]</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.IntervalType2FuzzySet.primary_domain"><code class="name flex">
+<span>def <span class="ident">primary_domain</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>The primary domain of this fuzzy set</p>
+<h2 id="arguments">Arguments:</h2>
+<p>None</p>
+<h2 id="returns">Returns:</h2>
+<p>primary_domain &ndash; list, containing all the values in the primary domain</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def primary_domain(self):
+        &#39;&#39;&#39;
+        The primary domain of this fuzzy set
+
+        Arguments:
+        ----------
+        None
+
+        Returns:
+        --------
+        primary_domain -- list, containing all the values in the primary domain
+        &#39;&#39;&#39;
+        primary_domain = list(self._interval_set_elements.keys())
+        return primary_domain</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="type2fuzzy.membership.SecondaryMembershipFunction"><code class="flex name class">
+<span>class <span class="ident">SecondaryMembershipFunction</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>A secondary membership function is a vertical slice of mu(X=x, u)</p>
+<h2 id="reference">Reference:</h2>
+<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+Trans. Fuzzy Syst., vol. 10, no. 2, pp. 117–127, Apr. 2002.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SecondaryMembershipFunction(Type1FuzzySet):
+        &#39;&#39;&#39;
+        A secondary membership function is a vertical slice of mu(X=x, u)
+
+        Reference:
+        ----------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Syst., vol. 10, no. 2, pp. 117–127, Apr. 2002.
+        &#39;&#39;&#39;
+
+        def __init__(self):
+                        super().__init__()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet" href="type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet">Type1FuzzySet</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet" href="type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet">Type1FuzzySet</a></b></code>:
+<ul class="hlist">
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.add_element" href="type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.add_element">add_element</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_triangular" href="type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_triangular">create_triangular</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_triangular_ex" href="type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_triangular_ex">create_triangular_ex</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.degree_of_membership" href="type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.degree_of_membership">degree_of_membership</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.dom_elements" href="type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.dom_elements">dom_elements</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.domain_elements" href="type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.domain_elements">domain_elements</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.domain_limits" href="type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.domain_limits">domain_limits</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.elements" href="type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.elements">elements</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.empty" href="type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.empty">empty</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.from_representation" href="type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.from_representation">from_representation</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.size" href="type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.size">size</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet"><code class="flex name class">
+<span>class <span class="ident">Type1FuzzySet</span></span>
+</code></dt>
+<dd>
+<section class="desc"><h2 id="reference">Reference:</h2>
+<p>Zadeh, Lotfi Asker. "The concept of a linguistic variable and its
+application to approximate reasoning—I." Information sciences 8.3 (1975): 199-249.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Type1FuzzySet:
+        &#39;&#39;&#39;
+        Reference:
+        ----------
+        Zadeh, Lotfi Asker. &#34;The concept of a linguistic variable and its 
+        application to approximate reasoning—I.&#34; Information sciences 8.3 (1975): 199-249.
+
+        &#39;&#39;&#39;
+        def __init__(self):
+                self._elements = {}
+                self._empty = True
+                self._precision = 3
+
+        def __eq__(self, value):
+                current_domain_len = len(self.domain_elements())
+                value_domain_len = len(value.domain_elements())
+                union_domain_len = len(list(set(self.domain_elements()).union(value.domain_elements())))
+
+                if current_domain_len != value_domain_len:
+                        return False
+
+                if union_domain_len != value_domain_len:
+                        return False
+
+                current_dom_len = len(self.degree_of_membership())
+                value_dom_len = len(value.degree_of_membership())
+                union_dom_len = len(list(set(self.degree_of_membership()).union(value.degree_of_membership())))
+
+                if current_dom_len != value_dom_len:
+                        return False
+
+                if union_dom_len != value_dom_len:
+                        return False
+
+                return True
+
+        def __getitem__(self, x_val):
+                &#39;&#39;&#39;
+                For a given value of x, return the degree of membership
+
+                Reference:
+                ----------
+                Zadeh, Lotfi Asker. &#34;The concept of a linguistic variable and its 
+                application to approximate reasoning—I.&#34; Information sciences 8.3 (1975): 199-249.
+
+                Arguments:
+                ----------
+                x_val -- value of x 
+
+                Returns:
+                --------
+                degree of membership -- float
+
+                &#39;&#39;&#39;
+                return self._elements[x_val]
+
+        def __str__(self):
+
+                set_elements = []
+                dec_places_formatter = &#39;&#39;&#39;%0.{}f&#39;&#39;&#39;.format(self._precision)
+
+                for domain_val, dom_val in self._elements.items():
+                        set_elements.append(f&#39;{dec_places_formatter % dom_val}/{dec_places_formatter % domain_val}&#39;)
+
+                set_representation = &#39; + &#39;.join(set_elements)
+
+                return set_representation
+
+        def __repr__(self):
+                return f&#39;{self.__class__.__name__}({str(self)})&#39;
+
+        @ classmethod
+        def from_representation(cls, set_representation):
+                &#39;&#39;&#39;
+                Creates a type-1 fuzzy set from a set representation of the form
+                &#39;a1/u1 + a2/u2 + ... + an/un&#39;
+
+                Reference:
+                ---------
+                Zadeh, Lotfi Asker. &#34;The concept of a linguistic variable and its 
+                application to approximate reasoning—I.&#34; Information sciences 8.3 (1975): 199-249.
+
+                Arguments:
+                ----------
+                set_representation -- string, representation of the t1fs
+
+                Returns:
+                --------
+                t1fs -- Type-1 Fuzzy Set
+
+                Raises:
+                -------
+                Exception -- if set_representation is empty, None or invalid
+                &#39;&#39;&#39;
+                if set_representation == None:
+                        raise Exception(&#39;Type-1 Set Representation cannot be null&#39;)
+                if set_representation == &#39;&#39;:
+                        raise Exception(&#39;Type-1 Set Representation cannot be empty&#39;)
+
+                t1fs = cls()
+
+                try:
+                        # remove spaces, tabs returns,
+                        translation_table = dict.fromkeys(map(ord, &#39; \t\n\r&#39;), None)
+                        set_representation = set_representation.translate(translation_table)
+
+                        # by splitting by + we will get 
+                        # the degree of memberships / domain combinations
+                        set_elements = set_representation.split(&#39;+&#39;)
+
+                        for element in set_elements:
+                                # we now split the membership function from the
+                                # primary domain value
+                                dom_val, domain_val = element.split(&#39;/&#39;)
+                                t1fs.add_element(float(domain_val), float(dom_val))
+
+                except ValueError:
+                        raise Exception(&#39;Invalid set type-1 format&#39;)
+
+                return t1fs
+
+        @ classmethod
+        def from_alphacut_type1_set(cls, alphacut_set):
+                
+                t1fs = cls()
+                for cut in alphacut_set.cuts():
+                        limits = alphacut_set[cut]
+                        t1fs.add_element(limits.left, cut)
+                        t1fs.add_element(limits.right, cut)
+
+                # sort dictionary with domain 
+                # TODO. do this if required only
+                domain_list = t1fs.domain_elements()
+                domain_list.sort()
+                new_elements = {}
+                for domain_value in domain_list:
+                        new_elements[domain_value] = t1fs._elements[domain_value]
+                t1fs._elements = new_elements
+
+                return t1fs
+
+        @classmethod
+        def create_triangular(cls, univ_low, univ_hi, univ_res, set_low, set_mid, set_hi):
+
+                &#39;&#39;&#39;
+                Creates a triangular type 1 fuzzy set in a defined universe of discourse
+                The triangle is mage of three points; the low where the dom is 0, the mid where the
+                dom is 1 and the high where the dom is 0
+
+                References
+                ----------
+                Pedrycz, Witold, and Fernando Gomide. 
+                An introduction to fuzzy sets: analysis and design. Mit Press, 1998.
+
+                Arguments:
+                ----------
+                univ_low -- lower value of the universe of discourse
+                univ_hi -- higher value of the universe of discourse
+                univ_res -- resolution of the universe of discourse
+                set_low -- sel low point, where dom is 0
+                set_mid -- sel mid point, where dom is 1
+                set_hi -- sel high point, where dom is 0
+
+                Returns:
+                --------
+                The new type1 triangular fuzzy set
+                &#39;&#39;&#39;
+
+                if univ_hi &lt;= univ_low:
+                        raise Exception(&#39;Error in universe definition&#39;)
+                if (set_hi &lt; set_mid) or (set_mid &lt; set_low):
+                        raise Exception(&#39;Error in triangular set definition&#39;)
+
+                t1fs = cls()
+
+                precision = len(str(univ_res))
+                domain_elements =  np.round(np.linspace(univ_low, univ_hi, univ_res), precision)
+
+                idx = (np.abs(domain_elements - set_mid)).argmin()
+                set_mid = domain_elements[idx]
+
+                idx = (np.abs(domain_elements - set_low)).argmin()
+                set_low = domain_elements[idx]
+
+                idx = (np.abs(domain_elements - set_hi)).argmin()
+                set_hi = domain_elements[idx]
+
+                for domain_val in domain_elements:
+                        # get the dom of the set at the point
+                        dom = max(min((domain_val-set_low)/(set_mid-set_low), (set_hi-domain_val)/(set_hi-set_mid)), 0)
+
+                        # idx = (np.abs(domain_elements - set_mid)).argmin()
+                        # dom = domain_elements[idx]
+
+                        t1fs.add_element(domain_val, dom)
+
+                return t1fs
+
+        @classmethod
+        def create_triangular_ex(cls, primary_domain, a, b, c):
+
+                &#39;&#39;&#39;
+                Creates a triangular type 1 fuzzy set in a defined universe of discourse
+                The triangle is mage of three points; the low where the dom is 0, the mid where the
+                dom is 1 and the high where the dom is 0
+
+                References
+                ----------
+                Pedrycz, Witold, and Fernando Gomide. 
+                An introduction to fuzzy sets: analysis and design. Mit Press, 1998.
+
+                Arguments:
+                ----------
+
+                a -- set low point, where dom is 0
+                b -- set mid point, where dom is 1
+                c -- set high point, where dom is 0
+
+                Returns:
+                --------
+                The new type1 triangular fuzzy set
+                &#39;&#39;&#39;
+                if (c &lt;= b) or (b &lt;= a):
+                        raise Exception(&#39;Error in triangular set definition&#39;)
+
+                t1fs = cls()
+
+                for x in primary_domain:
+                        dom = max(min((x - a)/(b - a), (c - x)/(c - b)), 0)
+                        t1fs.add_element(x, dom)
+
+                return t1fs
+
+        @staticmethod
+        def adjust_value(val, val_array):
+                idx = (np.abs(val_array - val)).argmin()
+                return val_array[idx]
+
+        @classmethod
+        def create_trapezoidal(cls, domain, a, b, c, d):
+                &#39;&#39;&#39;
+                &#39;&#39;&#39;
+                t1fs = cls()
+
+                for domain_val in domain:
+                        if domain_val &gt; a and domain_val &lt; d:
+                                if b == a:
+                                        dom = min(max((d-domain_val)/(d-c), 0), 1)
+                                elif d==c:
+                                        dom = min(max((domain_val-a)/(b-a), 0), 1)
+                                else:
+                                        dom = min(max(min((domain_val-a)/(b-a), (d-domain_val)/(d-c)), 0), 1)
+
+                                t1fs.add_element(domain_val, dom)
+
+                return t1fs
+
+        @property
+        def empty(self):
+                &#39;&#39;&#39;
+                True if the set is empty, i.e. there is no element with dom &gt; 0
+                &#39;&#39;&#39;
+                return self._empty
+
+        def elements(self):
+                &#39;&#39;&#39;
+                Returns a copy of the elements making up this t1fs in the form a dictionary
+
+                Arguments:
+                ----------
+
+                Returns:
+                --------
+                elements - dict, containing domain:degree_of_membership pairs
+                &#39;&#39;&#39;
+                elements = self._elements
+                return elements
+
+        def element_count(self):
+                return len(self._elements)
+
+        def add_element(self, domain_val, dom_val):
+                &#39;&#39;&#39;
+                Adds a new element to the t1fs. If there is already an element at the stated
+                domain value the maximum degree of membership value is kept
+
+                Arguments:
+                ----------
+                domain_val -- float, the value of x
+                degree_of_membership, float value between 0 and 1. The degree of membership
+                &#39;&#39;&#39;
+                if dom_val &gt; 1:
+                        raise ValueError(&#39;degree of membership must not be greater than 1, {} : {}&#39;.format(domain_val, dom_val))
+
+                if domain_val in self._elements:
+                        self._elements[domain_val] = max(self._elements[domain_val], dom_val)
+                else:
+                        self._elements[domain_val] = dom_val
+                        self._empty = False
+
+        def domain_elements(self):
+                &#39;&#39;&#39;
+                Return a list of all the domain elements
+
+                Returns:
+                --------
+                domain_vals -- list, containing all the values of the domain
+                &#39;&#39;&#39;
+                domain_vals = list(self._elements.keys())
+                return domain_vals
+        
+        def dom_elements(self):
+                &#39;&#39;&#39;
+                Returns a list of all the doms in the set
+
+                Returns:
+                --------
+                dom_vals -- list, containing all the values of the dom
+                &#39;&#39;&#39;
+                dom_vals = list(self._elements.values())
+                return dom_vals
+
+        def degree_of_membership(self):
+                &#39;&#39;&#39;
+                Return a list of all the degree of membership values
+
+                Returns:
+                --------
+                doms -- list, containing all the values of the degree of membership values
+                &#39;&#39;&#39;
+                doms = list(self._elements.values())
+                return doms
+
+        def size(self):
+                &#39;&#39;&#39;
+                The size of the set
+
+                Returns:
+                --------
+                set_size: int, the number of elements in the set
+                &#39;&#39;&#39;
+                set_size = len(self._elements)
+                return set_size
+
+        def domain_limits(self):
+                &#39;&#39;&#39;
+                Returns the domain limits of this t1fs
+
+                Reference:
+                ----------
+
+                Arguments:
+                ----------
+
+                Returns:
+                --------
+                limits -- CrispSet containting the smallest an largest domain value
+                &#39;&#39;&#39;
+                limits = CrispSet(min(self._elements.keys()), max(self._elements.keys()))
+                return limits
+        
+        def alpha_cut(self, alpha_val):
+
+                if alpha_val == 0:
+                        filter_idx = (np.array(self.degree_of_membership()) &gt; 0).nonzero()[0]
+
+                else:
+                # create a filter of the degrees of membership that exceed the cut value
+                        filter_idx = (np.array(self.degree_of_membership()) &gt;= alpha_val).nonzero()[0]
+
+                # appply the filter on the domain to get the values included in the alpha-cut
+                cut = np.array(self.domain_elements())[filter_idx]
+
+                limits = CrispSet()
+
+                if len(cut&gt;0):
+                        limits.left = min(cut)
+                        limits.right = max(cut)
+
+                return limits
+
+        def extend(self, func):
+
+                resultant_set = Type1FuzzySet()
+
+                for domain_val in self.domain_elements():
+                        resultant_set.add_element(func(domain_val), self[domain_val])
+                
+                return resultant_set
+
+        # operators
+        def join(self, a_set):
+
+                resultant_set = Type1FuzzySet()
+
+                for domain_element in self.domain_elements():
+                        for a_set_domain_element in a_set.domain_elements():
+                                
+                                resultant_set.add_element(max(domain_element, a_set_domain_element), 
+                                                                                        min(self[domain_element], a_set[a_set_domain_element]))
+
+                return resultant_set
+
+        def meet(self, a_set):
+
+                resultant_set = Type1FuzzySet()
+
+                for domain_element in self.domain_elements():
+                        for a_set_domain_element in a_set.domain_elements():
+                                
+                                resultant_set.add_element(min(domain_element, a_set_domain_element), 
+                                                                                        min(self[domain_element], a_set[a_set_domain_element]))
+
+                return resultant_set
+
+        def negation(self):
+                resultant_set = Type1FuzzySet()
+
+                for domain_element in self.domain_elements():
+                                resultant_set.add_element(1 - domain_element, 
+                                                                                        self[domain_element])
+
+                return resultant_set
+
+        def union(self, other_smf):
+                resultant_set = set.intersection(set(self._elements), set(other_smf._elements))
+
+                resultant_smf = {}
+                for  domain_val in resultant_set:
+                        resultant_smf[domain_val] = max(self._elements[domain_val], other_smf.elements[domain_val])
+
+                return resultant_smf
+
+        def intersection(self, other_smf):
+                &#39;&#39;&#39;
+                &#39;&#39;&#39;
+                resultant_set = set.intersection(set(self._elements), set(other_smf._elements))
+
+                resultant_smf = {}
+                for  domain_val in resultant_set:
+                        resultant_smf[domain_val] = min(self._elements[domain_val], other_smf.elements[domain_val])
+
+                return resultant_smf</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="type2fuzzy.membership.secondarymf.SecondaryMembershipFunction" href="secondarymf.html#type2fuzzy.membership.secondarymf.SecondaryMembershipFunction">SecondaryMembershipFunction</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="type2fuzzy.membership.Type1FuzzySet.adjust_value"><code class="name flex">
+<span>def <span class="ident">adjust_value</span></span>(<span>val, val_array)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def adjust_value(val, val_array):
+        idx = (np.abs(val_array - val)).argmin()
+        return val_array[idx]</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.create_trapezoidal"><code class="name flex">
+<span>def <span class="ident">create_trapezoidal</span></span>(<span>domain, a, b, c, d)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def create_trapezoidal(cls, domain, a, b, c, d):
+        &#39;&#39;&#39;
+        &#39;&#39;&#39;
+        t1fs = cls()
+
+        for domain_val in domain:
+                if domain_val &gt; a and domain_val &lt; d:
+                        if b == a:
+                                dom = min(max((d-domain_val)/(d-c), 0), 1)
+                        elif d==c:
+                                dom = min(max((domain_val-a)/(b-a), 0), 1)
+                        else:
+                                dom = min(max(min((domain_val-a)/(b-a), (d-domain_val)/(d-c)), 0), 1)
+
+                        t1fs.add_element(domain_val, dom)
+
+        return t1fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.create_triangular"><code class="name flex">
+<span>def <span class="ident">create_triangular</span></span>(<span>univ_low, univ_hi, univ_res, set_low, set_mid, set_hi)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates a triangular type 1 fuzzy set in a defined universe of discourse
+The triangle is mage of three points; the low where the dom is 0, the mid where the
+dom is 1 and the high where the dom is 0</p>
+<h2 id="references">References</h2>
+<p>Pedrycz, Witold, and Fernando Gomide.
+An introduction to fuzzy sets: analysis and design. Mit Press, 1998.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>univ_low &ndash; lower value of the universe of discourse
+univ_hi &ndash; higher value of the universe of discourse
+univ_res &ndash; resolution of the universe of discourse
+set_low &ndash; sel low point, where dom is 0
+set_mid &ndash; sel mid point, where dom is 1
+set_hi &ndash; sel high point, where dom is 0</p>
+<h2 id="returns">Returns:</h2>
+<p>The new type1 triangular fuzzy set</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def create_triangular(cls, univ_low, univ_hi, univ_res, set_low, set_mid, set_hi):
+
+        &#39;&#39;&#39;
+        Creates a triangular type 1 fuzzy set in a defined universe of discourse
+        The triangle is mage of three points; the low where the dom is 0, the mid where the
+        dom is 1 and the high where the dom is 0
+
+        References
+        ----------
+        Pedrycz, Witold, and Fernando Gomide. 
+        An introduction to fuzzy sets: analysis and design. Mit Press, 1998.
+
+        Arguments:
+        ----------
+        univ_low -- lower value of the universe of discourse
+        univ_hi -- higher value of the universe of discourse
+        univ_res -- resolution of the universe of discourse
+        set_low -- sel low point, where dom is 0
+        set_mid -- sel mid point, where dom is 1
+        set_hi -- sel high point, where dom is 0
+
+        Returns:
+        --------
+        The new type1 triangular fuzzy set
+        &#39;&#39;&#39;
+
+        if univ_hi &lt;= univ_low:
+                raise Exception(&#39;Error in universe definition&#39;)
+        if (set_hi &lt; set_mid) or (set_mid &lt; set_low):
+                raise Exception(&#39;Error in triangular set definition&#39;)
+
+        t1fs = cls()
+
+        precision = len(str(univ_res))
+        domain_elements =  np.round(np.linspace(univ_low, univ_hi, univ_res), precision)
+
+        idx = (np.abs(domain_elements - set_mid)).argmin()
+        set_mid = domain_elements[idx]
+
+        idx = (np.abs(domain_elements - set_low)).argmin()
+        set_low = domain_elements[idx]
+
+        idx = (np.abs(domain_elements - set_hi)).argmin()
+        set_hi = domain_elements[idx]
+
+        for domain_val in domain_elements:
+                # get the dom of the set at the point
+                dom = max(min((domain_val-set_low)/(set_mid-set_low), (set_hi-domain_val)/(set_hi-set_mid)), 0)
+
+                # idx = (np.abs(domain_elements - set_mid)).argmin()
+                # dom = domain_elements[idx]
+
+                t1fs.add_element(domain_val, dom)
+
+        return t1fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.create_triangular_ex"><code class="name flex">
+<span>def <span class="ident">create_triangular_ex</span></span>(<span>primary_domain, a, b, c)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates a triangular type 1 fuzzy set in a defined universe of discourse
+The triangle is mage of three points; the low where the dom is 0, the mid where the
+dom is 1 and the high where the dom is 0</p>
+<h2 id="references">References</h2>
+<p>Pedrycz, Witold, and Fernando Gomide.
+An introduction to fuzzy sets: analysis and design. Mit Press, 1998.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>a &ndash; set low point, where dom is 0
+b &ndash; set mid point, where dom is 1
+c &ndash; set high point, where dom is 0</p>
+<h2 id="returns">Returns:</h2>
+<p>The new type1 triangular fuzzy set</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def create_triangular_ex(cls, primary_domain, a, b, c):
+
+        &#39;&#39;&#39;
+        Creates a triangular type 1 fuzzy set in a defined universe of discourse
+        The triangle is mage of three points; the low where the dom is 0, the mid where the
+        dom is 1 and the high where the dom is 0
+
+        References
+        ----------
+        Pedrycz, Witold, and Fernando Gomide. 
+        An introduction to fuzzy sets: analysis and design. Mit Press, 1998.
+
+        Arguments:
+        ----------
+
+        a -- set low point, where dom is 0
+        b -- set mid point, where dom is 1
+        c -- set high point, where dom is 0
+
+        Returns:
+        --------
+        The new type1 triangular fuzzy set
+        &#39;&#39;&#39;
+        if (c &lt;= b) or (b &lt;= a):
+                raise Exception(&#39;Error in triangular set definition&#39;)
+
+        t1fs = cls()
+
+        for x in primary_domain:
+                dom = max(min((x - a)/(b - a), (c - x)/(c - b)), 0)
+                t1fs.add_element(x, dom)
+
+        return t1fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.from_alphacut_type1_set"><code class="name flex">
+<span>def <span class="ident">from_alphacut_type1_set</span></span>(<span>alphacut_set)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@ classmethod
+def from_alphacut_type1_set(cls, alphacut_set):
+        
+        t1fs = cls()
+        for cut in alphacut_set.cuts():
+                limits = alphacut_set[cut]
+                t1fs.add_element(limits.left, cut)
+                t1fs.add_element(limits.right, cut)
+
+        # sort dictionary with domain 
+        # TODO. do this if required only
+        domain_list = t1fs.domain_elements()
+        domain_list.sort()
+        new_elements = {}
+        for domain_value in domain_list:
+                new_elements[domain_value] = t1fs._elements[domain_value]
+        t1fs._elements = new_elements
+
+        return t1fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.from_representation"><code class="name flex">
+<span>def <span class="ident">from_representation</span></span>(<span>set_representation)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates a type-1 fuzzy set from a set representation of the form
+'a1/u1 + a2/u2 + &hellip; + an/un'</p>
+<h2 id="reference">Reference:</h2>
+<p>Zadeh, Lotfi Asker. "The concept of a linguistic variable and its
+application to approximate reasoning—I." Information sciences 8.3 (1975): 199-249.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>set_representation &ndash; string, representation of the t1fs</p>
+<h2 id="returns">Returns:</h2>
+<p>t1fs &ndash; Type-1 Fuzzy Set</p>
+<h2 id="raises">Raises:</h2>
+<p>Exception &ndash; if set_representation is empty, None or invalid</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@ classmethod
+def from_representation(cls, set_representation):
+        &#39;&#39;&#39;
+        Creates a type-1 fuzzy set from a set representation of the form
+        &#39;a1/u1 + a2/u2 + ... + an/un&#39;
+
+        Reference:
+        ---------
+        Zadeh, Lotfi Asker. &#34;The concept of a linguistic variable and its 
+        application to approximate reasoning—I.&#34; Information sciences 8.3 (1975): 199-249.
+
+        Arguments:
+        ----------
+        set_representation -- string, representation of the t1fs
+
+        Returns:
+        --------
+        t1fs -- Type-1 Fuzzy Set
+
+        Raises:
+        -------
+        Exception -- if set_representation is empty, None or invalid
+        &#39;&#39;&#39;
+        if set_representation == None:
+                raise Exception(&#39;Type-1 Set Representation cannot be null&#39;)
+        if set_representation == &#39;&#39;:
+                raise Exception(&#39;Type-1 Set Representation cannot be empty&#39;)
+
+        t1fs = cls()
+
+        try:
+                # remove spaces, tabs returns,
+                translation_table = dict.fromkeys(map(ord, &#39; \t\n\r&#39;), None)
+                set_representation = set_representation.translate(translation_table)
+
+                # by splitting by + we will get 
+                # the degree of memberships / domain combinations
+                set_elements = set_representation.split(&#39;+&#39;)
+
+                for element in set_elements:
+                        # we now split the membership function from the
+                        # primary domain value
+                        dom_val, domain_val = element.split(&#39;/&#39;)
+                        t1fs.add_element(float(domain_val), float(dom_val))
+
+        except ValueError:
+                raise Exception(&#39;Invalid set type-1 format&#39;)
+
+        return t1fs</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="type2fuzzy.membership.Type1FuzzySet.empty"><code class="name">var <span class="ident">empty</span></code></dt>
+<dd>
+<section class="desc"><p>True if the set is empty, i.e. there is no element with dom &gt; 0</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def empty(self):
+        &#39;&#39;&#39;
+        True if the set is empty, i.e. there is no element with dom &gt; 0
+        &#39;&#39;&#39;
+        return self._empty</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="type2fuzzy.membership.Type1FuzzySet.add_element"><code class="name flex">
+<span>def <span class="ident">add_element</span></span>(<span>self, domain_val, dom_val)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Adds a new element to the t1fs. If there is already an element at the stated
+domain value the maximum degree of membership value is kept</p>
+<h2 id="arguments">Arguments:</h2>
+<p>domain_val &ndash; float, the value of x
+degree_of_membership, float value between 0 and 1. The degree of membership</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_element(self, domain_val, dom_val):
+        &#39;&#39;&#39;
+        Adds a new element to the t1fs. If there is already an element at the stated
+        domain value the maximum degree of membership value is kept
+
+        Arguments:
+        ----------
+        domain_val -- float, the value of x
+        degree_of_membership, float value between 0 and 1. The degree of membership
+        &#39;&#39;&#39;
+        if dom_val &gt; 1:
+                raise ValueError(&#39;degree of membership must not be greater than 1, {} : {}&#39;.format(domain_val, dom_val))
+
+        if domain_val in self._elements:
+                self._elements[domain_val] = max(self._elements[domain_val], dom_val)
+        else:
+                self._elements[domain_val] = dom_val
+                self._empty = False</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.alpha_cut"><code class="name flex">
+<span>def <span class="ident">alpha_cut</span></span>(<span>self, alpha_val)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def alpha_cut(self, alpha_val):
+
+        if alpha_val == 0:
+                filter_idx = (np.array(self.degree_of_membership()) &gt; 0).nonzero()[0]
+
+        else:
+        # create a filter of the degrees of membership that exceed the cut value
+                filter_idx = (np.array(self.degree_of_membership()) &gt;= alpha_val).nonzero()[0]
+
+        # appply the filter on the domain to get the values included in the alpha-cut
+        cut = np.array(self.domain_elements())[filter_idx]
+
+        limits = CrispSet()
+
+        if len(cut&gt;0):
+                limits.left = min(cut)
+                limits.right = max(cut)
+
+        return limits</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.degree_of_membership"><code class="name flex">
+<span>def <span class="ident">degree_of_membership</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Return a list of all the degree of membership values</p>
+<h2 id="returns">Returns:</h2>
+<p>doms &ndash; list, containing all the values of the degree of membership values</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def degree_of_membership(self):
+        &#39;&#39;&#39;
+        Return a list of all the degree of membership values
+
+        Returns:
+        --------
+        doms -- list, containing all the values of the degree of membership values
+        &#39;&#39;&#39;
+        doms = list(self._elements.values())
+        return doms</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.dom_elements"><code class="name flex">
+<span>def <span class="ident">dom_elements</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns a list of all the doms in the set</p>
+<h2 id="returns">Returns:</h2>
+<p>dom_vals &ndash; list, containing all the values of the dom</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dom_elements(self):
+        &#39;&#39;&#39;
+        Returns a list of all the doms in the set
+
+        Returns:
+        --------
+        dom_vals -- list, containing all the values of the dom
+        &#39;&#39;&#39;
+        dom_vals = list(self._elements.values())
+        return dom_vals</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.domain_elements"><code class="name flex">
+<span>def <span class="ident">domain_elements</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Return a list of all the domain elements</p>
+<h2 id="returns">Returns:</h2>
+<p>domain_vals &ndash; list, containing all the values of the domain</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def domain_elements(self):
+        &#39;&#39;&#39;
+        Return a list of all the domain elements
+
+        Returns:
+        --------
+        domain_vals -- list, containing all the values of the domain
+        &#39;&#39;&#39;
+        domain_vals = list(self._elements.keys())
+        return domain_vals</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.domain_limits"><code class="name flex">
+<span>def <span class="ident">domain_limits</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns the domain limits of this t1fs</p>
+<h2 id="reference">Reference:</h2>
+<h2 id="arguments">Arguments:</h2>
+<h2 id="returns">Returns:</h2>
+<p>limits &ndash; CrispSet containting the smallest an largest domain value</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def domain_limits(self):
+        &#39;&#39;&#39;
+        Returns the domain limits of this t1fs
+
+        Reference:
+        ----------
+
+        Arguments:
+        ----------
+
+        Returns:
+        --------
+        limits -- CrispSet containting the smallest an largest domain value
+        &#39;&#39;&#39;
+        limits = CrispSet(min(self._elements.keys()), max(self._elements.keys()))
+        return limits</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.element_count"><code class="name flex">
+<span>def <span class="ident">element_count</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def element_count(self):
+        return len(self._elements)</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.elements"><code class="name flex">
+<span>def <span class="ident">elements</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns a copy of the elements making up this t1fs in the form a dictionary</p>
+<h2 id="arguments">Arguments:</h2>
+<h2 id="returns">Returns:</h2>
+<p>elements - dict, containing domain:degree_of_membership pairs</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def elements(self):
+        &#39;&#39;&#39;
+        Returns a copy of the elements making up this t1fs in the form a dictionary
+
+        Arguments:
+        ----------
+
+        Returns:
+        --------
+        elements - dict, containing domain:degree_of_membership pairs
+        &#39;&#39;&#39;
+        elements = self._elements
+        return elements</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.extend"><code class="name flex">
+<span>def <span class="ident">extend</span></span>(<span>self, func)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extend(self, func):
+
+        resultant_set = Type1FuzzySet()
+
+        for domain_val in self.domain_elements():
+                resultant_set.add_element(func(domain_val), self[domain_val])
+        
+        return resultant_set</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.intersection"><code class="name flex">
+<span>def <span class="ident">intersection</span></span>(<span>self, other_smf)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def intersection(self, other_smf):
+        &#39;&#39;&#39;
+        &#39;&#39;&#39;
+        resultant_set = set.intersection(set(self._elements), set(other_smf._elements))
+
+        resultant_smf = {}
+        for  domain_val in resultant_set:
+                resultant_smf[domain_val] = min(self._elements[domain_val], other_smf.elements[domain_val])
+
+        return resultant_smf</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.join"><code class="name flex">
+<span>def <span class="ident">join</span></span>(<span>self, a_set)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def join(self, a_set):
+
+        resultant_set = Type1FuzzySet()
+
+        for domain_element in self.domain_elements():
+                for a_set_domain_element in a_set.domain_elements():
+                        
+                        resultant_set.add_element(max(domain_element, a_set_domain_element), 
+                                                                                min(self[domain_element], a_set[a_set_domain_element]))
+
+        return resultant_set</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.meet"><code class="name flex">
+<span>def <span class="ident">meet</span></span>(<span>self, a_set)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def meet(self, a_set):
+
+        resultant_set = Type1FuzzySet()
+
+        for domain_element in self.domain_elements():
+                for a_set_domain_element in a_set.domain_elements():
+                        
+                        resultant_set.add_element(min(domain_element, a_set_domain_element), 
+                                                                                min(self[domain_element], a_set[a_set_domain_element]))
+
+        return resultant_set</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.negation"><code class="name flex">
+<span>def <span class="ident">negation</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def negation(self):
+        resultant_set = Type1FuzzySet()
+
+        for domain_element in self.domain_elements():
+                        resultant_set.add_element(1 - domain_element, 
+                                                                                self[domain_element])
+
+        return resultant_set</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.size"><code class="name flex">
+<span>def <span class="ident">size</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>The size of the set</p>
+<h2 id="returns">Returns:</h2>
+<p>set_size: int, the number of elements in the set</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def size(self):
+        &#39;&#39;&#39;
+        The size of the set
+
+        Returns:
+        --------
+        set_size: int, the number of elements in the set
+        &#39;&#39;&#39;
+        set_size = len(self._elements)
+        return set_size</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.Type1FuzzySet.union"><code class="name flex">
+<span>def <span class="ident">union</span></span>(<span>self, other_smf)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def union(self, other_smf):
+        resultant_set = set.intersection(set(self._elements), set(other_smf._elements))
+
+        resultant_smf = {}
+        for  domain_val in resultant_set:
+                resultant_smf[domain_val] = max(self._elements[domain_val], other_smf.elements[domain_val])
+
+        return resultant_smf</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="type2fuzzy.membership.ZSliceType2FuzzySet"><code class="flex name class">
+<span>class <span class="ident">ZSliceType2FuzzySet</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>datastructure defining a z-slice type-2 fuzzy set is a dictionary having
+an interval type-2 fuzzy set for every z_value such as:
+key: value of z-slice
+value: corresponding interval typ2-2 fuzzy set</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ZSliceType2FuzzySet:
+
+        def __init__(self):
+                &#39;&#39;&#39;
+                datastructure defining a z-slice type-2 fuzzy set is a dictionary having
+                an interval type-2 fuzzy set for every z_value such as:
+                key: value of z-slice
+                value: corresponding interval typ2-2 fuzzy set
+                &#39;&#39;&#39;
+                self._z_slice_set_elements = {}
+                self._empty = True
+
+        @ classmethod
+        def from_general_type2_set(cls, gt2fs, no_slices):
+                
+                zt2fs = cls()
+
+                z_vals = np.linspace(0, 1, no_slices+1)
+
+                for z_val in z_vals:
+                        z_sliced_set =  gt2fs.z_slice(z_val)
+
+                        if not z_sliced_set.empty:
+                                zt2fs.add_element(z_val, z_sliced_set)# 
+                                zt2fs._empty = False
+                return zt2fs
+
+        @property
+        def empty(self):
+                return self._empty
+
+        def add_element(self, z_slice_val, z_sliced_set):
+                self._z_slice_set_elements[z_slice_val] = z_sliced_set
+
+
+        @staticmethod
+        def adjust_value(val, val_array):
+                val_array=np.array(val_array)
+                idx = (np.abs(val_array - val)).argmin()
+                return val_array[idx]
+
+        def __getitem__(self, z_slice_val):
+                &#39;&#39;&#39;
+                For a given z-slice value, 
+                return the corresponding interval type-2 fuzzy set
+
+                Arguments:
+                ----------
+                z_slice_val -- value of z-slice
+
+                Returns:
+                --------
+                it2fs - corresponding interval type-2 set
+                &#39;&#39;&#39;
+                if z_slice_val not in self.zslices():
+                        raise Exception(f&#39;z-slice value of {z_slice_val} not in this set.&#39;)
+
+                z_slice_val = self.adjust_value(z_slice_val, self.zslices())
+
+                return self._z_slice_set_elements[z_slice_val]
+
+        def zslices(self):
+                return list(self._z_slice_set_elements.keys())
+
+        def __str__(self):
+                &#39;&#39;&#39;
+
+                &#39;&#39;&#39;
+                representation = []
+
+                for slice in self._z_slice_set_elements:
+                        representation.append(f&#39;slice {slice}:\n {self._z_slice_set_elements[slice]}&#39;)
+
+                return &#39;\n&#39;.join(representation)
+        
+        def __repr__(self):
+                return f&#39;{self.__class__.__name__}(str(self))&#39;</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="type2fuzzy.membership.ZSliceType2FuzzySet.adjust_value"><code class="name flex">
+<span>def <span class="ident">adjust_value</span></span>(<span>val, val_array)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def adjust_value(val, val_array):
+        val_array=np.array(val_array)
+        idx = (np.abs(val_array - val)).argmin()
+        return val_array[idx]</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.ZSliceType2FuzzySet.from_general_type2_set"><code class="name flex">
+<span>def <span class="ident">from_general_type2_set</span></span>(<span>gt2fs, no_slices)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@ classmethod
+def from_general_type2_set(cls, gt2fs, no_slices):
+        
+        zt2fs = cls()
+
+        z_vals = np.linspace(0, 1, no_slices+1)
+
+        for z_val in z_vals:
+                z_sliced_set =  gt2fs.z_slice(z_val)
+
+                if not z_sliced_set.empty:
+                        zt2fs.add_element(z_val, z_sliced_set)# 
+                        zt2fs._empty = False
+        return zt2fs</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="type2fuzzy.membership.ZSliceType2FuzzySet.empty"><code class="name">var <span class="ident">empty</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def empty(self):
+        return self._empty</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="type2fuzzy.membership.ZSliceType2FuzzySet.add_element"><code class="name flex">
+<span>def <span class="ident">add_element</span></span>(<span>self, z_slice_val, z_sliced_set)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_element(self, z_slice_val, z_sliced_set):
+        self._z_slice_set_elements[z_slice_val] = z_sliced_set</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.ZSliceType2FuzzySet.zslices"><code class="name flex">
+<span>def <span class="ident">zslices</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def zslices(self):
+        return list(self._z_slice_set_elements.keys())</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="type2fuzzy" href="../index.html">type2fuzzy</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="type2fuzzy.membership.alphacuttype1fuzzyset" href="alphacuttype1fuzzyset.html">type2fuzzy.membership.alphacuttype1fuzzyset</a></code></li>
+<li><code><a title="type2fuzzy.membership.crispset" href="crispset.html">type2fuzzy.membership.crispset</a></code></li>
+<li><code><a title="type2fuzzy.membership.generaltype2fuzzyset" href="generaltype2fuzzyset.html">type2fuzzy.membership.generaltype2fuzzyset</a></code></li>
+<li><code><a title="type2fuzzy.membership.generate_gt2mf" href="generate_gt2mf.html">type2fuzzy.membership.generate_gt2mf</a></code></li>
+<li><code><a title="type2fuzzy.membership.generate_it2fs" href="generate_it2fs.html">type2fuzzy.membership.generate_it2fs</a></code></li>
+<li><code><a title="type2fuzzy.membership.intervaltype2fuzzyset" href="intervaltype2fuzzyset.html">type2fuzzy.membership.intervaltype2fuzzyset</a></code></li>
+<li><code><a title="type2fuzzy.membership.secondarymf" href="secondarymf.html">type2fuzzy.membership.secondarymf</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset" href="type1fuzzyset.html">type2fuzzy.membership.type1fuzzyset</a></code></li>
+<li><code><a title="type2fuzzy.membership.zslicetype2fuzzyset" href="zslicetype2fuzzyset.html">type2fuzzy.membership.zslicetype2fuzzyset</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="type2fuzzy.membership.AlphaCutType1FuzzySet" href="#type2fuzzy.membership.AlphaCutType1FuzzySet">AlphaCutType1FuzzySet</a></code></h4>
+<ul class="">
+<li><code><a title="type2fuzzy.membership.AlphaCutType1FuzzySet.add_element" href="#type2fuzzy.membership.AlphaCutType1FuzzySet.add_element">add_element</a></code></li>
+<li><code><a title="type2fuzzy.membership.AlphaCutType1FuzzySet.alpha_slices" href="#type2fuzzy.membership.AlphaCutType1FuzzySet.alpha_slices">alpha_slices</a></code></li>
+<li><code><a title="type2fuzzy.membership.AlphaCutType1FuzzySet.cuts" href="#type2fuzzy.membership.AlphaCutType1FuzzySet.cuts">cuts</a></code></li>
+<li><code><a title="type2fuzzy.membership.AlphaCutType1FuzzySet.empty" href="#type2fuzzy.membership.AlphaCutType1FuzzySet.empty">empty</a></code></li>
+<li><code><a title="type2fuzzy.membership.AlphaCutType1FuzzySet.from_type1fuzzyset" href="#type2fuzzy.membership.AlphaCutType1FuzzySet.from_type1fuzzyset">from_type1fuzzyset</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="type2fuzzy.membership.CrispSet" href="#type2fuzzy.membership.CrispSet">CrispSet</a></code></h4>
+<ul class="">
+<li><code><a title="type2fuzzy.membership.CrispSet.empty" href="#type2fuzzy.membership.CrispSet.empty">empty</a></code></li>
+<li><code><a title="type2fuzzy.membership.CrispSet.left" href="#type2fuzzy.membership.CrispSet.left">left</a></code></li>
+<li><code><a title="type2fuzzy.membership.CrispSet.mid" href="#type2fuzzy.membership.CrispSet.mid">mid</a></code></li>
+<li><code><a title="type2fuzzy.membership.CrispSet.right" href="#type2fuzzy.membership.CrispSet.right">right</a></code></li>
+<li><code><a title="type2fuzzy.membership.CrispSet.union" href="#type2fuzzy.membership.CrispSet.union">union</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="type2fuzzy.membership.GeneralType2FuzzySet" href="#type2fuzzy.membership.GeneralType2FuzzySet">GeneralType2FuzzySet</a></code></h4>
+<ul class="">
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.add_element" href="#type2fuzzy.membership.GeneralType2FuzzySet.add_element">add_element</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.add_membership_function" href="#type2fuzzy.membership.GeneralType2FuzzySet.add_membership_function">add_membership_function</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.complement" href="#type2fuzzy.membership.GeneralType2FuzzySet.complement">complement</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.embedded_type2_sets" href="#type2fuzzy.membership.GeneralType2FuzzySet.embedded_type2_sets">embedded_type2_sets</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.embedded_type2_sets_count" href="#type2fuzzy.membership.GeneralType2FuzzySet.embedded_type2_sets_count">embedded_type2_sets_count</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.footprint_of_uncertainty" href="#type2fuzzy.membership.GeneralType2FuzzySet.footprint_of_uncertainty">footprint_of_uncertainty</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.from_array" href="#type2fuzzy.membership.GeneralType2FuzzySet.from_array">from_array</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.from_horizontal_representation" href="#type2fuzzy.membership.GeneralType2FuzzySet.from_horizontal_representation">from_horizontal_representation</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.from_representation" href="#type2fuzzy.membership.GeneralType2FuzzySet.from_representation">from_representation</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.intersection" href="#type2fuzzy.membership.GeneralType2FuzzySet.intersection">intersection</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.load_file" href="#type2fuzzy.membership.GeneralType2FuzzySet.load_file">load_file</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.primary_domain" href="#type2fuzzy.membership.GeneralType2FuzzySet.primary_domain">primary_domain</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.primary_membership" href="#type2fuzzy.membership.GeneralType2FuzzySet.primary_membership">primary_membership</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.save_file" href="#type2fuzzy.membership.GeneralType2FuzzySet.save_file">save_file</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.secondary_grade" href="#type2fuzzy.membership.GeneralType2FuzzySet.secondary_grade">secondary_grade</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.to_array_explicit" href="#type2fuzzy.membership.GeneralType2FuzzySet.to_array_explicit">to_array_explicit</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.to_array_implicit" href="#type2fuzzy.membership.GeneralType2FuzzySet.to_array_implicit">to_array_implicit</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.union" href="#type2fuzzy.membership.GeneralType2FuzzySet.union">union</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.vertical_slice" href="#type2fuzzy.membership.GeneralType2FuzzySet.vertical_slice">vertical_slice</a></code></li>
+<li><code><a title="type2fuzzy.membership.GeneralType2FuzzySet.z_slice" href="#type2fuzzy.membership.GeneralType2FuzzySet.z_slice">z_slice</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="type2fuzzy.membership.IntervalType2FuzzySet" href="#type2fuzzy.membership.IntervalType2FuzzySet">IntervalType2FuzzySet</a></code></h4>
+<ul class="">
+<li><code><a title="type2fuzzy.membership.IntervalType2FuzzySet.add_element" href="#type2fuzzy.membership.IntervalType2FuzzySet.add_element">add_element</a></code></li>
+<li><code><a title="type2fuzzy.membership.IntervalType2FuzzySet.empty" href="#type2fuzzy.membership.IntervalType2FuzzySet.empty">empty</a></code></li>
+<li><code><a title="type2fuzzy.membership.IntervalType2FuzzySet.from_general_type2_set" href="#type2fuzzy.membership.IntervalType2FuzzySet.from_general_type2_set">from_general_type2_set</a></code></li>
+<li><code><a title="type2fuzzy.membership.IntervalType2FuzzySet.from_hmf_lmf" href="#type2fuzzy.membership.IntervalType2FuzzySet.from_hmf_lmf">from_hmf_lmf</a></code></li>
+<li><code><a title="type2fuzzy.membership.IntervalType2FuzzySet.from_representation" href="#type2fuzzy.membership.IntervalType2FuzzySet.from_representation">from_representation</a></code></li>
+<li><code><a title="type2fuzzy.membership.IntervalType2FuzzySet.higher_membership_function" href="#type2fuzzy.membership.IntervalType2FuzzySet.higher_membership_function">higher_membership_function</a></code></li>
+<li><code><a title="type2fuzzy.membership.IntervalType2FuzzySet.load_file" href="#type2fuzzy.membership.IntervalType2FuzzySet.load_file">load_file</a></code></li>
+<li><code><a title="type2fuzzy.membership.IntervalType2FuzzySet.lower_membership_function" href="#type2fuzzy.membership.IntervalType2FuzzySet.lower_membership_function">lower_membership_function</a></code></li>
+<li><code><a title="type2fuzzy.membership.IntervalType2FuzzySet.mid_domain_element" href="#type2fuzzy.membership.IntervalType2FuzzySet.mid_domain_element">mid_domain_element</a></code></li>
+<li><code><a title="type2fuzzy.membership.IntervalType2FuzzySet.primary_domain" href="#type2fuzzy.membership.IntervalType2FuzzySet.primary_domain">primary_domain</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="type2fuzzy.membership.SecondaryMembershipFunction" href="#type2fuzzy.membership.SecondaryMembershipFunction">SecondaryMembershipFunction</a></code></h4>
+</li>
+<li>
+<h4><code><a title="type2fuzzy.membership.Type1FuzzySet" href="#type2fuzzy.membership.Type1FuzzySet">Type1FuzzySet</a></code></h4>
+<ul class="">
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.add_element" href="#type2fuzzy.membership.Type1FuzzySet.add_element">add_element</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.adjust_value" href="#type2fuzzy.membership.Type1FuzzySet.adjust_value">adjust_value</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.alpha_cut" href="#type2fuzzy.membership.Type1FuzzySet.alpha_cut">alpha_cut</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.create_trapezoidal" href="#type2fuzzy.membership.Type1FuzzySet.create_trapezoidal">create_trapezoidal</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.create_triangular" href="#type2fuzzy.membership.Type1FuzzySet.create_triangular">create_triangular</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.create_triangular_ex" href="#type2fuzzy.membership.Type1FuzzySet.create_triangular_ex">create_triangular_ex</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.degree_of_membership" href="#type2fuzzy.membership.Type1FuzzySet.degree_of_membership">degree_of_membership</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.dom_elements" href="#type2fuzzy.membership.Type1FuzzySet.dom_elements">dom_elements</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.domain_elements" href="#type2fuzzy.membership.Type1FuzzySet.domain_elements">domain_elements</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.domain_limits" href="#type2fuzzy.membership.Type1FuzzySet.domain_limits">domain_limits</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.element_count" href="#type2fuzzy.membership.Type1FuzzySet.element_count">element_count</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.elements" href="#type2fuzzy.membership.Type1FuzzySet.elements">elements</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.empty" href="#type2fuzzy.membership.Type1FuzzySet.empty">empty</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.extend" href="#type2fuzzy.membership.Type1FuzzySet.extend">extend</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.from_alphacut_type1_set" href="#type2fuzzy.membership.Type1FuzzySet.from_alphacut_type1_set">from_alphacut_type1_set</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.from_representation" href="#type2fuzzy.membership.Type1FuzzySet.from_representation">from_representation</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.intersection" href="#type2fuzzy.membership.Type1FuzzySet.intersection">intersection</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.join" href="#type2fuzzy.membership.Type1FuzzySet.join">join</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.meet" href="#type2fuzzy.membership.Type1FuzzySet.meet">meet</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.negation" href="#type2fuzzy.membership.Type1FuzzySet.negation">negation</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.size" href="#type2fuzzy.membership.Type1FuzzySet.size">size</a></code></li>
+<li><code><a title="type2fuzzy.membership.Type1FuzzySet.union" href="#type2fuzzy.membership.Type1FuzzySet.union">union</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="type2fuzzy.membership.ZSliceType2FuzzySet" href="#type2fuzzy.membership.ZSliceType2FuzzySet">ZSliceType2FuzzySet</a></code></h4>
+<ul class="">
+<li><code><a title="type2fuzzy.membership.ZSliceType2FuzzySet.add_element" href="#type2fuzzy.membership.ZSliceType2FuzzySet.add_element">add_element</a></code></li>
+<li><code><a title="type2fuzzy.membership.ZSliceType2FuzzySet.adjust_value" href="#type2fuzzy.membership.ZSliceType2FuzzySet.adjust_value">adjust_value</a></code></li>
+<li><code><a title="type2fuzzy.membership.ZSliceType2FuzzySet.empty" href="#type2fuzzy.membership.ZSliceType2FuzzySet.empty">empty</a></code></li>
+<li><code><a title="type2fuzzy.membership.ZSliceType2FuzzySet.from_general_type2_set" href="#type2fuzzy.membership.ZSliceType2FuzzySet.from_general_type2_set">from_general_type2_set</a></code></li>
+<li><code><a title="type2fuzzy.membership.ZSliceType2FuzzySet.zslices" href="#type2fuzzy.membership.ZSliceType2FuzzySet.zslices">zslices</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
