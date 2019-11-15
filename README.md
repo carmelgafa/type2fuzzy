@@ -26,7 +26,7 @@ http://t2fuzz.com
 
 ## Change History:
 
-**version 0.1.32 - XX.11.2019**
+**version 0.1.32 - 15.11.2019**
 1. Get domain limits for a type-1 fuzzy set (http://t2fuzz.com/membership/type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.domain_limits)
 
 **version 0.1.31 - 12.11.2019**
