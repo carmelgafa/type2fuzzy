@@ -1,5 +1,15 @@
 """
-type2.membership : type-2 fuzzy membership 
+type2fuzzy.membership
+
+Membership modules including:<br>
+General Type-2 fuzzy Set.<br/>
+Interval Type-2 Fuzzy Set.<br/>
+Type-1 Fuzzy Set.<br/>
+Z-Slice Type-2 Fuzzy Set.<br/>
+Alpha-Cut Type-1 Fuzzy Set.<br/>
+Crisp Sets.<br/>
+Generation of Interval Type-2 Fuzzy Sets.<br/>
+Generation of General Type-2 Fuzzy Sets.<br/>
 """
 
 from type2fuzzy.membership.secondarymf import SecondaryMembershipFunction
