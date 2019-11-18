@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.2" />
+<title>type2fuzzy API documentation</title>
+<meta name="description" content="Recommended Use
+&gt;&gt;&gt; import type2fuzzy as t2f" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Library <code>type2fuzzy</code></h1>
+</header>
+
+<section id="section-intro">
+        <h2 id="recommended-use">Import</h2>
+        <pre><code>&gt;&gt;&gt; pip install type2fuzzy</code></pre>
+</section>
+
+
+<section>
+<h2 class="section-title" id="header-submodules">Documentation</h2>
+<dl>
+        <dt><code class="name"><a title="type2fuzzy Documentation" href="type2fuzzy/index.html">type2fuzzy documentation</a></code></dt>
+        <dd>
+        <section class="desc"><p>Version 0.1.34</p></section>
+        </dd>
+</dl>
+</section>
+
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+
+</section>
+
+
+
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+
+</section>
+
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#recommended-use">Recommended Use</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="type2fuzzy.display" href="display/index.html">type2fuzzy.display</a></code></li>
+<li><code><a title="type2fuzzy.measurement" href="measurement/index.html">type2fuzzy.measurement</a></code></li>
+<li><code><a title="type2fuzzy.membership" href="membership/index.html">type2fuzzy.membership</a></code></li>
+<li><code><a title="type2fuzzy.tests" href="tests/index.html">type2fuzzy.tests</a></code></li>
+<li><code><a title="type2fuzzy.type1_defuzzification" href="type1_defuzzification/index.html">type2fuzzy.type1_defuzzification</a></code></li>
+<li><code><a title="type2fuzzy.type_reduction" href="type_reduction/index.html">type2fuzzy.type_reduction</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="type2fuzzy.cog_defuzzify" href="#type2fuzzy.cog_defuzzify">cog_defuzzify</a></code></li>
+<li><code><a title="type2fuzzy.create_gaussian_fixed_mean" href="#type2fuzzy.create_gaussian_fixed_mean">create_gaussian_fixed_mean</a></code></li>
+<li><code><a title="type2fuzzy.create_gaussian_fixed_sigma" href="#type2fuzzy.create_gaussian_fixed_sigma">create_gaussian_fixed_sigma</a></code></li>
+<li><code><a title="type2fuzzy.generate_gt2set_horizontal" href="#type2fuzzy.generate_gt2set_horizontal">generate_gt2set_horizontal</a></code></li>
+<li><code><a title="type2fuzzy.gt2_mendeljohn_reduce" href="#type2fuzzy.gt2_mendeljohn_reduce">gt2_mendeljohn_reduce</a></code></li>
+<li><code><a title="type2fuzzy.gt2_partialcentroid_reduce" href="#type2fuzzy.gt2_partialcentroid_reduce">gt2_partialcentroid_reduce</a></code></li>
+<li><code><a title="type2fuzzy.it2_kernikmendel_reduce" href="#type2fuzzy.it2_kernikmendel_reduce">it2_kernikmendel_reduce</a></code></li>
+<li><code><a title="type2fuzzy.mom_defuzzify" href="#type2fuzzy.mom_defuzzify">mom_defuzzify</a></code></li>
+<li><code><a title="type2fuzzy.zslice_centroid_defuzzify" href="#type2fuzzy.zslice_centroid_defuzzify">zslice_centroid_defuzzify</a></code></li>
+<li><code><a title="type2fuzzy.zslice_hagras_reduce" href="#type2fuzzy.zslice_hagras_reduce">zslice_hagras_reduce</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="type2fuzzy.AlphaCutType1FuzzySet" href="#type2fuzzy.AlphaCutType1FuzzySet">AlphaCutType1FuzzySet</a></code></h4>
+<ul class="">
+<li><code><a title="type2fuzzy.AlphaCutType1FuzzySet.add_element" href="#type2fuzzy.AlphaCutType1FuzzySet.add_element">add_element</a></code></li>
+<li><code><a title="type2fuzzy.AlphaCutType1FuzzySet.alpha_slices" href="#type2fuzzy.AlphaCutType1FuzzySet.alpha_slices">alpha_slices</a></code></li>
+<li><code><a title="type2fuzzy.AlphaCutType1FuzzySet.cuts" href="#type2fuzzy.AlphaCutType1FuzzySet.cuts">cuts</a></code></li>
+<li><code><a title="type2fuzzy.AlphaCutType1FuzzySet.empty" href="#type2fuzzy.AlphaCutType1FuzzySet.empty">empty</a></code></li>
+<li><code><a title="type2fuzzy.AlphaCutType1FuzzySet.from_type1fuzzyset" href="#type2fuzzy.AlphaCutType1FuzzySet.from_type1fuzzyset">from_type1fuzzyset</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="type2fuzzy.CrispSet" href="#type2fuzzy.CrispSet">CrispSet</a></code></h4>
+<ul class="">
+<li><code><a title="type2fuzzy.CrispSet.empty" href="#type2fuzzy.CrispSet.empty">empty</a></code></li>
+<li><code><a title="type2fuzzy.CrispSet.left" href="#type2fuzzy.CrispSet.left">left</a></code></li>
+<li><code><a title="type2fuzzy.CrispSet.mid" href="#type2fuzzy.CrispSet.mid">mid</a></code></li>
+<li><code><a title="type2fuzzy.CrispSet.right" href="#type2fuzzy.CrispSet.right">right</a></code></li>
+<li><code><a title="type2fuzzy.CrispSet.union" href="#type2fuzzy.CrispSet.union">union</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="type2fuzzy.GeneralType2FuzzySet" href="#type2fuzzy.GeneralType2FuzzySet">GeneralType2FuzzySet</a></code></h4>
+<ul class="">
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.add_element" href="#type2fuzzy.GeneralType2FuzzySet.add_element">add_element</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.add_membership_function" href="#type2fuzzy.GeneralType2FuzzySet.add_membership_function">add_membership_function</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.complement" href="#type2fuzzy.GeneralType2FuzzySet.complement">complement</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.embedded_type2_sets" href="#type2fuzzy.GeneralType2FuzzySet.embedded_type2_sets">embedded_type2_sets</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.embedded_type2_sets_count" href="#type2fuzzy.GeneralType2FuzzySet.embedded_type2_sets_count">embedded_type2_sets_count</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.footprint_of_uncertainty" href="#type2fuzzy.GeneralType2FuzzySet.footprint_of_uncertainty">footprint_of_uncertainty</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.from_array" href="#type2fuzzy.GeneralType2FuzzySet.from_array">from_array</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.from_horizontal_representation" href="#type2fuzzy.GeneralType2FuzzySet.from_horizontal_representation">from_horizontal_representation</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.from_representation" href="#type2fuzzy.GeneralType2FuzzySet.from_representation">from_representation</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.intersection" href="#type2fuzzy.GeneralType2FuzzySet.intersection">intersection</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.load_file" href="#type2fuzzy.GeneralType2FuzzySet.load_file">load_file</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.primary_domain" href="#type2fuzzy.GeneralType2FuzzySet.primary_domain">primary_domain</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.primary_membership" href="#type2fuzzy.GeneralType2FuzzySet.primary_membership">primary_membership</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.save_file" href="#type2fuzzy.GeneralType2FuzzySet.save_file">save_file</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.secondary_grade" href="#type2fuzzy.GeneralType2FuzzySet.secondary_grade">secondary_grade</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.to_array_explicit" href="#type2fuzzy.GeneralType2FuzzySet.to_array_explicit">to_array_explicit</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.to_array_implicit" href="#type2fuzzy.GeneralType2FuzzySet.to_array_implicit">to_array_implicit</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.union" href="#type2fuzzy.GeneralType2FuzzySet.union">union</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.vertical_slice" href="#type2fuzzy.GeneralType2FuzzySet.vertical_slice">vertical_slice</a></code></li>
+<li><code><a title="type2fuzzy.GeneralType2FuzzySet.z_slice" href="#type2fuzzy.GeneralType2FuzzySet.z_slice">z_slice</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="type2fuzzy.IntervalType2FuzzySet" href="#type2fuzzy.IntervalType2FuzzySet">IntervalType2FuzzySet</a></code></h4>
+<ul class="">
+<li><code><a title="type2fuzzy.IntervalType2FuzzySet.add_element" href="#type2fuzzy.IntervalType2FuzzySet.add_element">add_element</a></code></li>
+<li><code><a title="type2fuzzy.IntervalType2FuzzySet.empty" href="#type2fuzzy.IntervalType2FuzzySet.empty">empty</a></code></li>
+<li><code><a title="type2fuzzy.IntervalType2FuzzySet.from_general_type2_set" href="#type2fuzzy.IntervalType2FuzzySet.from_general_type2_set">from_general_type2_set</a></code></li>
+<li><code><a title="type2fuzzy.IntervalType2FuzzySet.from_hmf_lmf" href="#type2fuzzy.IntervalType2FuzzySet.from_hmf_lmf">from_hmf_lmf</a></code></li>
+<li><code><a title="type2fuzzy.IntervalType2FuzzySet.from_representation" href="#type2fuzzy.IntervalType2FuzzySet.from_representation">from_representation</a></code></li>
+<li><code><a title="type2fuzzy.IntervalType2FuzzySet.higher_membership_function" href="#type2fuzzy.IntervalType2FuzzySet.higher_membership_function">higher_membership_function</a></code></li>
+<li><code><a title="type2fuzzy.IntervalType2FuzzySet.load_file" href="#type2fuzzy.IntervalType2FuzzySet.load_file">load_file</a></code></li>
+<li><code><a title="type2fuzzy.IntervalType2FuzzySet.lower_membership_function" href="#type2fuzzy.IntervalType2FuzzySet.lower_membership_function">lower_membership_function</a></code></li>
+<li><code><a title="type2fuzzy.IntervalType2FuzzySet.mid_domain_element" href="#type2fuzzy.IntervalType2FuzzySet.mid_domain_element">mid_domain_element</a></code></li>
+<li><code><a title="type2fuzzy.IntervalType2FuzzySet.primary_domain" href="#type2fuzzy.IntervalType2FuzzySet.primary_domain">primary_domain</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="type2fuzzy.SecondaryMembershipFunction" href="#type2fuzzy.SecondaryMembershipFunction">SecondaryMembershipFunction</a></code></h4>
+</li>
+<li>
+<h4><code><a title="type2fuzzy.SetPlotter" href="#type2fuzzy.SetPlotter">SetPlotter</a></code></h4>
+<ul class="">
+<li><code><a title="type2fuzzy.SetPlotter.add_generaltype2set" href="#type2fuzzy.SetPlotter.add_generaltype2set">add_generaltype2set</a></code></li>
+<li><code><a title="type2fuzzy.SetPlotter.add_invervaltype2set" href="#type2fuzzy.SetPlotter.add_invervaltype2set">add_invervaltype2set</a></code></li>
+<li><code><a title="type2fuzzy.SetPlotter.add_type1fuzzyset" href="#type2fuzzy.SetPlotter.add_type1fuzzyset">add_type1fuzzyset</a></code></li>
+<li><code><a title="type2fuzzy.SetPlotter.add_zslicetype2set" href="#type2fuzzy.SetPlotter.add_zslicetype2set">add_zslicetype2set</a></code></li>
+<li><code><a title="type2fuzzy.SetPlotter.plot" href="#type2fuzzy.SetPlotter.plot">plot</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="type2fuzzy.TimeMeasurement" href="#type2fuzzy.TimeMeasurement">TimeMeasurement</a></code></h4>
+<ul class="">
+<li><code><a title="type2fuzzy.TimeMeasurement.dispose_logger" href="#type2fuzzy.TimeMeasurement.dispose_logger">dispose_logger</a></code></li>
+<li><code><a title="type2fuzzy.TimeMeasurement.setup_logger" href="#type2fuzzy.TimeMeasurement.setup_logger">setup_logger</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="type2fuzzy.Type1FuzzySet" href="#type2fuzzy.Type1FuzzySet">Type1FuzzySet</a></code></h4>
+<ul class="">
+<li><code><a title="type2fuzzy.Type1FuzzySet.add_element" href="#type2fuzzy.Type1FuzzySet.add_element">add_element</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.adjust_value" href="#type2fuzzy.Type1FuzzySet.adjust_value">adjust_value</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.alpha_cut" href="#type2fuzzy.Type1FuzzySet.alpha_cut">alpha_cut</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.create_trapezoidal" href="#type2fuzzy.Type1FuzzySet.create_trapezoidal">create_trapezoidal</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.create_triangular" href="#type2fuzzy.Type1FuzzySet.create_triangular">create_triangular</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.create_triangular_ex" href="#type2fuzzy.Type1FuzzySet.create_triangular_ex">create_triangular_ex</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.degree_of_membership" href="#type2fuzzy.Type1FuzzySet.degree_of_membership">degree_of_membership</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.dom_elements" href="#type2fuzzy.Type1FuzzySet.dom_elements">dom_elements</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.domain_elements" href="#type2fuzzy.Type1FuzzySet.domain_elements">domain_elements</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.domain_limits" href="#type2fuzzy.Type1FuzzySet.domain_limits">domain_limits</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.element_count" href="#type2fuzzy.Type1FuzzySet.element_count">element_count</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.elements" href="#type2fuzzy.Type1FuzzySet.elements">elements</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.empty" href="#type2fuzzy.Type1FuzzySet.empty">empty</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.extend" href="#type2fuzzy.Type1FuzzySet.extend">extend</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.from_alphacut_type1_set" href="#type2fuzzy.Type1FuzzySet.from_alphacut_type1_set">from_alphacut_type1_set</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.from_representation" href="#type2fuzzy.Type1FuzzySet.from_representation">from_representation</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.intersection" href="#type2fuzzy.Type1FuzzySet.intersection">intersection</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.join" href="#type2fuzzy.Type1FuzzySet.join">join</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.meet" href="#type2fuzzy.Type1FuzzySet.meet">meet</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.negation" href="#type2fuzzy.Type1FuzzySet.negation">negation</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.size" href="#type2fuzzy.Type1FuzzySet.size">size</a></code></li>
+<li><code><a title="type2fuzzy.Type1FuzzySet.union" href="#type2fuzzy.Type1FuzzySet.union">union</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="type2fuzzy.ZSliceType2FuzzySet" href="#type2fuzzy.ZSliceType2FuzzySet">ZSliceType2FuzzySet</a></code></h4>
+<ul class="">
+<li><code><a title="type2fuzzy.ZSliceType2FuzzySet.add_element" href="#type2fuzzy.ZSliceType2FuzzySet.add_element">add_element</a></code></li>
+<li><code><a title="type2fuzzy.ZSliceType2FuzzySet.adjust_value" href="#type2fuzzy.ZSliceType2FuzzySet.adjust_value">adjust_value</a></code></li>
+<li><code><a title="type2fuzzy.ZSliceType2FuzzySet.empty" href="#type2fuzzy.ZSliceType2FuzzySet.empty">empty</a></code></li>
+<li><code><a title="type2fuzzy.ZSliceType2FuzzySet.from_general_type2_set" href="#type2fuzzy.ZSliceType2FuzzySet.from_general_type2_set">from_general_type2_set</a></code></li>
+<li><code><a title="type2fuzzy.ZSliceType2FuzzySet.zslices" href="#type2fuzzy.ZSliceType2FuzzySet.zslices">zslices</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.2</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

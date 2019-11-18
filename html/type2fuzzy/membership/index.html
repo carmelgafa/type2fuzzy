@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.7.1" />
+<meta name="generator" content="pdoc 0.7.2" />
 <title>type2fuzzy.membership API documentation</title>
 <meta name="description" content="type2.membership : type-2 fuzzy membership" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
@@ -36,10 +36,15 @@ from type2fuzzy.membership.intervaltype2fuzzyset import IntervalType2FuzzySet
 from type2fuzzy.membership.zslicetype2fuzzyset import ZSliceType2FuzzySet
 from type2fuzzy.membership.crispset import CrispSet
 from type2fuzzy.membership.alphacuttype1fuzzyset import AlphaCutType1FuzzySet
+from type2fuzzy.membership.generate_gt2mf import generate_gt2set_horizontal
+from type2fuzzy.membership.generate_it2fs import create_gaussian_fixed_sigma
+from type2fuzzy.membership.generate_it2fs import create_gaussian_fixed_mean
+
 
 __all__ = [&#39;SecondaryMembershipFunction&#39;, &#39;GeneralType2FuzzySet&#39;, 
                         &#39;Type1FuzzySet&#39;, &#39;IntervalType2FuzzySet&#39;, &#39;ZSliceType2FuzzySet&#39;, 
-                        &#39;CrispSet&#39;, &#39;AlphaCutType1FuzzySet&#39;]</code></pre>
+                        &#39;CrispSet&#39;, &#39;AlphaCutType1FuzzySet&#39;, &#39;generate_gt2set_horizontal&#39;, 
+                        &#39;create_gaussian_fixed_sigma&#39;, &#39;create_gaussian_fixed_mean&#39;]</code></pre>
 </details>
 </section>
 <section>
@@ -86,6 +91,259 @@ __all__ = [&#39;SecondaryMembershipFunction&#39;, &#39;GeneralType2FuzzySet&#39;
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="type2fuzzy.membership.create_gaussian_fixed_mean"><code class="name flex">
+<span>def <span class="ident">create_gaussian_fixed_mean</span></span>(<span>primary_domain, sigma1, sigma2, mean=1.0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates an interval type-2 fuzzy set with fixed standard deviation and uncertain mean</p>
+<h2 id="arguments">Arguments:</h2>
+<p>primary_domain &ndash; list, elements of primary domain</p>
+<p>sigma1 &ndash; lowest value of standard deviation</p>
+<p>sigma2 &ndash; highest value of standard deviation</p>
+<p>mean &ndash; mean , default 1</p>
+<h2 id="returns">Returns:</h2>
+<p>interval_set &ndash; created interval type-2 fuzzy set</p>
+<h2 id="references">References:</h2>
+<p>Karnik, Nilesh N., and Jerry M. Mendel.
+"Introduction to type-2 fuzzy logic systems."
+1998 IEEE International Conference on Fuzzy Systems Proceedings.
+IEEE World Congress on Computational Intelligence (
+Cat. No. 98CH36228). Vol. 2. IEEE, 1998.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_gaussian_fixed_mean(primary_domain, sigma1, sigma2, mean=1.0):
+        &#39;&#39;&#39;
+        Creates an interval type-2 fuzzy set with fixed standard deviation and uncertain mean
+
+        Arguments:
+        ----------
+        primary_domain -- list, elements of primary domain
+
+        sigma1 -- lowest value of standard deviation
+
+        sigma2 -- highest value of standard deviation
+
+        mean -- mean , default 1
+
+        Returns:
+        --------
+        interval_set -- created interval type-2 fuzzy set
+
+        References:
+        -----------
+        Karnik, Nilesh N., and Jerry M. Mendel. 
+        &#34;Introduction to type-2 fuzzy logic systems.&#34; 
+        1998 IEEE International Conference on Fuzzy Systems Proceedings.
+        IEEE World Congress on Computational Intelligence (
+        Cat. No. 98CH36228). Vol. 2. IEEE, 1998.
+        &#39;&#39;&#39;
+        # check that m1 is smaller than m2
+        if sigma1 &gt; sigma2:
+                raise Exception(&#39;ERROR: m1 vaue must be smaller or equal to m2&#39;)
+        
+        interval_set = IntervalType2FuzzySet()
+        u1 = 0
+        u2 = 0
+
+        for x in primary_domain:
+
+                u1 = math.exp(-0.5*((x-float(mean))/sigma1)**2)
+                u2 = math.exp(-0.5*((x-float(mean))/sigma2)**2)
+
+                # add the element to the it2fs
+                interval_set.add_element(x, CrispSet(min(u1, u2), max(u1, u2)))
+
+        return interval_set</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.create_gaussian_fixed_sigma"><code class="name flex">
+<span>def <span class="ident">create_gaussian_fixed_sigma</span></span>(<span>primary_domain, m1, m2, sigma=1.0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates an interval type-2 fuzzy set with fixed standard deviation and uncertain mean</p>
+<h2 id="arguments">Arguments:</h2>
+<p>primary_domain &ndash; list, elements of primary domain</p>
+<p>m1 &ndash; lowest value of mean</p>
+<p>m2 &ndash; highest value of mean</p>
+<p>sigma &ndash; standard deviation , default 1</p>
+<h2 id="returns">Returns:</h2>
+<p>interval_set &ndash; created interval type-2 fuzzy set</p>
+<h2 id="references">References:</h2>
+<p>Karnik, Nilesh N., and Jerry M. Mendel.
+"Introduction to type-2 fuzzy logic systems."
+1998 IEEE International Conference on Fuzzy Systems Proceedings.
+IEEE World Congress on Computational Intelligence (
+Cat. No. 98CH36228). Vol. 2. IEEE, 1998.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_gaussian_fixed_sigma(primary_domain, m1, m2, sigma=1.0):
+        &#39;&#39;&#39;
+        Creates an interval type-2 fuzzy set with fixed standard deviation and uncertain mean
+
+        Arguments:
+        ----------
+        primary_domain -- list, elements of primary domain
+
+        m1 -- lowest value of mean
+
+        m2 -- highest value of mean
+        
+        sigma -- standard deviation , default 1
+
+        Returns:
+        --------
+        interval_set -- created interval type-2 fuzzy set
+
+        References:
+        -----------
+        Karnik, Nilesh N., and Jerry M. Mendel. 
+        &#34;Introduction to type-2 fuzzy logic systems.&#34; 
+        1998 IEEE International Conference on Fuzzy Systems Proceedings.
+        IEEE World Congress on Computational Intelligence (
+        Cat. No. 98CH36228). Vol. 2. IEEE, 1998.
+        &#39;&#39;&#39;
+        # check that m1 is smaller than m2
+        if m1 &gt; m2:
+                raise Exception(&#39;ERROR: m1 vaue must be smaller or equal to m2&#39;)
+        
+        interval_set = IntervalType2FuzzySet()
+        toggle_peak = False
+        element = None
+
+        for x in primary_domain:
+
+                u1 = math.exp(-0.5*((x-float(m1))/sigma)**2)
+                u2 = math.exp(-0.5*((x-float(m2))/sigma)**2)
+
+                # once m1 has a value of 1 the plateu starts and ands when m2 reaches a value of 1
+                if u1 == 1:
+                        toggle_peak = True
+                if u2 == 1:
+                        toggle_peak = False
+
+                if toggle_peak:
+                        element = CrispSet(min(u1, u2), 1)
+                else:
+                        element = CrispSet(min(u1, u2), max(u1, u2))
+
+                # add the element to the it2fs
+                interval_set.add_element(x, element)
+
+        return interval_set</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.generate_gt2set_horizontal"><code class="name flex">
+<span>def <span class="ident">generate_gt2set_horizontal</span></span>(<span>primary_domain, secondary_domain, set_definition)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Experimemtal method for generating a type-2 fuzzy set from a pointwise definition
+where each point is a touple (x, u, delta_left, delta_right); where:
+x is the primary domain value of the point
+u is the secondary domain value of the point
+delta_left is the spread of the type 2 set to the left and
+delta_right is the spread to the right of the type 2 set such that
+a triangular funation is forment at u with values x-delta_left, x, x+delta_right</p>
+<h2 id="parameters">Parameters:</h2>
+<p>primary_domain &ndash; 1D array, data vector for primary domain
+secondary_domain &ndash; 1D array, data vector for secondary domain [0,1]
+point_set &ndash; 1D array, data for points that make up the type-2 set</p>
+<h2 id="returns">Returns:</h2>
+<p>gt2fs &ndash; 2D array describing the type-2 set</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_gt2set_horizontal(primary_domain, secondary_domain, set_definition):
+        &#39;&#39;&#39;
+        Experimemtal method for generating a type-2 fuzzy set from a pointwise definition
+        where each point is a touple (x, u, delta_left, delta_right); where:
+        x is the primary domain value of the point
+        u is the secondary domain value of the point
+        delta_left is the spread of the type 2 set to the left and
+        delta_right is the spread to the right of the type 2 set such that
+        a triangular funation is forment at u with values x-delta_left, x, x+delta_right
+
+        Parameters:
+        -----------
+        primary_domain -- 1D array, data vector for primary domain
+        secondary_domain -- 1D array, data vector for secondary domain [0,1]
+        point_set -- 1D array, data for points that make up the type-2 set
+
+        Returns:
+        -------
+        gt2fs -- 2D array describing the type-2 set
+        &#39;&#39;&#39;
+        np.seterr(invalid=&#39;ignore&#39;)
+
+        sec_dom_increment = secondary_domain[1] - secondary_domain[0]
+        pri_dom_increment = primary_domain[1] - primary_domain[0]
+
+        gt2fs = np.zeros([len(secondary_domain), len(primary_domain)])
+
+        for idx in range(0, len(set_definition) - 1):
+
+                start_point = set_definition[idx]
+                end_point = set_definition[idx + 1]
+                assert(_pri_dom_from_point(start_point) &lt;= _pri_dom_from_point(end_point))
+
+                pri_dom_pt_start = _pri_dom_from_point(start_point, pri_dom_increment)
+                pri_dom_pt_end = _pri_dom_from_point(end_point, pri_dom_increment)
+
+                deltaleft_pt_start = _deltaleft_from_point(start_point)
+                deltaleft_pt_end = _deltaleft_from_point(end_point)
+                deltaright_pt_start = _deltaright_from_point(start_point)
+                deltaright_pt_end = _deltaright_from_point(end_point)
+
+                sec_dom_pt_start = _sec_dom_from_point(start_point, sec_dom_increment)
+                sec_dom_pt_end = _sec_dom_from_point(end_point, sec_dom_increment)
+
+                # generation
+                r_k = (primary_domain - pri_dom_pt_start) / (pri_dom_pt_end - pri_dom_pt_start)
+
+                u_k = (r_k * (sec_dom_pt_end - sec_dom_pt_start)) + sec_dom_pt_start
+                u_k = (np.round(u_k / sec_dom_increment)) * sec_dom_increment
+                u_k_idx = (np.round(u_k / sec_dom_increment)).astype(int)
+
+                left_limit_k = (r_k * (pri_dom_pt_end - deltaleft_pt_end - pri_dom_pt_start +
+                                                        deltaleft_pt_start)) + (pri_dom_pt_start - deltaleft_pt_start)
+                right_limit_k = (r_k * (pri_dom_pt_end + deltaright_pt_end - pri_dom_pt_start -
+                                                                deltaright_pt_start)) + (pri_dom_pt_start + deltaright_pt_start)
+
+                # filter the ones with acceptable secondary domain value
+                filter_u = (u_k &gt;= 0) &amp; (u_k &lt;= 1)
+                filter_x = (primary_domain &gt;= pri_dom_pt_start) &amp; (primary_domain &lt;= pri_dom_pt_end)
+                _filter = filter_u &amp; filter_x
+                filter_idx = _filter.nonzero()[0]
+
+                previous_index = None
+                for index in filter_idx:
+                        i = u_k_idx[index]
+                        sec_grade = np.maximum(np.minimum((primary_domain - left_limit_k[index]) / (primary_domain[index] - left_limit_k[index]),
+                                                                                (right_limit_k[index] - primary_domain) / (right_limit_k[index] - primary_domain[index])), 0)
+                        gt2fs[i, :] = np.maximum(gt2fs[i, :], sec_grade)
+
+                        # fill up missing portions between points
+                        missing_range = []
+                        if previous_index != None:
+                                step = np.sign(u_k_idx[index] - u_k_idx[index-1])
+                                if step != 0:
+                                        missing_range = np.arange(
+                                                u_k_idx[previous_index]+step, u_k_idx[index], step)
+                                        gt2fs[missing_range, :] = np.maximum(
+                                                gt2fs[missing_range, :], sec_grade)
+
+                        previous_index = index
+
+        return gt2fs</code></pre>
+</details>
+</dd>
+</dl>
 </section>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
@@ -564,755 +822,189 @@ is represented by a dict of</p></section>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class GeneralType2FuzzySet:
+    &#39;&#39;&#39;
+    An implementation of a general type 2 fuzzy set
+    As a data structure, the general type-2 fuzzy set
+    is represented by a dict of
+    {primary_domain_val : secondary membership function object}
+    &#39;&#39;&#39;
+
+    def __init__(self):
         &#39;&#39;&#39;
-        An implementation of a general type 2 fuzzy set
-        As a data structure, the general type-2 fuzzy set
+        The data structure, the general type-2 fuzzy set
         is represented by a dict of
         {primary_domain_val : secondary membership function object}
         &#39;&#39;&#39;
+        self.vertical_slices = {}
+        self._precision = 4
 
-        def __init__(self):
-                &#39;&#39;&#39;
-                The data structure, the general type-2 fuzzy set
-                is represented by a dict of
-                {primary_domain_val : secondary membership function object}
-                &#39;&#39;&#39;
-                self.vertical_slices = {}
-                self._precision = 4
-
-        def __getitem__(self, primary_domain_val):
-                &#39;&#39;&#39;
-                For a given value of the primary domain, 
-                return the secondary membership function object
-
-                Arguments:
-                ----------
-                primary_domain_val -- value of primary domain
-
-                Returns:
-                --------
-                secondary_membership_function - smf object
-                &#39;&#39;&#39;
-                if primary_domain_val not in self.vertical_slices:
-                        raise Exception(&#39;Primary domain value of {} not in this set.&#39;.format(primary_domain_val))
-
-                return self.vertical_slices[primary_domain_val]
-
-        def __eq__(self, value):
-
-                current_primary_len = len(self.primary_domain())
-                value_primary_len = len(value.primary_domain())
-                union_primary_len = len(list(set(self.primary_domain()).union(value.primary_domain())))
-
-                if current_primary_len != value_primary_len:
-                        return False 
-
-                if union_primary_len != value_primary_len:
-                        return False
-
-                for pri_domain in self.primary_domain():
-                        if self[pri_domain] != value[pri_domain]:
-                                return False
-
-                return True
-
-        def __str__(self):
-                &#39;&#39;&#39;
-                Returns a formal representation of the general type-2 fuzzy set in the form:
-                &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + ... + (b1/u1 + b2/u2 + ... + bn/un)/xn&#39;
-
-                Reference:
-                ----------
-                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
-
-                Arguments:
-                ----------
-                num_dec_places  -- number of decimal places
-
-                Returns:
-                --------
-                set_representation -- string representation of gt2fs
-                &#39;&#39;&#39;
-                represented_slices = []
-                dec_places_formatter = &#39;&#39;&#39;%0.{}f&#39;&#39;&#39;.format(self._precision)
-
-                for primary_domain_val in self.primary_domain():
-                        sec_domains = list(self.vertical_slice(primary_domain_val).domain_elements())
-                        doms = list(self.vertical_slices[primary_domain_val].dom_elements())
-                        
-                        def slice_rep_creation(sec_domains, doms): return dec_places_formatter % (
-                                doms)+&#39; / &#39;+ dec_places_formatter % (sec_domains)
-
-                        m = map(slice_rep_creation, sec_domains, doms)
-
-                        slice_rep = &#39; + &#39;.join(m)
-                        represented_slices.append(&#39;(&#39; + slice_rep + &#39;)&#39;)
-
-                def f2(sec_domains, doms): return doms + &#39; / &#39;+ dec_places_formatter % (sec_domains)
-                m2 = map(f2, self.primary_domain(), represented_slices)
-                set_representation = &#39; + &#39;.join(m2)
-
-                return set_representation
-
-        def __repr__(self):
-                return f&#39;{self.__class__.__name__}({str(self)})&#39;
-
-        @classmethod
-        def from_representation(cls, set_representation):
-                &#39;&#39;&#39;
-                Creates a general type-2 fuzzy set from a set representation of the form
-                &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + ... +(b1/u1 + b2/u2 + ... + bn/un)/xm&#39;
-
-                Reference:
-                ---------
-                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
-
-                Definition of secondary grade - pg 119
-
-                Arguments:
-                ----------
-                set_representation -- string, representation of the gt2fs
-
-                Returns:
-                --------
-                gt2fs -- GeneralType2FuzzySet
-
-                Raises:
-                -------
-                Exception -- if set_representation is empty, None or invalid
-                &#39;&#39;&#39;
-                if set_representation == None:
-                        raise Exception(&#39;Type-2 Set Representation cannot be null&#39;)
-                if set_representation == &#39;&#39;:
-                        raise Exception(&#39;Type-2 Set Representation cannot be empty&#39;)
-
-                gt2fs = cls()
-
-                try:
-                        # remove spaces, tabs returns,
-                        translation_table = dict.fromkeys(map(ord, &#39; \t\n\r&#39;), None)
-                        set_representation = set_representation.translate(translation_table)
-
-                        # by splitting by +( we will get the secondary mfs
-                        # we would lose the initial ( of each mf except for the
-                        # first one - this will be removed lated
-                        sec_mfs_s = set_representation.split(&#39;+(&#39;)
-
-                        # so lets go through the membership functions
-                        for sec_mf in sec_mfs_s:
-                                # remove the leading &#39;(&#39;
-                                # this will only happen in the first mf
-                                translation_table = dict.fromkeys(map(ord, &#39;(&#39;), None)
-                                sec_mf = sec_mf.translate(translation_table)
-
-                                # we now split the secondary membership function from the
-                                # primary domain value
-                                vertical_slice_points_s, pri_dom_val_s = sec_mf.split(&#39;)/&#39;)
-
-                                # get the primary domain value and its corresponding
-                                # index
-                                primary_domain_val = float(pri_dom_val_s)
-
-                                # split by the &#39;+&#39; so that we will obtain the individual
-                                # dom / sec domain points
-                                points_s = vertical_slice_points_s.split(&#39;+&#39;)
-
-                                # we then examine each point to add them to the set
-                                for point_s in points_s:
-                                        # split by / so to obtain the dom and the sec domain value
-                                        sec_grade_val_s, sec_dom_val_s = point_s.split(&#39;/&#39;)
-
-                                        # get the secondary domain value and its corresponding
-                                        # index
-                                        secondary_domain_val = float(sec_dom_val_s)
-
-                                        sec_grade = float(sec_grade_val_s)
-                                        # add the point to the set
-                                        gt2fs.add_element(primary_domain_val, secondary_domain_val, sec_grade)
-                except ValueError:
-                        raise Exception(&#39;Invalid set format&#39;)
-
-                return gt2fs
-
-        @classmethod
-        def from_array(cls, primary_domain, secondary_domain, set_array):
-                &#39;&#39;&#39;
-                Creates a general type-2 fuzzy set from an array representation 
-                of set where given is
-                x -- a list containing the values of the primary domain
-                u -- a list containing the values of the secondary domain
-                set_array -- a 2D array where the rows map to the values of the u list
-                                                                        the cols map to the values of the x list
-                                                                        each value is the secondary grade value for
-                                                                        the particular x / u combination
-                
-
-                Reference:
-                ---------
-
-                Arguments:
-                ----------
-                set_array -- 2D array containing the secondary grade values of the gt2fs
-                x -- list containing the values of the primary domain
-                u -- list containing the values of the secondary domain
-
-                Returns:
-                --------
-                gt2fs -- GeneralType2FuzzySet
-
-                Raises:
-                -------
-                Exception -- if there is a mismatch between the x, u and set_array dimensions
-                &#39;&#39;&#39;
-                set_array = np.array(set_array)
-
-                # check that array sizes are correct
-                (secondary_domain_size, primary_domain_size) = np.shape(set_array)
-
-                if secondary_domain_size != len(secondary_domain):
-                        raise Exception(&#39;Secondary domain size mismatch&#39;)
-
-                if primary_domain_size != len(primary_domain):
-                        raise Exception(&#39;Primary domain size mismatch&#39;)
-
-                gt2fs = cls()
-
-                # load all the elements in the array
-                for pri_dom_val_idx, pri_dom_val in enumerate(primary_domain):
-                        for sec_dom_val_idx, sec_dom_val in enumerate(secondary_domain):
-                                gt2fs.add_element(pri_dom_val, sec_dom_val, set_array[sec_dom_val_idx][pri_dom_val_idx])
-
-                return gt2fs
-
-        @classmethod
-        def load_file(cls, set_filename):
-                &#39;&#39;&#39;
-                Loads a general type-2 fuzzy set from a file. File must have the
-                following format:
-                &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + (b1/u1 + b2/u2 + ... + bn/un)/xn&#39;
-
-                Reference:
-                ---------
-                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
-
-                Definition of secondary grade - pg 119
-
-                Arguments:
-                ----------
-                set_filename -- string, filename of the set
-
-                Returns:
-                --------
-                gt2fs -- GeneralType2FuzzySet
-
-                Raises:
-                -------
-                Exception -- if set_filename is empty, None or invalid
-                &#39;&#39;&#39;
-                representation = &#39;&#39;
-                
-                try:
-                        with open(set_filename, &#39;r&#39;) as file:
-                                representation = file.read()
-                except IOError:
-                        raise Exception(&#39;Could not read file {}&#39;.format(set_filename))
-                
-                gt2fs = cls()
-                gt2fs = GeneralType2FuzzySet.from_representation(representation)
-
-                return gt2fs
-
-        @classmethod
-        def from_horizontal_representation(cls, primary_domain, secondary_domain, set_def):
-                &#39;&#39;&#39;
-                Experimental method of representing a general type-2 fuzzy set by defining the
-                spread at the points of piecewise type-1 parts.
-                each point is a tuple (x, u, delta_left, delta_right); where:
-                x is the primary domain value of the point
-                u is the secondary domain value of the point
-                delta_left is the spread of the type 2 set to the left and
-                delta_right is the spread to the right of the type 2 set such that
-                a triangular function is formed at u with values x-delta_left, x, x+delta_right
-
-                Reference:
-                ----------
-
-                Arguments:
-                ----------
-                None
-
-                Returns:
-                --------
-                gt2fs -- GeneralType2FuzzySet
-                &#39;&#39;&#39;
-                set_array = generate_gt2set_horizontal(primary_domain, secondary_domain, set_def)
-                return GeneralType2FuzzySet.from_array(primary_domain, secondary_domain, set_array)
-
-        def vertical_slice(self, primary_domain_val):
-                &#39;&#39;&#39;
-                For a given value of the primary domain, 
-                returns a representation of the vertical slice
-                in the form of a dict
-                {secondary_domain : secondary_grade,  ... }
-
-                Reference:
-                ----------
-                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
-
-                Arguments:
-                ----------
-                primary_domain_val -- value of primary domain
-
-                Returns:
-                --------
-                vertical_slice - dict representing the values if the vertical slice
-                &#39;&#39;&#39;
-                return self[primary_domain_val]
-
-        def save_file(self, set_filename, num_dec_places=4):
-                &#39;&#39;&#39;
-                Writes a formal representation of the general type-2 fuzzy set of the form:
-                &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + ... + (b1/u1 + b2/u2 + ... + bn/un)/xn&#39;
-                in a file
-
-                Reference:
-                ----------
-                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
-
-                Arguments:
-                ----------
-                set_filename -- string containing the path of the file to be written
-                num_dec_places -- number of decimal places used for secondary membership function, default 4
-
-                Returns:
-                --------
-                None
-                &#39;&#39;&#39;
-                try:
-                        with open(set_filename, &#39;w&#39;) as fuzzy_file:
-                                fuzzy_file.write(self.__str__())
-                except IOError:
-                        raise Exception(&#39;Unable to write file {}&#39;.format(set_filename))
-
-        def to_array_explicit(self):
-                &#39;&#39;&#39;
-                Transforms a General type 2 fuzzy set into a 2D array
-
-                Arguments:
-                ----------
-                None
-
-                Returns:
-                --------
-                primary_domain -- 1D array containing all the values in the primary domain
-                secondary_domain -- 1D array containing all the values in the secondary domain
-                set_array -- 2D array containing the degree of membership for the corresponding
-                                        primary/secondary combination
-                &#39;&#39;&#39;
-
-                # get all possible value of the secondary domain by a union with all the elements of
-                # each vertical slice
-                secondary_domain = []
-                for primary_domain_val in self.vertical_slices:
-                        secondary_domain = list(set().union(secondary_domain, list(self[primary_domain_val].domain_elements())))
-
-                secondary_domain.sort()
-
-                # get all possible value of the primary domain
-                primary_domain =  list(self.vertical_slices.keys())
-                primary_domain.sort()
-
-                # create an array to hold the dom
-                set_array = np.zeros((len(secondary_domain), len(primary_domain)))
-
-                for primary_domain_val in self.vertical_slices:
-                        pri_domain_idx = primary_domain.index(primary_domain_val)
-                        
-                        for sec_domain_val in self.vertical_slice(primary_domain_val).elements():
-                                sec_domain_idx = secondary_domain.index(sec_domain_val)
-
-                                set_array[sec_domain_idx, pri_domain_idx] = self.vertical_slice(primary_domain_val)[sec_domain_val]
-
-                return primary_domain, secondary_domain, set_array
-
-        def to_array_implicit(self, primary_domain, secondary_domain):
-                &#39;&#39;&#39;
-                Transforms a General type 2 fuzzy set into a 2D array but specifying the primary
-                and secondary domain discrete values. The values of the set are thereby approximated 
-                to these specified values
-
-                Arguments:
-                ----------
-                primary_domain -- 1D array containing all the values in the primary domain
-                secondary_domain -- 1D array containing all the values in the secondary domain
-
-                Returns:
-                --------
-                set_array -- 2D array containing the degree of membership for the corresponding
-                                                primary/secondary combination
-                &#39;&#39;&#39;
-
-                # convert domain lists to numpy arrays
-                primary_domain = np.array(primary_domain)
-                secondary_domain = np.array(secondary_domain)
-                
-                # create resultant set
-                set_array = np.zeros((len(secondary_domain), len(primary_domain)))
-
-                # for each primary domain element, get closest element form list
-                for primary_domain_val in self.vertical_slices:
-                        pri_dom_val_idx = np.argmin(np.abs(primary_domain - primary_domain_val))
-
-                        # for each secondary domain element, get closest element form list
-                        for sec_domain_val in self.vertical_slices[primary_domain_val]._elements:
-                                sec_dom_val_idx = np.argmin(np.abs(secondary_domain-sec_domain_val))
-
-                                # add set element in array
-                                set_array[sec_dom_val_idx, pri_dom_val_idx] = self.vertical_slice(primary_domain_val)[sec_domain_val]
-
-                return set_array
-
-        def primary_domain(self):
-                &#39;&#39;&#39;
-                The primary domain of this fuzzy set
-
-                Arguments:
-                ----------
-                None
-
-                Returns:
-                --------
-                primary_domain -- 1D array containing all the values in the primary domain
-                &#39;&#39;&#39;
-                primary_domain = list(self.vertical_slices.keys())
-                return primary_domain
-
-        def add_element(self, primary_domain_val, secondary_domain_val, secondary_grade):
-                &#39;&#39;&#39;
-                Adds a new element to the general type-2 fuzzy set. 
-                Will not add the element if the secondary grade is 0
-                Will raise and exception if secondary domain is &lt;1 and &gt;0
-                or secondary grade is &lt;1 and &gt;0
-
-                Arguments:
-                ----------
-                primary_domain_val -- float, value of the primary domain
-                secondary_domain_val -- float, value of the secondary domain, must be &lt;1 and &gt;0
-                secondary_grade -- float value of the secondary grade, must be &lt;1 and &gt;0
-
-                Returns:
-                --------
-                None
-
-                Raises:
-                -------
-                Exception if secondary domain is &lt;1 and &gt;0
-                or secondary grade is &lt;1 and &gt;0
-                &#39;&#39;&#39;
-                # ignore if secondary grade = 0
-                # if secondary_grade == 0:
-                #       return
-                
-                # raise exception if secondary grade &gt;1 or &lt;0
-                if secondary_grade &gt; 1 or secondary_grade &lt; 0:
-                        raise Exception(&#39;Invalid secondary grade value {} at x={} and u={}&#39;.format(secondary_grade, primary_domain_val, secondary_domain_val))
-
-                # raise exception if secondary domain &gt;1 or &lt;0
-                if secondary_domain_val &gt; 1 or secondary_domain_val &lt; 0:
-                        raise Exception(&#39;Invalid secondary domain value {} at x={}&#39;.format(secondary_domain_val, primary_domain_val))
-
-                # if the primary domain exists just add the value of the smf
-                # if not create a new smf to that primary domain value and
-                # add that value
-                if primary_domain_val in self.vertical_slices:
-                        self.vertical_slices[primary_domain_val].add_element(
-                                secondary_domain_val, secondary_grade)
-                else:
-                        secondary_function = smf()
-                        secondary_function.add_element(secondary_domain_val, secondary_grade)
-                        self.vertical_slices[primary_domain_val] = secondary_function
-
-        def add_membership_function(self, primary_domain_val, membership_function):
-                &#39;&#39;&#39;
-                Adds a membership function to the general type-2 fuzzy set. 
-                uses the add_element() method and uses the checks implemented in
-                that function
-                
-                Arguments:
-                ----------
-                primary_domain_val -- float, value of the primary domain
-                membership_function -- TYpe1FuzzySet, membership function to be added
-
-                Returns:
-                --------
-                None
-                &#39;&#39;&#39;
-                for secondary_domain_val in membership_function.domain_elements():
-                        self.add_element(primary_domain_val, secondary_domain_val, membership_function[secondary_domain_val])
-
-        def footprint_of_uncertainty(self):
-                &#39;&#39;&#39;
-                For all values of x, return the limits of the values of u where 
-                the secondary grade &gt; 0
-
-                Reference:
-                ----------
-                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
-
-                Arguments:
-                ----------
-                None
-                
-                Returns:
-                --------
-                footprint -- dict of primary domain element : (limits tuple)
-                &#39;&#39;&#39;
-                fou = {}
-
-                for primary_domain_val in self.primary_domain():
-                        limits = self.vertical_slices[primary_domain_val].domain_limits()
-                        if not limits.empty:
-                                fou[primary_domain_val] = limits
-
-                return fou
-
-        def z_slice(self, slice_value):
-                &#39;&#39;&#39;
-
-                &#39;&#39;&#39;
-                sliced_set = IntervalType2FuzzySet()
-
-                for primary_domain_val in self.primary_domain():
-                        cut = self.vertical_slices[primary_domain_val].alpha_cut(slice_value)
-
-                        if not cut.empty:
-                                sliced_set.add_element(primary_domain_val, cut)
-
-                return sliced_set
-
-        def primary_membership(self, primary_domain_val):
-                &#39;&#39;&#39;
-                Returns the domain of the secondary membership function that is called the
-                primary membership
-
-                Reference:
-                ----------
-                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
-
-                Arguments:
-                ----------
-                None
-
-                Returns:
-                --------
-                _primary_membership -- list containing the domain of the secondary function
-                                                                at X = primary_domain_val
-                &#39;&#39;&#39;
-                if primary_domain_val not in self.vertical_slices:
-                        raise Exception(&#39;Primary domain value not in this set.&#39;)
-
-                _primary_membership = self.vertical_slices[primary_domain_val].domain_elements()
-                return _primary_membership
-
-        def secondary_grade(self, primary_domain_val, secondary_domain_val):
-                &#39;&#39;&#39;
-                returns the amplitude of a secondary membership function,
-                that is the secondary grade.
-                
-                Reference:
-                ----------
-                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
-
-                Arguments:
-                ----------
-                primary_domain_val -- float, value of primary domain
-                secondary_domain_val -- float, value of secondary domain
-
-                Returns:
-                --------
-                secondary_grade -- float, value of secondary grade
-                &#39;&#39;&#39;
-
-                if secondary_domain_val &gt; 1 or secondary_domain_val &lt; 0:
-                        raise Exception(&#39;Invalid secondary domain value&#39;)
-
-                if primary_domain_val not in self.primary_domain():
-                        raise Exception(&#39;Invalid primary domain value&#39;)
-
-                secondary_grade = self.vertical_slices[primary_domain_val].elements()[secondary_domain_val]
-                return secondary_grade
-
-        def embedded_type2_sets_count(self):
-                &#39;&#39;&#39;
-                returns the number of embedded type-2 fuzzy sets that can be 
-                generated from this general type-2 fuzzy set.
-                
-                Reference:
-                ----------
-                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
-
-                Arguments:
-                ----------
-                None
-
-                Returns:
-                --------
-                embedded_count -- float, number of et2fs
-                &#39;&#39;&#39;
-                count = 1
-                for primary_domain_val in self.primary_domain():
-                        count = count * self.vertical_slice(primary_domain_val).element_count()
-                
-                return count
-
-        def embedded_type2_sets(self):
-                &#39;&#39;&#39;
-                Lists all the type 2 embedded sets of this gt2fs.
-                List will contain tuples in the form
-                [(sec_grade_1, sec_domain_1, pri_domain_1), ... , (sec_grade_n, sec_domain_n, pri_domain_n)]
-
-                Reference:
-                ----------
-                J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-                Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
-
-                Arguments:
-                ----------
-                None
-
-                Returns:
-                --------
-                results -- list, containing embedded type 2 sets
-
-                &#39;&#39;&#39;
-                set_array = []
-                primary_domain, secondary_domain, set_array = self.to_array_explicit()
-
-                # get an index array
-                index_array = np.indices(set_array.shape)[0]
-
-                # create a list with the number of non zero elements in each vertical slice
-                # i.e. the number of non zero element in each column
-                col_gen = [index_array[set_array[:, x] &gt; 0, x] for x in range((set_array.shape)[1])]
-
-                # the number of columns is the number of elements in the domain
-                domain_index = range(0, (set_array.shape)[1])
-
-                results = []
-                # for every combination of the column elemnets create a type 2 embedded fuzzy set
-                for t in itertools.product(*col_gen):
-                        embedded = list(map(lambda i: (set_array[t[i]][i], secondary_domain[t[i]], primary_domain[i]) , domain_index))
-                        results.append(embedded)
-
-                return results
-
-        def _format_slice(self, vertical_slice):
-                x = list(vertical_slice.elements.keys())
-                y = list(vertical_slice.elements.values())
-
-                def f(x, y): return &#34;%0.4f&#34; % (y)+&#39;/&#39;+&#34;%0.2f&#34; % (x)
-                m = map(f, x, y)
-                slice_rep = &#39; + &#39;.join(m)
-                return slice_rep
-
-        def union(self, gt2fs):
-                
-                resultant_gt2fs = GeneralType2FuzzySet()
-
-                primary_domain_a = self.primary_domain()
-                primary_domain_b = gt2fs.primary_domain()
-
-                primary_domain_union = list(set().union(primary_domain_a, primary_domain_b))
-
-                for primary_domain_element in primary_domain_union:
-                        if primary_domain_element not in primary_domain_a:
-                                resultant_gt2fs.add_membership_function(primary_domain_element, gt2fs[primary_domain_element])
-                        elif primary_domain_element not in primary_domain_b:
-                                resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element])
-                        else:
-                                resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].join(gt2fs[primary_domain_element]))
-
-                return resultant_gt2fs
-
-        def intersection(self, gt2fs):
-                &#39;&#39;&#39;
-                intersection  
-                &#39;&#39;&#39;
-                resultant_gt2fs = GeneralType2FuzzySet()
-
-                primary_domain_a = self.primary_domain()
-                primary_domain_b = gt2fs.primary_domain()
-
-                primary_domain_union = list(set().union(primary_domain_a, primary_domain_b))
-
-                for primary_domain_element in primary_domain_union:
-                        if primary_domain_element not in primary_domain_a:
-                                resultant_gt2fs.add_membership_function(primary_domain_element, gt2fs[primary_domain_element])
-                        elif primary_domain_element not in primary_domain_b:
-                                resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element])
-                        else:
-                                resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].meet(gt2fs[primary_domain_element]))
-
-                return resultant_gt2fs
-
-        def complement(self):
-                &#39;&#39;&#39;
-                finds the complement of a general type 2 fuzzy set 
-                &#39;&#39;&#39;
-                resultant_gt2fs = GeneralType2FuzzySet()
-
-                for primary_domain_element in self.primary_domain():
-                                        resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].negation())
-
-                return resultant_gt2fs</code></pre>
-</details>
-<h3>Static methods</h3>
-<dl>
-<dt id="type2fuzzy.membership.GeneralType2FuzzySet.from_array"><code class="name flex">
-<span>def <span class="ident">from_array</span></span>(<span>primary_domain, secondary_domain, set_array)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Creates a general type-2 fuzzy set from an array representation
-of set where given is
-x &ndash; a list containing the values of the primary domain
-u &ndash; a list containing the values of the secondary domain
-set_array &ndash; a 2D array where the rows map to the values of the u list
-the cols map to the values of the x list
-each value is the secondary grade value for
-the particular x / u combination</p>
-<h2 id="reference">Reference:</h2>
-<h2 id="arguments">Arguments:</h2>
-<p>set_array &ndash; 2D array containing the secondary grade values of the gt2fs
-x &ndash; list containing the values of the primary domain
-u &ndash; list containing the values of the secondary domain</p>
-<h2 id="returns">Returns:</h2>
-<p>gt2fs &ndash; GeneralType2FuzzySet</p>
-<h2 id="raises">Raises:</h2>
-<p>Exception &ndash; if there is a mismatch between the x, u and set_array dimensions</p></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@classmethod
-def from_array(cls, primary_domain, secondary_domain, set_array):
+    def __getitem__(self, primary_domain_val):
+        &#39;&#39;&#39;
+        For a given value of the primary domain,
+        return the secondary membership function object
+
+        Arguments:
+        ----------
+        primary_domain_val -- value of primary domain
+
+        Returns:
+        --------
+        secondary_membership_function - smf object
+        &#39;&#39;&#39;
+        if primary_domain_val not in self.vertical_slices:
+            raise Exception(&#39;Primary domain value of {} not in this set.&#39;.format(primary_domain_val))
+
+        return self.vertical_slices[primary_domain_val]
+
+    def __eq__(self, value):
+
+        current_primary_len = len(self.primary_domain())
+        value_primary_len = len(value.primary_domain())
+        union_primary_len = len(list(set(self.primary_domain()).union(value.primary_domain())))
+
+        if current_primary_len != value_primary_len:
+            return False 
+
+        if union_primary_len != value_primary_len:
+            return False
+
+        for pri_domain in self.primary_domain():
+            if self[pri_domain] != value[pri_domain]:
+                return False
+
+        return True
+
+    def __str__(self):
+        &#39;&#39;&#39;
+        Returns a formal representation of the general type-2 fuzzy set in the form:
+        &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + ... + (b1/u1 + b2/u2 + ... + bn/un)/xn&#39;
+
+        Reference:
+        ----------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Arguments:
+        ----------
+        num_dec_places  -- number of decimal places
+
+        Returns:
+        --------
+        set_representation -- string representation of gt2fs
+        &#39;&#39;&#39;
+        represented_slices = []
+        dec_places_formatter = &#39;&#39;&#39;%0.{}f&#39;&#39;&#39;.format(self._precision)
+
+        for primary_domain_val in self.primary_domain():
+            sec_domains = list(self.vertical_slice(primary_domain_val).domain_elements())
+            doms = list(self.vertical_slices[primary_domain_val].dom_elements())
+
+            def slice_rep_creation(sec_domains, doms): return dec_places_formatter % (
+                doms)+&#39; / &#39; + dec_places_formatter % (sec_domains)
+
+            m = map(slice_rep_creation, sec_domains, doms)
+
+            slice_rep = &#39; + &#39;.join(m)
+            represented_slices.append(&#39;(&#39; + slice_rep + &#39;)&#39;)
+
+        def f2(sec_domains, doms): return doms + &#39; / &#39; + dec_places_formatter % (sec_domains)
+        m2 = map(f2, self.primary_domain(), represented_slices)
+        set_representation = &#39; + &#39;.join(m2)
+
+        return set_representation
+
+    def __repr__(self):
+        return f&#39;{self.__class__.__name__}({str(self)})&#39;
+
+    @classmethod
+    def from_representation(cls, set_representation):
+        &#39;&#39;&#39;
+        Creates a general type-2 fuzzy set from a set representation of the form
+        &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + ... +(b1/u1 + b2/u2 + ... + bn/un)/xm&#39;
+
+        Reference:
+        ---------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Definition of secondary grade - pg 119
+
+        Arguments:
+        ----------
+        set_representation -- string, representation of the gt2fs
+
+        Returns:
+        --------
+        gt2fs -- GeneralType2FuzzySet
+
+        Raises:
+        -------
+        Exception -- if set_representation is empty, None or invalid
+        &#39;&#39;&#39;
+        if set_representation is None:
+            raise Exception(&#39;Type-2 Set Representation cannot be null&#39;)
+        if set_representation == &#39;&#39;:
+            raise Exception(&#39;Type-2 Set Representation cannot be empty&#39;)
+
+        gt2fs = cls()
+
+        try:
+            # remove spaces, tabs returns,
+            translation_table = dict.fromkeys(map(ord, &#39; \t\n\r&#39;), None)
+            set_representation = set_representation.translate(translation_table)
+
+            # by splitting by +( we will get the secondary mfs
+            # we would lose the initial ( of each mf except for the
+            # first one - this will be removed lated
+            sec_mfs_s = set_representation.split(&#39;+(&#39;)
+
+            # so lets go through the membership functions
+            for sec_mf in sec_mfs_s:
+                # remove the leading &#39;(&#39;
+                # this will only happen in the first mf
+                translation_table = dict.fromkeys(map(ord, &#39;(&#39;), None)
+                sec_mf = sec_mf.translate(translation_table)
+
+                # we now split the secondary membership function from the
+                # primary domain value
+                vertical_slice_points_s, pri_dom_val_s = sec_mf.split(&#39;)/&#39;)
+
+                # get the primary domain value and its corresponding
+                # index
+                primary_domain_val = float(pri_dom_val_s)
+
+                # split by the &#39;+&#39; so that we will obtain the individual
+                # dom / sec domain points
+                points_s = vertical_slice_points_s.split(&#39;+&#39;)
+
+                # we then examine each point to add them to the set
+                for point_s in points_s:
+                    # split by / so to obtain the dom and the sec domain value
+                    sec_grade_val_s, sec_dom_val_s = point_s.split(&#39;/&#39;)
+
+                    # get the secondary domain value and its corresponding
+                    # index
+                    secondary_domain_val = float(sec_dom_val_s)
+
+                    sec_grade = float(sec_grade_val_s)
+                    # add the point to the set
+                    gt2fs.add_element(primary_domain_val, secondary_domain_val, sec_grade)
+        except ValueError:
+            raise Exception(&#39;Invalid set format&#39;)
+
+        return gt2fs
+
+    @classmethod
+    def from_array(cls, primary_domain, secondary_domain, set_array):
         &#39;&#39;&#39;
         Creates a general type-2 fuzzy set from an array representation 
         of set where given is
         x -- a list containing the values of the primary domain
         u -- a list containing the values of the secondary domain
         set_array -- a 2D array where the rows map to the values of the u list
-                                                                the cols map to the values of the x list
-                                                                each value is the secondary grade value for
-                                                                the particular x / u combination
+                                    the cols map to the values of the x list
+                                    each value is the secondary grade value for
+                                    the particular x / u combination
         
 
         Reference:
@@ -1338,191 +1030,22 @@ def from_array(cls, primary_domain, secondary_domain, set_array):
         (secondary_domain_size, primary_domain_size) = np.shape(set_array)
 
         if secondary_domain_size != len(secondary_domain):
-                raise Exception(&#39;Secondary domain size mismatch&#39;)
+            raise Exception(&#39;Secondary domain size mismatch&#39;)
 
         if primary_domain_size != len(primary_domain):
-                raise Exception(&#39;Primary domain size mismatch&#39;)
+            raise Exception(&#39;Primary domain size mismatch&#39;)
 
         gt2fs = cls()
 
         # load all the elements in the array
         for pri_dom_val_idx, pri_dom_val in enumerate(primary_domain):
-                for sec_dom_val_idx, sec_dom_val in enumerate(secondary_domain):
-                        gt2fs.add_element(pri_dom_val, sec_dom_val, set_array[sec_dom_val_idx][pri_dom_val_idx])
+            for sec_dom_val_idx, sec_dom_val in enumerate(secondary_domain):
+                gt2fs.add_element(pri_dom_val, sec_dom_val, set_array[sec_dom_val_idx][pri_dom_val_idx])
 
-        return gt2fs</code></pre>
-</details>
-</dd>
-<dt id="type2fuzzy.membership.GeneralType2FuzzySet.from_horizontal_representation"><code class="name flex">
-<span>def <span class="ident">from_horizontal_representation</span></span>(<span>primary_domain, secondary_domain, set_def)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Experimental method of representing a general type-2 fuzzy set by defining the
-spread at the points of piecewise type-1 parts.
-each point is a tuple (x, u, delta_left, delta_right); where:
-x is the primary domain value of the point
-u is the secondary domain value of the point
-delta_left is the spread of the type 2 set to the left and
-delta_right is the spread to the right of the type 2 set such that
-a triangular function is formed at u with values x-delta_left, x, x+delta_right</p>
-<h2 id="reference">Reference:</h2>
-<h2 id="arguments">Arguments:</h2>
-<p>None</p>
-<h2 id="returns">Returns:</h2>
-<p>gt2fs &ndash; GeneralType2FuzzySet</p></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@classmethod
-def from_horizontal_representation(cls, primary_domain, secondary_domain, set_def):
-        &#39;&#39;&#39;
-        Experimental method of representing a general type-2 fuzzy set by defining the
-        spread at the points of piecewise type-1 parts.
-        each point is a tuple (x, u, delta_left, delta_right); where:
-        x is the primary domain value of the point
-        u is the secondary domain value of the point
-        delta_left is the spread of the type 2 set to the left and
-        delta_right is the spread to the right of the type 2 set such that
-        a triangular function is formed at u with values x-delta_left, x, x+delta_right
+        return gt2fs
 
-        Reference:
-        ----------
-
-        Arguments:
-        ----------
-        None
-
-        Returns:
-        --------
-        gt2fs -- GeneralType2FuzzySet
-        &#39;&#39;&#39;
-        set_array = generate_gt2set_horizontal(primary_domain, secondary_domain, set_def)
-        return GeneralType2FuzzySet.from_array(primary_domain, secondary_domain, set_array)</code></pre>
-</details>
-</dd>
-<dt id="type2fuzzy.membership.GeneralType2FuzzySet.from_representation"><code class="name flex">
-<span>def <span class="ident">from_representation</span></span>(<span>set_representation)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Creates a general type-2 fuzzy set from a set representation of the form
-'(a1/u1 + a2/u2 + &hellip; + an/un)/x1 + &hellip; +(b1/u1 + b2/u2 + &hellip; + bn/un)/xm'</p>
-<h2 id="reference">Reference:</h2>
-<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
-<p>Definition of secondary grade - pg 119</p>
-<h2 id="arguments">Arguments:</h2>
-<p>set_representation &ndash; string, representation of the gt2fs</p>
-<h2 id="returns">Returns:</h2>
-<p>gt2fs &ndash; GeneralType2FuzzySet</p>
-<h2 id="raises">Raises:</h2>
-<p>Exception &ndash; if set_representation is empty, None or invalid</p></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@classmethod
-def from_representation(cls, set_representation):
-        &#39;&#39;&#39;
-        Creates a general type-2 fuzzy set from a set representation of the form
-        &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + ... +(b1/u1 + b2/u2 + ... + bn/un)/xm&#39;
-
-        Reference:
-        ---------
-        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
-
-        Definition of secondary grade - pg 119
-
-        Arguments:
-        ----------
-        set_representation -- string, representation of the gt2fs
-
-        Returns:
-        --------
-        gt2fs -- GeneralType2FuzzySet
-
-        Raises:
-        -------
-        Exception -- if set_representation is empty, None or invalid
-        &#39;&#39;&#39;
-        if set_representation == None:
-                raise Exception(&#39;Type-2 Set Representation cannot be null&#39;)
-        if set_representation == &#39;&#39;:
-                raise Exception(&#39;Type-2 Set Representation cannot be empty&#39;)
-
-        gt2fs = cls()
-
-        try:
-                # remove spaces, tabs returns,
-                translation_table = dict.fromkeys(map(ord, &#39; \t\n\r&#39;), None)
-                set_representation = set_representation.translate(translation_table)
-
-                # by splitting by +( we will get the secondary mfs
-                # we would lose the initial ( of each mf except for the
-                # first one - this will be removed lated
-                sec_mfs_s = set_representation.split(&#39;+(&#39;)
-
-                # so lets go through the membership functions
-                for sec_mf in sec_mfs_s:
-                        # remove the leading &#39;(&#39;
-                        # this will only happen in the first mf
-                        translation_table = dict.fromkeys(map(ord, &#39;(&#39;), None)
-                        sec_mf = sec_mf.translate(translation_table)
-
-                        # we now split the secondary membership function from the
-                        # primary domain value
-                        vertical_slice_points_s, pri_dom_val_s = sec_mf.split(&#39;)/&#39;)
-
-                        # get the primary domain value and its corresponding
-                        # index
-                        primary_domain_val = float(pri_dom_val_s)
-
-                        # split by the &#39;+&#39; so that we will obtain the individual
-                        # dom / sec domain points
-                        points_s = vertical_slice_points_s.split(&#39;+&#39;)
-
-                        # we then examine each point to add them to the set
-                        for point_s in points_s:
-                                # split by / so to obtain the dom and the sec domain value
-                                sec_grade_val_s, sec_dom_val_s = point_s.split(&#39;/&#39;)
-
-                                # get the secondary domain value and its corresponding
-                                # index
-                                secondary_domain_val = float(sec_dom_val_s)
-
-                                sec_grade = float(sec_grade_val_s)
-                                # add the point to the set
-                                gt2fs.add_element(primary_domain_val, secondary_domain_val, sec_grade)
-        except ValueError:
-                raise Exception(&#39;Invalid set format&#39;)
-
-        return gt2fs</code></pre>
-</details>
-</dd>
-<dt id="type2fuzzy.membership.GeneralType2FuzzySet.load_file"><code class="name flex">
-<span>def <span class="ident">load_file</span></span>(<span>set_filename)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Loads a general type-2 fuzzy set from a file. File must have the
-following format:
-'(a1/u1 + a2/u2 + &hellip; + an/un)/x1 + (b1/u1 + b2/u2 + &hellip; + bn/un)/xn'</p>
-<h2 id="reference">Reference:</h2>
-<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
-<p>Definition of secondary grade - pg 119</p>
-<h2 id="arguments">Arguments:</h2>
-<p>set_filename &ndash; string, filename of the set</p>
-<h2 id="returns">Returns:</h2>
-<p>gt2fs &ndash; GeneralType2FuzzySet</p>
-<h2 id="raises">Raises:</h2>
-<p>Exception &ndash; if set_filename is empty, None or invalid</p></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@classmethod
-def load_file(cls, set_filename):
+    @classmethod
+    def load_file(cls, set_filename):
         &#39;&#39;&#39;
         Loads a general type-2 fuzzy set from a file. File must have the
         following format:
@@ -1550,42 +1073,184 @@ def load_file(cls, set_filename):
         representation = &#39;&#39;
         
         try:
-                with open(set_filename, &#39;r&#39;) as file:
-                        representation = file.read()
+            with open(set_filename, &#39;r&#39;) as file:
+                representation = file.read()
         except IOError:
-                raise Exception(&#39;Could not read file {}&#39;.format(set_filename))
+            raise Exception(&#39;Could not read file {}&#39;.format(set_filename))
         
         gt2fs = cls()
         gt2fs = GeneralType2FuzzySet.from_representation(representation)
 
-        return gt2fs</code></pre>
-</details>
-</dd>
-</dl>
-<h3>Methods</h3>
-<dl>
-<dt id="type2fuzzy.membership.GeneralType2FuzzySet.add_element"><code class="name flex">
-<span>def <span class="ident">add_element</span></span>(<span>self, primary_domain_val, secondary_domain_val, secondary_grade)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Adds a new element to the general type-2 fuzzy set.
-Will not add the element if the secondary grade is 0
-Will raise and exception if secondary domain is &lt;1 and &gt;0
-or secondary grade is &lt;1 and &gt;0</p>
-<h2 id="arguments">Arguments:</h2>
-<p>primary_domain_val &ndash; float, value of the primary domain
-secondary_domain_val &ndash; float, value of the secondary domain, must be &lt;1 and &gt;0
-secondary_grade &ndash; float value of the secondary grade, must be &lt;1 and &gt;0</p>
-<h2 id="returns">Returns:</h2>
-<p>None</p>
-<h2 id="raises">Raises:</h2>
-<p>Exception if secondary domain is &lt;1 and &gt;0
-or secondary grade is &lt;1 and &gt;0</p></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def add_element(self, primary_domain_val, secondary_domain_val, secondary_grade):
+        return gt2fs
+
+    @classmethod
+    def from_horizontal_representation(cls, primary_domain, secondary_domain, set_def):
+        &#39;&#39;&#39;
+        Experimental method of representing a general type-2 fuzzy set by defining the
+        spread at the points of piecewise type-1 parts.
+        each point is a tuple (x, u, delta_left, delta_right); where:
+        x is the primary domain value of the point
+        u is the secondary domain value of the point
+        delta_left is the spread of the type 2 set to the left and
+        delta_right is the spread to the right of the type 2 set such that
+        a triangular function is formed at u with values x-delta_left, x, x+delta_right
+
+        Reference:
+        ----------
+
+        Arguments:
+        ----------
+        None
+
+        Returns:
+        --------
+        gt2fs -- GeneralType2FuzzySet
+        &#39;&#39;&#39;
+        set_array = generate_gt2set_horizontal(primary_domain, secondary_domain, set_def)
+        return GeneralType2FuzzySet.from_array(primary_domain, secondary_domain, set_array)
+
+    def vertical_slice(self, primary_domain_val):
+        &#39;&#39;&#39;
+        For a given value of the primary domain, 
+        returns a representation of the vertical slice
+        in the form of a dict
+        {secondary_domain : secondary_grade,  ... }
+
+        Reference:
+        ----------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Arguments:
+        ----------
+        primary_domain_val -- value of primary domain
+
+        Returns:
+        --------
+        vertical_slice - dict representing the values if the vertical slice
+        &#39;&#39;&#39;
+        return self[primary_domain_val]
+
+    def save_file(self, set_filename, num_dec_places=4):
+        &#39;&#39;&#39;
+        Writes a formal representation of the general type-2 fuzzy set of the form:
+        &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + ... + (b1/u1 + b2/u2 + ... + bn/un)/xn&#39;
+        in a file
+
+        Reference:
+        ----------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Arguments:
+        ----------
+        set_filename -- string containing the path of the file to be written
+        num_dec_places -- number of decimal places used for secondary membership function, default 4
+
+        Returns:
+        --------
+        None
+        &#39;&#39;&#39;
+        try:
+            with open(set_filename, &#39;w&#39;) as fuzzy_file:
+                fuzzy_file.write(self.__str__())
+        except IOError:
+            raise Exception(&#39;Unable to write file {}&#39;.format(set_filename))
+
+    def to_array_explicit(self):
+        &#39;&#39;&#39;
+        Transforms a General type 2 fuzzy set into a 2D array
+
+        Arguments:
+        ----------
+        None
+
+        Returns:
+        --------
+        primary_domain -- 1D array containing all the values in the primary domain
+        secondary_domain -- 1D array containing all the values in the secondary domain
+        set_array -- 2D array containing the degree of membership for the corresponding
+                    primary/secondary combination
+        &#39;&#39;&#39;
+
+        # get all possible value of the secondary domain by a union with all the elements of
+        # each vertical slice
+        secondary_domain = []
+        for primary_domain_val in self.vertical_slices:
+            secondary_domain = list(set().union(secondary_domain, list(self[primary_domain_val].domain_elements())))
+
+        secondary_domain.sort()
+
+        # get all possible value of the primary domain
+        primary_domain =  list(self.vertical_slices.keys())
+        primary_domain.sort()
+
+        # create an array to hold the dom
+        set_array = np.zeros((len(secondary_domain), len(primary_domain)))
+
+        for primary_domain_val in self.vertical_slices:
+            pri_domain_idx = primary_domain.index(primary_domain_val)
+
+            for sec_domain_val in self.vertical_slice(primary_domain_val).elements():
+                sec_domain_idx = secondary_domain.index(sec_domain_val)
+
+                set_array[sec_domain_idx, pri_domain_idx] = self.vertical_slice(primary_domain_val)[sec_domain_val]
+
+        return primary_domain, secondary_domain, set_array
+
+    def to_array_implicit(self, primary_domain, secondary_domain):
+        &#39;&#39;&#39;
+        Transforms a General type 2 fuzzy set into a 2D array but specifying the primary
+        and secondary domain discrete values. The values of the set are thereby approximated 
+        to these specified values
+
+        Arguments:
+        ----------
+        primary_domain -- 1D array containing all the values in the primary domain
+        secondary_domain -- 1D array containing all the values in the secondary domain
+
+        Returns:
+        --------
+        set_array -- 2D array containing the degree of membership for the corresponding
+                        primary/secondary combination
+        &#39;&#39;&#39;
+
+        # convert domain lists to numpy arrays
+        primary_domain = np.array(primary_domain)
+        secondary_domain = np.array(secondary_domain)
+        
+        # create resultant set
+        set_array = np.zeros((len(secondary_domain), len(primary_domain)))
+
+        # for each primary domain element, get closest element form list
+        for primary_domain_val in self.vertical_slices:
+            pri_dom_val_idx = np.argmin(np.abs(primary_domain - primary_domain_val))
+
+            # for each secondary domain element, get closest element form list
+            for sec_domain_val in self.vertical_slices[primary_domain_val]._elements:
+                sec_dom_val_idx = np.argmin(np.abs(secondary_domain-sec_domain_val))
+
+                # add set element in array
+                set_array[sec_dom_val_idx, pri_dom_val_idx] = self.vertical_slice(primary_domain_val)[sec_domain_val]
+
+        return set_array
+
+    def primary_domain(self):
+        &#39;&#39;&#39;
+        The primary domain of this fuzzy set
+
+        Arguments:
+        ----------
+        None
+
+        Returns:
+        --------
+        primary_domain -- 1D array containing all the values in the primary domain
+        &#39;&#39;&#39;
+        primary_domain = list(self.vertical_slices.keys())
+        return primary_domain
+
+    def add_element(self, primary_domain_val, secondary_domain_val, secondary_grade):
         &#39;&#39;&#39;
         Adds a new element to the general type-2 fuzzy set. 
         Will not add the element if the secondary grade is 0
@@ -1613,41 +1278,24 @@ or secondary grade is &lt;1 and &gt;0</p></section>
         
         # raise exception if secondary grade &gt;1 or &lt;0
         if secondary_grade &gt; 1 or secondary_grade &lt; 0:
-                raise Exception(&#39;Invalid secondary grade value {} at x={} and u={}&#39;.format(secondary_grade, primary_domain_val, secondary_domain_val))
+            raise Exception(&#39;Invalid secondary grade value {} at x={} and u={}&#39;.format(secondary_grade, primary_domain_val, secondary_domain_val))
 
         # raise exception if secondary domain &gt;1 or &lt;0
         if secondary_domain_val &gt; 1 or secondary_domain_val &lt; 0:
-                raise Exception(&#39;Invalid secondary domain value {} at x={}&#39;.format(secondary_domain_val, primary_domain_val))
+            raise Exception(&#39;Invalid secondary domain value {} at x={}&#39;.format(secondary_domain_val, primary_domain_val))
 
         # if the primary domain exists just add the value of the smf
         # if not create a new smf to that primary domain value and
         # add that value
         if primary_domain_val in self.vertical_slices:
-                self.vertical_slices[primary_domain_val].add_element(
-                        secondary_domain_val, secondary_grade)
+            self.vertical_slices[primary_domain_val].add_element(
+                secondary_domain_val, secondary_grade)
         else:
-                secondary_function = smf()
-                secondary_function.add_element(secondary_domain_val, secondary_grade)
-                self.vertical_slices[primary_domain_val] = secondary_function</code></pre>
-</details>
-</dd>
-<dt id="type2fuzzy.membership.GeneralType2FuzzySet.add_membership_function"><code class="name flex">
-<span>def <span class="ident">add_membership_function</span></span>(<span>self, primary_domain_val, membership_function)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Adds a membership function to the general type-2 fuzzy set.
-uses the add_element() method and uses the checks implemented in
-that function</p>
-<h2 id="arguments">Arguments:</h2>
-<p>primary_domain_val &ndash; float, value of the primary domain
-membership_function &ndash; TYpe1FuzzySet, membership function to be added</p>
-<h2 id="returns">Returns:</h2>
-<p>None</p></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def add_membership_function(self, primary_domain_val, membership_function):
+            secondary_function = smf()
+            secondary_function.add_element(secondary_domain_val, secondary_grade)
+            self.vertical_slices[primary_domain_val] = secondary_function
+
+    def add_membership_function(self, primary_domain_val, membership_function):
         &#39;&#39;&#39;
         Adds a membership function to the general type-2 fuzzy set. 
         uses the add_element() method and uses the checks implemented in
@@ -1663,49 +1311,128 @@ membership_function &ndash; TYpe1FuzzySet, membership function to be added</p>
         None
         &#39;&#39;&#39;
         for secondary_domain_val in membership_function.domain_elements():
-                self.add_element(primary_domain_val, secondary_domain_val, membership_function[secondary_domain_val])</code></pre>
-</details>
-</dd>
-<dt id="type2fuzzy.membership.GeneralType2FuzzySet.complement"><code class="name flex">
-<span>def <span class="ident">complement</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>finds the complement of a general type 2 fuzzy set</p></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def complement(self):
-        &#39;&#39;&#39;
-        finds the complement of a general type 2 fuzzy set 
-        &#39;&#39;&#39;
-        resultant_gt2fs = GeneralType2FuzzySet()
+            self.add_element(primary_domain_val, secondary_domain_val, membership_function[secondary_domain_val])
 
-        for primary_domain_element in self.primary_domain():
-                                resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].negation())
+    def footprint_of_uncertainty(self):
+        &#39;&#39;&#39;
+        For all values of x, return the limits of the values of u where 
+        the secondary grade &gt; 0
 
-        return resultant_gt2fs</code></pre>
-</details>
-</dd>
-<dt id="type2fuzzy.membership.GeneralType2FuzzySet.embedded_type2_sets"><code class="name flex">
-<span>def <span class="ident">embedded_type2_sets</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Lists all the type 2 embedded sets of this gt2fs.
-List will contain tuples in the form
-[(sec_grade_1, sec_domain_1, pri_domain_1), &hellip; , (sec_grade_n, sec_domain_n, pri_domain_n)]</p>
-<h2 id="reference">Reference:</h2>
-<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
-<h2 id="arguments">Arguments:</h2>
-<p>None</p>
-<h2 id="returns">Returns:</h2>
-<p>results &ndash; list, containing embedded type 2 sets</p></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def embedded_type2_sets(self):
+        Reference:
+        ----------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Arguments:
+        ----------
+        None
+        
+        Returns:
+        --------
+        footprint -- dict of primary domain element : (limits tuple)
+        &#39;&#39;&#39;
+        fou = {}
+
+        for primary_domain_val in self.primary_domain():
+            limits = self.vertical_slices[primary_domain_val].domain_limits()
+            if not limits.empty:
+                fou[primary_domain_val] = limits
+
+        return fou
+
+    def z_slice(self, slice_value):
+        &#39;&#39;&#39;
+
+        &#39;&#39;&#39;
+        sliced_set = IntervalType2FuzzySet()
+
+        for primary_domain_val in self.primary_domain():
+            cut = self.vertical_slices[primary_domain_val].alpha_cut(slice_value)
+
+            if not cut.empty:
+                sliced_set.add_element(primary_domain_val, cut)
+
+        return sliced_set
+
+    def primary_membership(self, primary_domain_val):
+        &#39;&#39;&#39;
+        Returns the domain of the secondary membership function that is called the
+        primary membership
+
+        Reference:
+        ----------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Arguments:
+        ----------
+        None
+
+        Returns:
+        --------
+        _primary_membership -- list containing the domain of the secondary function
+                                at X = primary_domain_val
+        &#39;&#39;&#39;
+        if primary_domain_val not in self.vertical_slices:
+            raise Exception(&#39;Primary domain value not in this set.&#39;)
+
+        _primary_membership = self.vertical_slices[primary_domain_val].domain_elements()
+        return _primary_membership
+
+    def secondary_grade(self, primary_domain_val, secondary_domain_val):
+        &#39;&#39;&#39;
+        returns the amplitude of a secondary membership function,
+        that is the secondary grade.
+        
+        Reference:
+        ----------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Arguments:
+        ----------
+        primary_domain_val -- float, value of primary domain
+        secondary_domain_val -- float, value of secondary domain
+
+        Returns:
+        --------
+        secondary_grade -- float, value of secondary grade
+        &#39;&#39;&#39;
+
+        if secondary_domain_val &gt; 1 or secondary_domain_val &lt; 0:
+            raise Exception(&#39;Invalid secondary domain value&#39;)
+
+        if primary_domain_val not in self.primary_domain():
+            raise Exception(&#39;Invalid primary domain value&#39;)
+
+        secondary_grade = self.vertical_slices[primary_domain_val].elements()[secondary_domain_val]
+        return secondary_grade
+
+    def embedded_type2_sets_count(self):
+        &#39;&#39;&#39;
+        returns the number of embedded type-2 fuzzy sets that can be 
+        generated from this general type-2 fuzzy set.
+        
+        Reference:
+        ----------
+        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+        Arguments:
+        ----------
+        None
+
+        Returns:
+        --------
+        embedded_count -- float, number of et2fs
+        &#39;&#39;&#39;
+        count = 1
+        for primary_domain_val in self.primary_domain():
+            count = count * self.vertical_slice(primary_domain_val).element_count()
+        
+        return count
+
+    def embedded_type2_sets(self):
         &#39;&#39;&#39;
         Lists all the type 2 embedded sets of this gt2fs.
         List will contain tuples in the form
@@ -1741,10 +1468,541 @@ Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
         results = []
         # for every combination of the column elemnets create a type 2 embedded fuzzy set
         for t in itertools.product(*col_gen):
-                embedded = list(map(lambda i: (set_array[t[i]][i], secondary_domain[t[i]], primary_domain[i]) , domain_index))
-                results.append(embedded)
+            embedded = list(map(lambda i: (set_array[t[i]][i], secondary_domain[t[i]], primary_domain[i]) , domain_index))
+            results.append(embedded)
 
-        return results</code></pre>
+        return results
+
+    def _format_slice(self, vertical_slice):
+        x = list(vertical_slice.elements.keys())
+        y = list(vertical_slice.elements.values())
+
+        def f(x, y): return &#34;%0.4f&#34; % (y)+&#39;/&#39;+&#34;%0.2f&#34; % (x)
+        m = map(f, x, y)
+        slice_rep = &#39; + &#39;.join(m)
+        return slice_rep
+
+    def union(self, gt2fs):
+        
+        resultant_gt2fs = GeneralType2FuzzySet()
+
+        primary_domain_a = self.primary_domain()
+        primary_domain_b = gt2fs.primary_domain()
+
+        primary_domain_union = list(set().union(primary_domain_a, primary_domain_b))
+
+        for primary_domain_element in primary_domain_union:
+            if primary_domain_element not in primary_domain_a:
+                resultant_gt2fs.add_membership_function(primary_domain_element, gt2fs[primary_domain_element])
+            elif primary_domain_element not in primary_domain_b:
+                resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element])
+            else:
+                resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].join(gt2fs[primary_domain_element]))
+
+        return resultant_gt2fs
+
+    def intersection(self, gt2fs):
+        &#39;&#39;&#39;
+        intersection  
+        &#39;&#39;&#39;
+        resultant_gt2fs = GeneralType2FuzzySet()
+
+        primary_domain_a = self.primary_domain()
+        primary_domain_b = gt2fs.primary_domain()
+
+        primary_domain_union = list(set().union(primary_domain_a, primary_domain_b))
+
+        for primary_domain_element in primary_domain_union:
+            if primary_domain_element not in primary_domain_a:
+                resultant_gt2fs.add_membership_function(primary_domain_element, gt2fs[primary_domain_element])
+            elif primary_domain_element not in primary_domain_b:
+                resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element])
+            else:
+                resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].meet(gt2fs[primary_domain_element]))
+
+        return resultant_gt2fs
+
+    def complement(self):
+        &#39;&#39;&#39;
+        finds the complement of a general type 2 fuzzy set 
+        &#39;&#39;&#39;
+        resultant_gt2fs = GeneralType2FuzzySet()
+
+        for primary_domain_element in self.primary_domain():
+                    resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].negation())
+
+        return resultant_gt2fs</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.from_array"><code class="name flex">
+<span>def <span class="ident">from_array</span></span>(<span>primary_domain, secondary_domain, set_array)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates a general type-2 fuzzy set from an array representation
+of set where given is
+x &ndash; a list containing the values of the primary domain
+u &ndash; a list containing the values of the secondary domain
+set_array &ndash; a 2D array where the rows map to the values of the u list
+the cols map to the values of the x list
+each value is the secondary grade value for
+the particular x / u combination</p>
+<h2 id="reference">Reference:</h2>
+<h2 id="arguments">Arguments:</h2>
+<p>set_array &ndash; 2D array containing the secondary grade values of the gt2fs
+x &ndash; list containing the values of the primary domain
+u &ndash; list containing the values of the secondary domain</p>
+<h2 id="returns">Returns:</h2>
+<p>gt2fs &ndash; GeneralType2FuzzySet</p>
+<h2 id="raises">Raises:</h2>
+<p>Exception &ndash; if there is a mismatch between the x, u and set_array dimensions</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_array(cls, primary_domain, secondary_domain, set_array):
+    &#39;&#39;&#39;
+    Creates a general type-2 fuzzy set from an array representation 
+    of set where given is
+    x -- a list containing the values of the primary domain
+    u -- a list containing the values of the secondary domain
+    set_array -- a 2D array where the rows map to the values of the u list
+                                the cols map to the values of the x list
+                                each value is the secondary grade value for
+                                the particular x / u combination
+    
+
+    Reference:
+    ---------
+
+    Arguments:
+    ----------
+    set_array -- 2D array containing the secondary grade values of the gt2fs
+    x -- list containing the values of the primary domain
+    u -- list containing the values of the secondary domain
+
+    Returns:
+    --------
+    gt2fs -- GeneralType2FuzzySet
+
+    Raises:
+    -------
+    Exception -- if there is a mismatch between the x, u and set_array dimensions
+    &#39;&#39;&#39;
+    set_array = np.array(set_array)
+
+    # check that array sizes are correct
+    (secondary_domain_size, primary_domain_size) = np.shape(set_array)
+
+    if secondary_domain_size != len(secondary_domain):
+        raise Exception(&#39;Secondary domain size mismatch&#39;)
+
+    if primary_domain_size != len(primary_domain):
+        raise Exception(&#39;Primary domain size mismatch&#39;)
+
+    gt2fs = cls()
+
+    # load all the elements in the array
+    for pri_dom_val_idx, pri_dom_val in enumerate(primary_domain):
+        for sec_dom_val_idx, sec_dom_val in enumerate(secondary_domain):
+            gt2fs.add_element(pri_dom_val, sec_dom_val, set_array[sec_dom_val_idx][pri_dom_val_idx])
+
+    return gt2fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.from_horizontal_representation"><code class="name flex">
+<span>def <span class="ident">from_horizontal_representation</span></span>(<span>primary_domain, secondary_domain, set_def)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Experimental method of representing a general type-2 fuzzy set by defining the
+spread at the points of piecewise type-1 parts.
+each point is a tuple (x, u, delta_left, delta_right); where:
+x is the primary domain value of the point
+u is the secondary domain value of the point
+delta_left is the spread of the type 2 set to the left and
+delta_right is the spread to the right of the type 2 set such that
+a triangular function is formed at u with values x-delta_left, x, x+delta_right</p>
+<h2 id="reference">Reference:</h2>
+<h2 id="arguments">Arguments:</h2>
+<p>None</p>
+<h2 id="returns">Returns:</h2>
+<p>gt2fs &ndash; GeneralType2FuzzySet</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_horizontal_representation(cls, primary_domain, secondary_domain, set_def):
+    &#39;&#39;&#39;
+    Experimental method of representing a general type-2 fuzzy set by defining the
+    spread at the points of piecewise type-1 parts.
+    each point is a tuple (x, u, delta_left, delta_right); where:
+    x is the primary domain value of the point
+    u is the secondary domain value of the point
+    delta_left is the spread of the type 2 set to the left and
+    delta_right is the spread to the right of the type 2 set such that
+    a triangular function is formed at u with values x-delta_left, x, x+delta_right
+
+    Reference:
+    ----------
+
+    Arguments:
+    ----------
+    None
+
+    Returns:
+    --------
+    gt2fs -- GeneralType2FuzzySet
+    &#39;&#39;&#39;
+    set_array = generate_gt2set_horizontal(primary_domain, secondary_domain, set_def)
+    return GeneralType2FuzzySet.from_array(primary_domain, secondary_domain, set_array)</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.from_representation"><code class="name flex">
+<span>def <span class="ident">from_representation</span></span>(<span>set_representation)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates a general type-2 fuzzy set from a set representation of the form
+'(a1/u1 + a2/u2 + &hellip; + an/un)/x1 + &hellip; +(b1/u1 + b2/u2 + &hellip; + bn/un)/xm'</p>
+<h2 id="reference">Reference:</h2>
+<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
+<p>Definition of secondary grade - pg 119</p>
+<h2 id="arguments">Arguments:</h2>
+<p>set_representation &ndash; string, representation of the gt2fs</p>
+<h2 id="returns">Returns:</h2>
+<p>gt2fs &ndash; GeneralType2FuzzySet</p>
+<h2 id="raises">Raises:</h2>
+<p>Exception &ndash; if set_representation is empty, None or invalid</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_representation(cls, set_representation):
+    &#39;&#39;&#39;
+    Creates a general type-2 fuzzy set from a set representation of the form
+    &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + ... +(b1/u1 + b2/u2 + ... + bn/un)/xm&#39;
+
+    Reference:
+    ---------
+    J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+    Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+    Definition of secondary grade - pg 119
+
+    Arguments:
+    ----------
+    set_representation -- string, representation of the gt2fs
+
+    Returns:
+    --------
+    gt2fs -- GeneralType2FuzzySet
+
+    Raises:
+    -------
+    Exception -- if set_representation is empty, None or invalid
+    &#39;&#39;&#39;
+    if set_representation is None:
+        raise Exception(&#39;Type-2 Set Representation cannot be null&#39;)
+    if set_representation == &#39;&#39;:
+        raise Exception(&#39;Type-2 Set Representation cannot be empty&#39;)
+
+    gt2fs = cls()
+
+    try:
+        # remove spaces, tabs returns,
+        translation_table = dict.fromkeys(map(ord, &#39; \t\n\r&#39;), None)
+        set_representation = set_representation.translate(translation_table)
+
+        # by splitting by +( we will get the secondary mfs
+        # we would lose the initial ( of each mf except for the
+        # first one - this will be removed lated
+        sec_mfs_s = set_representation.split(&#39;+(&#39;)
+
+        # so lets go through the membership functions
+        for sec_mf in sec_mfs_s:
+            # remove the leading &#39;(&#39;
+            # this will only happen in the first mf
+            translation_table = dict.fromkeys(map(ord, &#39;(&#39;), None)
+            sec_mf = sec_mf.translate(translation_table)
+
+            # we now split the secondary membership function from the
+            # primary domain value
+            vertical_slice_points_s, pri_dom_val_s = sec_mf.split(&#39;)/&#39;)
+
+            # get the primary domain value and its corresponding
+            # index
+            primary_domain_val = float(pri_dom_val_s)
+
+            # split by the &#39;+&#39; so that we will obtain the individual
+            # dom / sec domain points
+            points_s = vertical_slice_points_s.split(&#39;+&#39;)
+
+            # we then examine each point to add them to the set
+            for point_s in points_s:
+                # split by / so to obtain the dom and the sec domain value
+                sec_grade_val_s, sec_dom_val_s = point_s.split(&#39;/&#39;)
+
+                # get the secondary domain value and its corresponding
+                # index
+                secondary_domain_val = float(sec_dom_val_s)
+
+                sec_grade = float(sec_grade_val_s)
+                # add the point to the set
+                gt2fs.add_element(primary_domain_val, secondary_domain_val, sec_grade)
+    except ValueError:
+        raise Exception(&#39;Invalid set format&#39;)
+
+    return gt2fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.load_file"><code class="name flex">
+<span>def <span class="ident">load_file</span></span>(<span>set_filename)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Loads a general type-2 fuzzy set from a file. File must have the
+following format:
+'(a1/u1 + a2/u2 + &hellip; + an/un)/x1 + (b1/u1 + b2/u2 + &hellip; + bn/un)/xn'</p>
+<h2 id="reference">Reference:</h2>
+<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
+<p>Definition of secondary grade - pg 119</p>
+<h2 id="arguments">Arguments:</h2>
+<p>set_filename &ndash; string, filename of the set</p>
+<h2 id="returns">Returns:</h2>
+<p>gt2fs &ndash; GeneralType2FuzzySet</p>
+<h2 id="raises">Raises:</h2>
+<p>Exception &ndash; if set_filename is empty, None or invalid</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def load_file(cls, set_filename):
+    &#39;&#39;&#39;
+    Loads a general type-2 fuzzy set from a file. File must have the
+    following format:
+    &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + (b1/u1 + b2/u2 + ... + bn/un)/xn&#39;
+
+    Reference:
+    ---------
+    J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+    Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+    Definition of secondary grade - pg 119
+
+    Arguments:
+    ----------
+    set_filename -- string, filename of the set
+
+    Returns:
+    --------
+    gt2fs -- GeneralType2FuzzySet
+
+    Raises:
+    -------
+    Exception -- if set_filename is empty, None or invalid
+    &#39;&#39;&#39;
+    representation = &#39;&#39;
+    
+    try:
+        with open(set_filename, &#39;r&#39;) as file:
+            representation = file.read()
+    except IOError:
+        raise Exception(&#39;Could not read file {}&#39;.format(set_filename))
+    
+    gt2fs = cls()
+    gt2fs = GeneralType2FuzzySet.from_representation(representation)
+
+    return gt2fs</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.add_element"><code class="name flex">
+<span>def <span class="ident">add_element</span></span>(<span>self, primary_domain_val, secondary_domain_val, secondary_grade)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Adds a new element to the general type-2 fuzzy set.
+Will not add the element if the secondary grade is 0
+Will raise and exception if secondary domain is &lt;1 and &gt;0
+or secondary grade is &lt;1 and &gt;0</p>
+<h2 id="arguments">Arguments:</h2>
+<p>primary_domain_val &ndash; float, value of the primary domain
+secondary_domain_val &ndash; float, value of the secondary domain, must be &lt;1 and &gt;0
+secondary_grade &ndash; float value of the secondary grade, must be &lt;1 and &gt;0</p>
+<h2 id="returns">Returns:</h2>
+<p>None</p>
+<h2 id="raises">Raises:</h2>
+<p>Exception if secondary domain is &lt;1 and &gt;0
+or secondary grade is &lt;1 and &gt;0</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_element(self, primary_domain_val, secondary_domain_val, secondary_grade):
+    &#39;&#39;&#39;
+    Adds a new element to the general type-2 fuzzy set. 
+    Will not add the element if the secondary grade is 0
+    Will raise and exception if secondary domain is &lt;1 and &gt;0
+    or secondary grade is &lt;1 and &gt;0
+
+    Arguments:
+    ----------
+    primary_domain_val -- float, value of the primary domain
+    secondary_domain_val -- float, value of the secondary domain, must be &lt;1 and &gt;0
+    secondary_grade -- float value of the secondary grade, must be &lt;1 and &gt;0
+
+    Returns:
+    --------
+    None
+
+    Raises:
+    -------
+    Exception if secondary domain is &lt;1 and &gt;0
+    or secondary grade is &lt;1 and &gt;0
+    &#39;&#39;&#39;
+    # ignore if secondary grade = 0
+    # if secondary_grade == 0:
+    #       return
+    
+    # raise exception if secondary grade &gt;1 or &lt;0
+    if secondary_grade &gt; 1 or secondary_grade &lt; 0:
+        raise Exception(&#39;Invalid secondary grade value {} at x={} and u={}&#39;.format(secondary_grade, primary_domain_val, secondary_domain_val))
+
+    # raise exception if secondary domain &gt;1 or &lt;0
+    if secondary_domain_val &gt; 1 or secondary_domain_val &lt; 0:
+        raise Exception(&#39;Invalid secondary domain value {} at x={}&#39;.format(secondary_domain_val, primary_domain_val))
+
+    # if the primary domain exists just add the value of the smf
+    # if not create a new smf to that primary domain value and
+    # add that value
+    if primary_domain_val in self.vertical_slices:
+        self.vertical_slices[primary_domain_val].add_element(
+            secondary_domain_val, secondary_grade)
+    else:
+        secondary_function = smf()
+        secondary_function.add_element(secondary_domain_val, secondary_grade)
+        self.vertical_slices[primary_domain_val] = secondary_function</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.add_membership_function"><code class="name flex">
+<span>def <span class="ident">add_membership_function</span></span>(<span>self, primary_domain_val, membership_function)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Adds a membership function to the general type-2 fuzzy set.
+uses the add_element() method and uses the checks implemented in
+that function</p>
+<h2 id="arguments">Arguments:</h2>
+<p>primary_domain_val &ndash; float, value of the primary domain
+membership_function &ndash; TYpe1FuzzySet, membership function to be added</p>
+<h2 id="returns">Returns:</h2>
+<p>None</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_membership_function(self, primary_domain_val, membership_function):
+    &#39;&#39;&#39;
+    Adds a membership function to the general type-2 fuzzy set. 
+    uses the add_element() method and uses the checks implemented in
+    that function
+    
+    Arguments:
+    ----------
+    primary_domain_val -- float, value of the primary domain
+    membership_function -- TYpe1FuzzySet, membership function to be added
+
+    Returns:
+    --------
+    None
+    &#39;&#39;&#39;
+    for secondary_domain_val in membership_function.domain_elements():
+        self.add_element(primary_domain_val, secondary_domain_val, membership_function[secondary_domain_val])</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.complement"><code class="name flex">
+<span>def <span class="ident">complement</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>finds the complement of a general type 2 fuzzy set</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def complement(self):
+    &#39;&#39;&#39;
+    finds the complement of a general type 2 fuzzy set 
+    &#39;&#39;&#39;
+    resultant_gt2fs = GeneralType2FuzzySet()
+
+    for primary_domain_element in self.primary_domain():
+                resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].negation())
+
+    return resultant_gt2fs</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.GeneralType2FuzzySet.embedded_type2_sets"><code class="name flex">
+<span>def <span class="ident">embedded_type2_sets</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Lists all the type 2 embedded sets of this gt2fs.
+List will contain tuples in the form
+[(sec_grade_1, sec_domain_1, pri_domain_1), &hellip; , (sec_grade_n, sec_domain_n, pri_domain_n)]</p>
+<h2 id="reference">Reference:</h2>
+<p>J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>None</p>
+<h2 id="returns">Returns:</h2>
+<p>results &ndash; list, containing embedded type 2 sets</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def embedded_type2_sets(self):
+    &#39;&#39;&#39;
+    Lists all the type 2 embedded sets of this gt2fs.
+    List will contain tuples in the form
+    [(sec_grade_1, sec_domain_1, pri_domain_1), ... , (sec_grade_n, sec_domain_n, pri_domain_n)]
+
+    Reference:
+    ----------
+    J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+    Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+
+    Arguments:
+    ----------
+    None
+
+    Returns:
+    --------
+    results -- list, containing embedded type 2 sets
+
+    &#39;&#39;&#39;
+    set_array = []
+    primary_domain, secondary_domain, set_array = self.to_array_explicit()
+
+    # get an index array
+    index_array = np.indices(set_array.shape)[0]
+
+    # create a list with the number of non zero elements in each vertical slice
+    # i.e. the number of non zero element in each column
+    col_gen = [index_array[set_array[:, x] &gt; 0, x] for x in range((set_array.shape)[1])]
+
+    # the number of columns is the number of elements in the domain
+    domain_index = range(0, (set_array.shape)[1])
+
+    results = []
+    # for every combination of the column elemnets create a type 2 embedded fuzzy set
+    for t in itertools.product(*col_gen):
+        embedded = list(map(lambda i: (set_array[t[i]][i], secondary_domain[t[i]], primary_domain[i]) , domain_index))
+        results.append(embedded)
+
+    return results</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.GeneralType2FuzzySet.embedded_type2_sets_count"><code class="name flex">
@@ -1765,28 +2023,28 @@ Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def embedded_type2_sets_count(self):
-        &#39;&#39;&#39;
-        returns the number of embedded type-2 fuzzy sets that can be 
-        generated from this general type-2 fuzzy set.
-        
-        Reference:
-        ----------
-        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+    &#39;&#39;&#39;
+    returns the number of embedded type-2 fuzzy sets that can be 
+    generated from this general type-2 fuzzy set.
+    
+    Reference:
+    ----------
+    J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+    Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
 
-        Arguments:
-        ----------
-        None
+    Arguments:
+    ----------
+    None
 
-        Returns:
-        --------
-        embedded_count -- float, number of et2fs
-        &#39;&#39;&#39;
-        count = 1
-        for primary_domain_val in self.primary_domain():
-                count = count * self.vertical_slice(primary_domain_val).element_count()
-        
-        return count</code></pre>
+    Returns:
+    --------
+    embedded_count -- float, number of et2fs
+    &#39;&#39;&#39;
+    count = 1
+    for primary_domain_val in self.primary_domain():
+        count = count * self.vertical_slice(primary_domain_val).element_count()
+    
+    return count</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.GeneralType2FuzzySet.footprint_of_uncertainty"><code class="name flex">
@@ -1807,31 +2065,31 @@ Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def footprint_of_uncertainty(self):
-        &#39;&#39;&#39;
-        For all values of x, return the limits of the values of u where 
-        the secondary grade &gt; 0
+    &#39;&#39;&#39;
+    For all values of x, return the limits of the values of u where 
+    the secondary grade &gt; 0
 
-        Reference:
-        ----------
-        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+    Reference:
+    ----------
+    J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+    Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
 
-        Arguments:
-        ----------
-        None
-        
-        Returns:
-        --------
-        footprint -- dict of primary domain element : (limits tuple)
-        &#39;&#39;&#39;
-        fou = {}
+    Arguments:
+    ----------
+    None
+    
+    Returns:
+    --------
+    footprint -- dict of primary domain element : (limits tuple)
+    &#39;&#39;&#39;
+    fou = {}
 
-        for primary_domain_val in self.primary_domain():
-                limits = self.vertical_slices[primary_domain_val].domain_limits()
-                if not limits.empty:
-                        fou[primary_domain_val] = limits
+    for primary_domain_val in self.primary_domain():
+        limits = self.vertical_slices[primary_domain_val].domain_limits()
+        if not limits.empty:
+            fou[primary_domain_val] = limits
 
-        return fou</code></pre>
+    return fou</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.GeneralType2FuzzySet.intersection"><code class="name flex">
@@ -1844,25 +2102,25 @@ Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def intersection(self, gt2fs):
-        &#39;&#39;&#39;
-        intersection  
-        &#39;&#39;&#39;
-        resultant_gt2fs = GeneralType2FuzzySet()
+    &#39;&#39;&#39;
+    intersection  
+    &#39;&#39;&#39;
+    resultant_gt2fs = GeneralType2FuzzySet()
 
-        primary_domain_a = self.primary_domain()
-        primary_domain_b = gt2fs.primary_domain()
+    primary_domain_a = self.primary_domain()
+    primary_domain_b = gt2fs.primary_domain()
 
-        primary_domain_union = list(set().union(primary_domain_a, primary_domain_b))
+    primary_domain_union = list(set().union(primary_domain_a, primary_domain_b))
 
-        for primary_domain_element in primary_domain_union:
-                if primary_domain_element not in primary_domain_a:
-                        resultant_gt2fs.add_membership_function(primary_domain_element, gt2fs[primary_domain_element])
-                elif primary_domain_element not in primary_domain_b:
-                        resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element])
-                else:
-                        resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].meet(gt2fs[primary_domain_element]))
+    for primary_domain_element in primary_domain_union:
+        if primary_domain_element not in primary_domain_a:
+            resultant_gt2fs.add_membership_function(primary_domain_element, gt2fs[primary_domain_element])
+        elif primary_domain_element not in primary_domain_b:
+            resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element])
+        else:
+            resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].meet(gt2fs[primary_domain_element]))
 
-        return resultant_gt2fs</code></pre>
+    return resultant_gt2fs</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.GeneralType2FuzzySet.primary_domain"><code class="name flex">
@@ -1879,19 +2137,19 @@ Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def primary_domain(self):
-        &#39;&#39;&#39;
-        The primary domain of this fuzzy set
+    &#39;&#39;&#39;
+    The primary domain of this fuzzy set
 
-        Arguments:
-        ----------
-        None
+    Arguments:
+    ----------
+    None
 
-        Returns:
-        --------
-        primary_domain -- 1D array containing all the values in the primary domain
-        &#39;&#39;&#39;
-        primary_domain = list(self.vertical_slices.keys())
-        return primary_domain</code></pre>
+    Returns:
+    --------
+    primary_domain -- 1D array containing all the values in the primary domain
+    &#39;&#39;&#39;
+    primary_domain = list(self.vertical_slices.keys())
+    return primary_domain</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.GeneralType2FuzzySet.primary_membership"><code class="name flex">
@@ -1913,29 +2171,29 @@ at X = primary_domain_val</p></section>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def primary_membership(self, primary_domain_val):
-        &#39;&#39;&#39;
-        Returns the domain of the secondary membership function that is called the
-        primary membership
+    &#39;&#39;&#39;
+    Returns the domain of the secondary membership function that is called the
+    primary membership
 
-        Reference:
-        ----------
-        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+    Reference:
+    ----------
+    J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+    Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
 
-        Arguments:
-        ----------
-        None
+    Arguments:
+    ----------
+    None
 
-        Returns:
-        --------
-        _primary_membership -- list containing the domain of the secondary function
-                                                        at X = primary_domain_val
-        &#39;&#39;&#39;
-        if primary_domain_val not in self.vertical_slices:
-                raise Exception(&#39;Primary domain value not in this set.&#39;)
+    Returns:
+    --------
+    _primary_membership -- list containing the domain of the secondary function
+                            at X = primary_domain_val
+    &#39;&#39;&#39;
+    if primary_domain_val not in self.vertical_slices:
+        raise Exception(&#39;Primary domain value not in this set.&#39;)
 
-        _primary_membership = self.vertical_slices[primary_domain_val].domain_elements()
-        return _primary_membership</code></pre>
+    _primary_membership = self.vertical_slices[primary_domain_val].domain_elements()
+    return _primary_membership</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.GeneralType2FuzzySet.save_file"><code class="name flex">
@@ -1958,30 +2216,30 @@ num_dec_places &ndash; number of decimal places used for secondary membership fu
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def save_file(self, set_filename, num_dec_places=4):
-        &#39;&#39;&#39;
-        Writes a formal representation of the general type-2 fuzzy set of the form:
-        &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + ... + (b1/u1 + b2/u2 + ... + bn/un)/xn&#39;
-        in a file
+    &#39;&#39;&#39;
+    Writes a formal representation of the general type-2 fuzzy set of the form:
+    &#39;(a1/u1 + a2/u2 + ... + an/un)/x1 + ... + (b1/u1 + b2/u2 + ... + bn/un)/xn&#39;
+    in a file
 
-        Reference:
-        ----------
-        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+    Reference:
+    ----------
+    J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+    Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
 
-        Arguments:
-        ----------
-        set_filename -- string containing the path of the file to be written
-        num_dec_places -- number of decimal places used for secondary membership function, default 4
+    Arguments:
+    ----------
+    set_filename -- string containing the path of the file to be written
+    num_dec_places -- number of decimal places used for secondary membership function, default 4
 
-        Returns:
-        --------
-        None
-        &#39;&#39;&#39;
-        try:
-                with open(set_filename, &#39;w&#39;) as fuzzy_file:
-                        fuzzy_file.write(self.__str__())
-        except IOError:
-                raise Exception(&#39;Unable to write file {}&#39;.format(set_filename))</code></pre>
+    Returns:
+    --------
+    None
+    &#39;&#39;&#39;
+    try:
+        with open(set_filename, &#39;w&#39;) as fuzzy_file:
+            fuzzy_file.write(self.__str__())
+    except IOError:
+        raise Exception(&#39;Unable to write file {}&#39;.format(set_filename))</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.GeneralType2FuzzySet.secondary_grade"><code class="name flex">
@@ -2003,33 +2261,33 @@ secondary_domain_val &ndash; float, value of secondary domain</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def secondary_grade(self, primary_domain_val, secondary_domain_val):
-        &#39;&#39;&#39;
-        returns the amplitude of a secondary membership function,
-        that is the secondary grade.
-        
-        Reference:
-        ----------
-        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+    &#39;&#39;&#39;
+    returns the amplitude of a secondary membership function,
+    that is the secondary grade.
+    
+    Reference:
+    ----------
+    J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+    Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
 
-        Arguments:
-        ----------
-        primary_domain_val -- float, value of primary domain
-        secondary_domain_val -- float, value of secondary domain
+    Arguments:
+    ----------
+    primary_domain_val -- float, value of primary domain
+    secondary_domain_val -- float, value of secondary domain
 
-        Returns:
-        --------
-        secondary_grade -- float, value of secondary grade
-        &#39;&#39;&#39;
+    Returns:
+    --------
+    secondary_grade -- float, value of secondary grade
+    &#39;&#39;&#39;
 
-        if secondary_domain_val &gt; 1 or secondary_domain_val &lt; 0:
-                raise Exception(&#39;Invalid secondary domain value&#39;)
+    if secondary_domain_val &gt; 1 or secondary_domain_val &lt; 0:
+        raise Exception(&#39;Invalid secondary domain value&#39;)
 
-        if primary_domain_val not in self.primary_domain():
-                raise Exception(&#39;Invalid primary domain value&#39;)
+    if primary_domain_val not in self.primary_domain():
+        raise Exception(&#39;Invalid primary domain value&#39;)
 
-        secondary_grade = self.vertical_slices[primary_domain_val].elements()[secondary_domain_val]
-        return secondary_grade</code></pre>
+    secondary_grade = self.vertical_slices[primary_domain_val].elements()[secondary_domain_val]
+    return secondary_grade</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.GeneralType2FuzzySet.to_array_explicit"><code class="name flex">
@@ -2049,45 +2307,45 @@ primary/secondary combination</p></section>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def to_array_explicit(self):
-        &#39;&#39;&#39;
-        Transforms a General type 2 fuzzy set into a 2D array
+    &#39;&#39;&#39;
+    Transforms a General type 2 fuzzy set into a 2D array
 
-        Arguments:
-        ----------
-        None
+    Arguments:
+    ----------
+    None
 
-        Returns:
-        --------
-        primary_domain -- 1D array containing all the values in the primary domain
-        secondary_domain -- 1D array containing all the values in the secondary domain
-        set_array -- 2D array containing the degree of membership for the corresponding
-                                primary/secondary combination
-        &#39;&#39;&#39;
+    Returns:
+    --------
+    primary_domain -- 1D array containing all the values in the primary domain
+    secondary_domain -- 1D array containing all the values in the secondary domain
+    set_array -- 2D array containing the degree of membership for the corresponding
+                primary/secondary combination
+    &#39;&#39;&#39;
 
-        # get all possible value of the secondary domain by a union with all the elements of
-        # each vertical slice
-        secondary_domain = []
-        for primary_domain_val in self.vertical_slices:
-                secondary_domain = list(set().union(secondary_domain, list(self[primary_domain_val].domain_elements())))
+    # get all possible value of the secondary domain by a union with all the elements of
+    # each vertical slice
+    secondary_domain = []
+    for primary_domain_val in self.vertical_slices:
+        secondary_domain = list(set().union(secondary_domain, list(self[primary_domain_val].domain_elements())))
 
-        secondary_domain.sort()
+    secondary_domain.sort()
 
-        # get all possible value of the primary domain
-        primary_domain =  list(self.vertical_slices.keys())
-        primary_domain.sort()
+    # get all possible value of the primary domain
+    primary_domain =  list(self.vertical_slices.keys())
+    primary_domain.sort()
 
-        # create an array to hold the dom
-        set_array = np.zeros((len(secondary_domain), len(primary_domain)))
+    # create an array to hold the dom
+    set_array = np.zeros((len(secondary_domain), len(primary_domain)))
 
-        for primary_domain_val in self.vertical_slices:
-                pri_domain_idx = primary_domain.index(primary_domain_val)
-                
-                for sec_domain_val in self.vertical_slice(primary_domain_val).elements():
-                        sec_domain_idx = secondary_domain.index(sec_domain_val)
+    for primary_domain_val in self.vertical_slices:
+        pri_domain_idx = primary_domain.index(primary_domain_val)
 
-                        set_array[sec_domain_idx, pri_domain_idx] = self.vertical_slice(primary_domain_val)[sec_domain_val]
+        for sec_domain_val in self.vertical_slice(primary_domain_val).elements():
+            sec_domain_idx = secondary_domain.index(sec_domain_val)
 
-        return primary_domain, secondary_domain, set_array</code></pre>
+            set_array[sec_domain_idx, pri_domain_idx] = self.vertical_slice(primary_domain_val)[sec_domain_val]
+
+    return primary_domain, secondary_domain, set_array</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.GeneralType2FuzzySet.to_array_implicit"><code class="name flex">
@@ -2108,41 +2366,41 @@ primary/secondary combination</p></section>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def to_array_implicit(self, primary_domain, secondary_domain):
-        &#39;&#39;&#39;
-        Transforms a General type 2 fuzzy set into a 2D array but specifying the primary
-        and secondary domain discrete values. The values of the set are thereby approximated 
-        to these specified values
+    &#39;&#39;&#39;
+    Transforms a General type 2 fuzzy set into a 2D array but specifying the primary
+    and secondary domain discrete values. The values of the set are thereby approximated 
+    to these specified values
 
-        Arguments:
-        ----------
-        primary_domain -- 1D array containing all the values in the primary domain
-        secondary_domain -- 1D array containing all the values in the secondary domain
+    Arguments:
+    ----------
+    primary_domain -- 1D array containing all the values in the primary domain
+    secondary_domain -- 1D array containing all the values in the secondary domain
 
-        Returns:
-        --------
-        set_array -- 2D array containing the degree of membership for the corresponding
-                                        primary/secondary combination
-        &#39;&#39;&#39;
+    Returns:
+    --------
+    set_array -- 2D array containing the degree of membership for the corresponding
+                    primary/secondary combination
+    &#39;&#39;&#39;
 
-        # convert domain lists to numpy arrays
-        primary_domain = np.array(primary_domain)
-        secondary_domain = np.array(secondary_domain)
-        
-        # create resultant set
-        set_array = np.zeros((len(secondary_domain), len(primary_domain)))
+    # convert domain lists to numpy arrays
+    primary_domain = np.array(primary_domain)
+    secondary_domain = np.array(secondary_domain)
+    
+    # create resultant set
+    set_array = np.zeros((len(secondary_domain), len(primary_domain)))
 
-        # for each primary domain element, get closest element form list
-        for primary_domain_val in self.vertical_slices:
-                pri_dom_val_idx = np.argmin(np.abs(primary_domain - primary_domain_val))
+    # for each primary domain element, get closest element form list
+    for primary_domain_val in self.vertical_slices:
+        pri_dom_val_idx = np.argmin(np.abs(primary_domain - primary_domain_val))
 
-                # for each secondary domain element, get closest element form list
-                for sec_domain_val in self.vertical_slices[primary_domain_val]._elements:
-                        sec_dom_val_idx = np.argmin(np.abs(secondary_domain-sec_domain_val))
+        # for each secondary domain element, get closest element form list
+        for sec_domain_val in self.vertical_slices[primary_domain_val]._elements:
+            sec_dom_val_idx = np.argmin(np.abs(secondary_domain-sec_domain_val))
 
-                        # add set element in array
-                        set_array[sec_dom_val_idx, pri_dom_val_idx] = self.vertical_slice(primary_domain_val)[sec_domain_val]
+            # add set element in array
+            set_array[sec_dom_val_idx, pri_dom_val_idx] = self.vertical_slice(primary_domain_val)[sec_domain_val]
 
-        return set_array</code></pre>
+    return set_array</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.GeneralType2FuzzySet.union"><code class="name flex">
@@ -2155,23 +2413,23 @@ primary/secondary combination</p></section>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def union(self, gt2fs):
-        
-        resultant_gt2fs = GeneralType2FuzzySet()
+    
+    resultant_gt2fs = GeneralType2FuzzySet()
 
-        primary_domain_a = self.primary_domain()
-        primary_domain_b = gt2fs.primary_domain()
+    primary_domain_a = self.primary_domain()
+    primary_domain_b = gt2fs.primary_domain()
 
-        primary_domain_union = list(set().union(primary_domain_a, primary_domain_b))
+    primary_domain_union = list(set().union(primary_domain_a, primary_domain_b))
 
-        for primary_domain_element in primary_domain_union:
-                if primary_domain_element not in primary_domain_a:
-                        resultant_gt2fs.add_membership_function(primary_domain_element, gt2fs[primary_domain_element])
-                elif primary_domain_element not in primary_domain_b:
-                        resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element])
-                else:
-                        resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].join(gt2fs[primary_domain_element]))
+    for primary_domain_element in primary_domain_union:
+        if primary_domain_element not in primary_domain_a:
+            resultant_gt2fs.add_membership_function(primary_domain_element, gt2fs[primary_domain_element])
+        elif primary_domain_element not in primary_domain_b:
+            resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element])
+        else:
+            resultant_gt2fs.add_membership_function(primary_domain_element, self[primary_domain_element].join(gt2fs[primary_domain_element]))
 
-        return resultant_gt2fs</code></pre>
+    return resultant_gt2fs</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.GeneralType2FuzzySet.vertical_slice"><code class="name flex">
@@ -2193,26 +2451,26 @@ Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def vertical_slice(self, primary_domain_val):
-        &#39;&#39;&#39;
-        For a given value of the primary domain, 
-        returns a representation of the vertical slice
-        in the form of a dict
-        {secondary_domain : secondary_grade,  ... }
+    &#39;&#39;&#39;
+    For a given value of the primary domain, 
+    returns a representation of the vertical slice
+    in the form of a dict
+    {secondary_domain : secondary_grade,  ... }
 
-        Reference:
-        ----------
-        J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
-        Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
+    Reference:
+    ----------
+    J. M. Mendel and R. I. B. John, “Type-2 fuzzy sets made simple,” IEEE
+    Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.
 
-        Arguments:
-        ----------
-        primary_domain_val -- value of primary domain
+    Arguments:
+    ----------
+    primary_domain_val -- value of primary domain
 
-        Returns:
-        --------
-        vertical_slice - dict representing the values if the vertical slice
-        &#39;&#39;&#39;
-        return self[primary_domain_val]</code></pre>
+    Returns:
+    --------
+    vertical_slice - dict representing the values if the vertical slice
+    &#39;&#39;&#39;
+    return self[primary_domain_val]</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.GeneralType2FuzzySet.z_slice"><code class="name flex">
@@ -2225,18 +2483,18 @@ Trans. Fuzzy Systems, vol. 10, no. 2, pp. 117–127, Apr. 2002.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def z_slice(self, slice_value):
-        &#39;&#39;&#39;
+    &#39;&#39;&#39;
 
-        &#39;&#39;&#39;
-        sliced_set = IntervalType2FuzzySet()
+    &#39;&#39;&#39;
+    sliced_set = IntervalType2FuzzySet()
 
-        for primary_domain_val in self.primary_domain():
-                cut = self.vertical_slices[primary_domain_val].alpha_cut(slice_value)
+    for primary_domain_val in self.primary_domain():
+        cut = self.vertical_slices[primary_domain_val].alpha_cut(slice_value)
 
-                if not cut.empty:
-                        sliced_set.add_element(primary_domain_val, cut)
+        if not cut.empty:
+            sliced_set.add_element(primary_domain_val, cut)
 
-        return sliced_set</code></pre>
+    return sliced_set</code></pre>
 </details>
 </dd>
 </dl>
@@ -4153,6 +4411,13 @@ def empty(self):
 <li><code><a title="type2fuzzy.membership.zslicetype2fuzzyset" href="zslicetype2fuzzyset.html">type2fuzzy.membership.zslicetype2fuzzyset</a></code></li>
 </ul>
 </li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="type2fuzzy.membership.create_gaussian_fixed_mean" href="#type2fuzzy.membership.create_gaussian_fixed_mean">create_gaussian_fixed_mean</a></code></li>
+<li><code><a title="type2fuzzy.membership.create_gaussian_fixed_sigma" href="#type2fuzzy.membership.create_gaussian_fixed_sigma">create_gaussian_fixed_sigma</a></code></li>
+<li><code><a title="type2fuzzy.membership.generate_gt2set_horizontal" href="#type2fuzzy.membership.generate_gt2set_horizontal">generate_gt2set_horizontal</a></code></li>
+</ul>
+</li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
@@ -4261,7 +4526,7 @@ def empty(self):
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.1</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.2</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>

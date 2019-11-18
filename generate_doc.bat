@@ -1,0 +1,1 @@
+pdoc3 --html type2fuzzy --force
