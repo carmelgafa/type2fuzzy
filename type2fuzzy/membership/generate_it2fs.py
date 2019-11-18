@@ -74,7 +74,7 @@ def create_gaussian_fixed_mean(primary_domain, sigma1, sigma2, mean=1.0):
 
 	sigma2 -- highest value of standard deviation
 
-	sigmma -- mean , default 1
+	mean -- mean , default 1
 
 	Returns:
 	--------
