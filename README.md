@@ -26,6 +26,9 @@ http://t2fuzz.com
 
 ## Change History:
 
+**version 0.1.36 - 18.02.2020**
+1. Added generation of triangular type-1 sets unit test. Removed extended method
+
 **version 0.1.35 - 18.02.2020**
 1. Fixed bug in generation of triangular type-1 sets
 

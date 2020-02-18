@@ -143,64 +143,7 @@ class Type1FuzzySet:
 		return t1fs
 
 	@classmethod
-	def create_triangular(cls, univ_low, univ_hi, univ_res, set_low, set_mid, set_hi):
-
-		'''
-		Creates a triangular type 1 fuzzy set in a defined universe of discourse
-		The triangle is mage of three points; the low where the dom is 0, the mid where the
-		dom is 1 and the high where the dom is 0
-
-		References
-		----------
-		Pedrycz, Witold, and Fernando Gomide. 
-		An introduction to fuzzy sets: analysis and design. Mit Press, 1998.
-
-		Arguments:
-		----------
-		univ_low -- lower value of the universe of discourse
-		univ_hi -- higher value of the universe of discourse
-		univ_res -- resolution of the universe of discourse
-		set_low -- sel low point, where dom is 0
-		set_mid -- sel mid point, where dom is 1
-		set_hi -- sel high point, where dom is 0
-
-		Returns:
-		--------
-		The new type1 triangular fuzzy set
-		'''
-
-		if univ_hi <= univ_low:
-			raise Exception('Error in universe definition')
-		if (set_hi < set_mid) or (set_mid < set_low):
-			raise Exception('Error in triangular set definition')
-
-		t1fs = cls()
-
-		precision = len(str(univ_res))
-		domain_elements =  np.round(np.linspace(univ_low, univ_hi, univ_res), precision)
-
-		idx = (np.abs(domain_elements - set_mid)).argmin()
-		set_mid = domain_elements[idx]
-
-		idx = (np.abs(domain_elements - set_low)).argmin()
-		set_low = domain_elements[idx]
-
-		idx = (np.abs(domain_elements - set_hi)).argmin()
-		set_hi = domain_elements[idx]
-
-		for domain_val in domain_elements:
-			# get the dom of the set at the point
-			dom = max(min((domain_val-set_low)/(set_mid-set_low), (set_hi-domain_val)/(set_hi-set_mid)), 0)
-
-			# idx = (np.abs(domain_elements - set_mid)).argmin()
-			# dom = domain_elements[idx]
-
-			t1fs.add_element(domain_val, dom)
-
-		return t1fs
-
-	@classmethod
-	def create_triangular_ex(cls, primary_domain, a, b, c):
+	def create_triangular(cls, primary_domain, a, b, c):
 
 		'''
 		Creates a triangular type 1 fuzzy set in a defined universe of discourse
@@ -223,19 +166,18 @@ class Type1FuzzySet:
 		--------
 		The new type1 triangular fuzzy set
 		'''
-		if (c <= b) or (b <= a):
+		if (c < b) or (b < a):
 			raise Exception('Error in triangular set definition')
 
 		t1fs = cls()
 
-		for x in primary_domain[a:c]:
-			if x == b:
-				t1fs.add_element(x,1)
-			elif x in (a,c):
-				t1fs.add_element(x,0)
-			else:
-				dom = max(min((x - a)/(b - a), (c - x)/(c - b)), 0)
-				t1fs.add_element(x, dom)
+		for x in primary_domain:
+			
+			rising_edge = 1 if b == a else (x - a)/(b - a)
+			falling_edge = 1 if c == b else (c - x)/(c - b)
+
+			dom = max(min(rising_edge, falling_edge), 0)
+			t1fs.add_element(x, dom)
 
 		return t1fs
 
@@ -364,6 +306,7 @@ class Type1FuzzySet:
 		--------
 		limits -- CrispSet containting the smallest an largest domain value
 		'''
+
 		limits = CrispSet(min(self._elements.keys()), max(self._elements.keys()))
 		return limits
 	
