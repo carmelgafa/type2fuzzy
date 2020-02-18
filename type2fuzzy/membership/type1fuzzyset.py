@@ -228,9 +228,14 @@ class Type1FuzzySet:
 
 		t1fs = cls()
 
-		for x in primary_domain:
-			dom = max(min((x - a)/(b - a), (c - x)/(c - b)), 0)
-			t1fs.add_element(x, dom)
+		for x in primary_domain[a:c]:
+			if x == b:
+				t1fs.add_element(x,1)
+			elif x in (a,c):
+				t1fs.add_element(x,0)
+			else:
+				dom = max(min((x - a)/(b - a), (c - x)/(c - b)), 0)
+				t1fs.add_element(x, dom)
 
 		return t1fs
 

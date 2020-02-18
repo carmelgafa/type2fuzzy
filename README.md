@@ -26,6 +26,9 @@ http://t2fuzz.com
 
 ## Change History:
 
+**version 0.1.35 - 18.02.2020**
+1. Fixed bug in generation of triangular type-1 sets
+
 **version 0.1.34 - 18.11.2019**
 1. Ability to create Interval Type-2 fuzzy sets having a gaussian function with fixed mean and fixed standard deviation as per Karnik and Mendel 1996 
 - Karnik, Nilesh N., and Jerry M. Mendel. "Introduction to type-2 fuzzy logic systems." 1998 IEEE International Conference on Fuzzy Systems Proceedings. IEEE World Congress on Computational Intelligence (Cat. No. 98CH36228). Vol. 2. IEEE, 1998. (http://t2fuzz.com/membership/generate_it2fs.html)
