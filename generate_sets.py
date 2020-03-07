@@ -55,7 +55,6 @@ slice_4 = gt2fs[4]
 zt2fs = ZSliceType2FuzzySet.from_general_type2_set(gt2fs, 100)
 centroid = zslice_hagras_reduce(zt2fs)
 
-print(centroid)
 centroid_t1 = Type1FuzzySet.from_alphacut_type1_set(centroid)
 
 it2fs = gt2fs.z_slice(1.0)
