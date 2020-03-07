@@ -35,7 +35,6 @@ class TestType1FuzzySet(unittest.TestCase):
 
 		t1fs = Type1FuzzySet.create_triangular(univ_low, univ_hi, univ_res, low, mid, hi)
 
-		print(t1fs)
 		self.assertEqual(t1fs[0.0], 0.0)
 		self.assertEqual(t1fs[0.1], 0.2)
 		self.assertEqual(t1fs[0.2], 0.4)
@@ -93,7 +92,7 @@ class TestType1FuzzySet(unittest.TestCase):
 		self.assertEqual(t1fs[0.9], 0.9)
 		self.assertEqual(t1fs[1.0], 1.0)
 
-	def test_create_triangular(self):
+	def test_create_triangular_ex(self):
 
 		primary_domain = list(range(0,11))
 
