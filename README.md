@@ -1,4 +1,4 @@
-# Project Description : version 0.1.34
+# Type2Fuzzy Project
 
 A type-2 fuzzy logic library providing:
 
@@ -24,31 +24,37 @@ https://github.com/carmelgafa/type2fuzzy_examples
 
 http://t2fuzz.com
 
-## Change History:
+## Change History
 
-**version 0.1.37 - 07.03.2020**
+### version 0.1.37 - 07.03.2020
+
 1. Fixed bugs in creation of type-1 fuzzy sets
 2. Moved project in a virtualenv
 3. Added more type-1 fuzzy set unit tests
 
-**version 0.1.36 - 18.02.2020**
+### version 0.1.36 - 18.02.2020
+
 1. Added generation of triangular type-1 sets unit test. Removed extended method
 
-**version 0.1.35 - 18.02.2020**
+### version 0.1.35 - 18.02.2020
+
 1. Fixed bug in generation of triangular type-1 sets
 
-**version 0.1.34 - 18.11.2019**
-1. Ability to create Interval Type-2 fuzzy sets having a gaussian function with fixed mean and fixed standard deviation as per Karnik and Mendel 1996 
-- Karnik, Nilesh N., and Jerry M. Mendel. "Introduction to type-2 fuzzy logic systems." 1998 IEEE International Conference on Fuzzy Systems Proceedings. IEEE World Congress on Computational Intelligence (Cat. No. 98CH36228). Vol. 2. IEEE, 1998. (http://t2fuzz.com/membership/generate_it2fs.html)
-2. An experimental way to define General Type-2 fuzzy sets through horizonal slices (http://t2fuzz.com/membership/generate_gt2mf.html)
+### version 0.1.34 - 18.11.2019
 
-**version 0.1.33 - 15.11.2019**
+1. Ability to [create Interval Type-2 fuzzy sets having a gaussian function with fixed mean and fixed standard deviation](http://t2fuzz.com/type2fuzzy/membership/generate_it2fs.html) as per Karnik and Mendel 1996 - Karnik, Nilesh N., and Jerry M. Mendel. "Introduction to type-2 fuzzy logic systems." 1998 IEEE International Conference on Fuzzy Systems Proceedings. IEEE World Congress on Computational Intelligence (Cat. No. 98CH36228). Vol. 2. IEEE, 1998.
+2. An experimental way to [define General Type-2 fuzzy sets through horizonal slices](http://t2fuzz.com/membership/type2fuzzy/generate_gt2mf.html)
+
+### version 0.1.33 - 15.11.2019
+
 1. Updated repo information
 
-**version 0.1.32 - 15.11.2019**
-1. Get domain limits for a type-1 fuzzy set (http://t2fuzz.com/membership/type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.domain_limits)
+### version 0.1.32 - 15.11.2019
 
-**version 0.1.31 - 12.11.2019**
-1. Added library website (http://t2fuzz.com)
-2. *Convert a gt2fs into an it2fs* - An it2fs can be generated form a gt2fs by using from_general_type2_set (http://t2fuzz.com/membership/intervaltype2fuzzyset.html#type2fuzzy.membership.intervaltype2fuzzyset.IntervalType2FuzzySet.from_general_type2_set)
-3. *Creation of it2fs as found in literature* - Creation of it2fs as specified by Karnik and Mendel (http://t2fuzz.com/membership/generate_it2fs.html)
+1. [Get domain limits for a type-1 fuzzy set](http://t2fuzz.com/type2fuzzy/membership/type1fuzzyset.html#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.domain_limits)
+
+### version 0.1.31 - 12.11.2019
+
+1. Added library [website](http://t2fuzz.com)
+2. *Convert a gt2fs into an it2fs* -[An it2fs can be generated form a gt2fs by using from_general_type2_set](http://t2fuzz.com/type2fuzzy/membership/intervaltype2fuzzyset.html#type2fuzzy.membership.intervaltype2fuzzyset.IntervalType2FuzzySet.from_general_type2_set)
+3. *Creation of it2fs as found in literature* - [Creation of it2fs as specified by Karnik and Mendel](http://t2fuzz.com/type2fuzzy/membership/generate_it2fs.html)
