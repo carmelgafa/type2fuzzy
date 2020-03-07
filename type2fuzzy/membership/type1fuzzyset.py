@@ -179,60 +179,74 @@ class Type1FuzzySet:
 		precision = len(str(univ_res))
 		domain_elements =  np.round(np.linspace(univ_low, univ_hi, univ_res), precision)
 
-		idx = (np.abs(domain_elements - set_mid)).argmin()
-		set_mid = domain_elements[idx]
+		idx_mid = (np.abs(domain_elements - set_mid)).argmin()
+		set_mid = domain_elements[idx_mid]
 
-		idx = (np.abs(domain_elements - set_low)).argmin()
-		set_low = domain_elements[idx]
+		idx_low = (np.abs(domain_elements - set_low)).argmin()
+		set_low = domain_elements[idx_low]
 
-		idx = (np.abs(domain_elements - set_hi)).argmin()
-		set_hi = domain_elements[idx]
+		idx_hi = (np.abs(domain_elements - set_hi)).argmin()
+		set_hi = domain_elements[idx_hi]
 
-		for domain_val in domain_elements:
-			# get the dom of the set at the point
-			dom = max(min((domain_val-set_low)/(set_mid-set_low), (set_hi-domain_val)/(set_hi-set_mid)), 0)
+		print(f'---> {idx_low} {idx_mid} {idx_hi} {idx_low == idx_mid}')
 
-			# idx = (np.abs(domain_elements - set_mid)).argmin()
-			# dom = domain_elements[idx]
+		if idx_hi == idx_mid:
+			for domain_val in domain_elements[idx_low:idx_mid+1]:
+				dom = (domain_val-set_low)/(set_mid-set_low)
+				t1fs.add_element(domain_val, round(dom, precision))			
+		elif idx_low == idx_mid:
+			print(f'{idx_low}-hello gufu')
+			for domain_val in domain_elements[idx_mid:idx_hi+1]:
+				dom = (set_hi-domain_val)/(set_hi-set_mid)
+				t1fs.add_element(domain_val, round(dom, precision))
+		else:
+			pass
 
-			t1fs.add_element(domain_val, dom)
+		# for domain_val in domain_elements[idx_low:idx_mid]:
+		# 	dom = (domain_val-set_low)/(set_mid-set_low)
+		# 	t1fs.add_element(domain_val, round(dom, precision))
 
-		return t1fs
 
-	@classmethod
-	def create_triangular_ex(cls, primary_domain, a, b, c):
-
-		'''
-		Creates a triangular type 1 fuzzy set in a defined universe of discourse
-		The triangle is mage of three points; the low where the dom is 0, the mid where the
-		dom is 1 and the high where the dom is 0
-
-		References
-		----------
-		Pedrycz, Witold, and Fernando Gomide. 
-		An introduction to fuzzy sets: analysis and design. Mit Press, 1998.
-
-		Arguments:
-		----------
-
-		a -- set low point, where dom is 0
-		b -- set mid point, where dom is 1
-		c -- set high point, where dom is 0
-
-		Returns:
-		--------
-		The new type1 triangular fuzzy set
-		'''
-		if (c <= b) or (b <= a):
-			raise Exception('Error in triangular set definition')
-
-		t1fs = cls()
-
-		for x in primary_domain:
-			dom = max(min((x - a)/(b - a), (c - x)/(c - b)), 0)
-			t1fs.add_element(x, dom)
+		# for domain_val in domain_elements[idx_mid:idx_hi+1]:
+		# 	dom = (set_hi-domain_val)/(set_hi-set_mid)
+		# 	t1fs.add_element(domain_val, round(dom, precision))
 
 		return t1fs
+
+	# @classmethod
+	# def create_triangular_ex(cls, primary_domain, a, b, c):
+
+	# 	'''
+	# 	Creates a triangular type 1 fuzzy set in a defined universe of discourse
+	# 	The triangle is mage of three points; the low where the dom is 0, the mid where the
+	# 	dom is 1 and the high where the dom is 0
+
+	# 	References
+	# 	----------
+	# 	Pedrycz, Witold, and Fernando Gomide. 
+	# 	An introduction to fuzzy sets: analysis and design. Mit Press, 1998.
+
+	# 	Arguments:
+	# 	----------
+
+	# 	a -- set low point, where dom is 0
+	# 	b -- set mid point, where dom is 1
+	# 	c -- set high point, where dom is 0
+
+	# 	Returns:
+	# 	--------
+	# 	The new type1 triangular fuzzy set
+	# 	'''
+	# 	if (c <= b) or (b <= a):
+	# 		raise Exception('Error in triangular set definition')
+
+	# 	t1fs = cls()
+
+	# 	for x in primary_domain:
+	# 		dom = max(min((x - a)/(b - a), (c - x)/(c - b)), 0)
+	# 		t1fs.add_element(x, dom)
+
+	# 	return t1fs
 
 	@staticmethod
 	def adjust_value(val, val_array):
