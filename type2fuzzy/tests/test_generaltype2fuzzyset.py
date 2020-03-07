@@ -208,7 +208,7 @@ class TestGeneralType2FuzzySet(unittest.TestCase):
 		self.assertDictEqual(gt2fs[5.00].elements(), {0.00:0.35, 0.20:0.50, 0.40:0.10, 0.60:0.20, 0.80:0.20})
 
 	def test_footprint_of_uncertainty(self):
-		gt2fs = GeneralType2FuzzySet.from_representation('''(0.90 / 0.00 + 0.50 / 0.20 + 0.20 / 0.40 + 0.35 / 0.60 + 0.10 / 0.80              ) / 1.00 
+		gt2fs = GeneralType2FuzzySet.from_representation('''(0.90 / 0.00 + 0.50 / 0.20 + 0.60 / 0.40 + 0.35 / 0.60 + 0.10 / 0.80              ) / 1.00 
 														+   (0.50 / 0.00 + 0.35 / 0.20 + 0.35 / 0.40 + 0.20 / 0.60 + 0.50 / 0.80              ) / 2.00 
 														+   (                                          0.35 / 0.60 + 0.35 / 0.80              ) / 3.00 
 														+   (0.10 / 0.00 + 0.35 / 0.20 + 0.50 / 0.40 + 0.10 / 0.60 + 0.35 / 0.80 + 0.25 / 1.00) / 4.00 

@@ -373,6 +373,7 @@ class Type1FuzzySet:
 		--------
 		limits -- CrispSet containting the smallest an largest domain value
 		'''
+
 		limits = CrispSet(min(self._elements.keys()), max(self._elements.keys()))
 		return limits
 	
