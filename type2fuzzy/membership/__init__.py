@@ -22,9 +22,9 @@ from type2fuzzy.membership.alphacuttype1fuzzyset import AlphaCutType1FuzzySet
 from type2fuzzy.membership.generate_gt2mf import generate_gt2set_horizontal
 from type2fuzzy.membership.generate_it2fs import create_gaussian_fixed_sigma
 from type2fuzzy.membership.generate_it2fs import create_gaussian_fixed_mean
-
+from type2fuzzy.membership.type1_fuzzy_variable import Type1FuzzyVariable
 
 __all__ = ['SecondaryMembershipFunction', 'GeneralType2FuzzySet', 
-			'Type1FuzzySet', 'IntervalType2FuzzySet', 'ZSliceType2FuzzySet', 
+			'Type1FuzzySet', 'Type1FuzzyVariable', 'IntervalType2FuzzySet', 'ZSliceType2FuzzySet', 
 			'CrispSet', 'AlphaCutType1FuzzySet', 'generate_gt2set_horizontal', 
 			'create_gaussian_fixed_sigma', 'create_gaussian_fixed_mean']
