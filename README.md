@@ -26,6 +26,9 @@ http://t2fuzz.com
 
 ## Change History
 
+### version 0.1.39 - 09.03.2020
+1. added type-1 fuzzy variable
+
 ### version 0.1.37 - 07.03.2020
 
 1. Fixed bugs in creation of type-1 fuzzy sets
