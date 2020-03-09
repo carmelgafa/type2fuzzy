@@ -13,7 +13,7 @@ Generation of General Type-2 Fuzzy Sets.<br/>
 """
 
 from type2fuzzy.membership.secondarymf import SecondaryMembershipFunction
-from type2fuzzy.membership.secondarymf import Type1FuzzySet
+from type2fuzzy.membership.type1fuzzyset import Type1FuzzySet
 from type2fuzzy.membership.generaltype2fuzzyset import GeneralType2FuzzySet
 from type2fuzzy.membership.intervaltype2fuzzyset import IntervalType2FuzzySet
 from type2fuzzy.membership.zslicetype2fuzzyset import ZSliceType2FuzzySet
