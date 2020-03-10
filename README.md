@@ -26,7 +26,14 @@ http://t2fuzz.com
 
 ## Change History
 
+### version 0.1.41 - 10.03.2020
+
+1. Type-1 fuzzy set has a name attribute and a name property
+2. Type-1 fuzzy variable has a name attribute and a name property
+3. Unit tests for above
+
 ### version 0.1.39 - 09.03.2020
+
 1. added type-1 fuzzy variable
 
 ### version 0.1.37 - 07.03.2020

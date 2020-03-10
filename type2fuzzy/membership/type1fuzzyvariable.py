@@ -7,7 +7,7 @@ class Type1FuzzyVariable():
     A type-1 fuzzy variable that is mage up of a number of type-1 fuzzy sets
     '''
 
-    def __init__(self, min_val, max_val, res):
+    def __init__(self, min_val, max_val, res, name=''):
         '''
         creates a new type-1 fuzzy variable (universe)
 
@@ -20,6 +20,11 @@ class Type1FuzzyVariable():
         self._max_val = max_val
         self._min_val = min_val
         self._res = res
+        self._name = name
+
+    @property
+    def name(self):
+        return self._name
 
     def _add_set(self, name, f_set):
         '''
@@ -43,7 +48,7 @@ class Type1FuzzyVariable():
         '''
 
         self._add_set(name, Type1FuzzySet.create_triangular(self._min_val, 
-                    self._max_val, self._res, low, mid, high))
+                    self._max_val, self._res, low, mid, high, name))
 
 
     def generate_sets(self, n):
@@ -86,7 +91,6 @@ class Type1FuzzyVariable():
         Reference:
             https://stackoverflow.com/questions/4700614/how-to-put-the-legend-out-of-the-plot
         '''
-        fig = plt.figure()
         ax = plt.subplot(111)
 
         for n ,s in self._sets.items():

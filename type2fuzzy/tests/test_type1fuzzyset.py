@@ -4,6 +4,29 @@ from type2fuzzy.membership.type1fuzzyset import Type1FuzzySet
 
 class TestType1FuzzySet(unittest.TestCase):
 
+	def test_name_property_repr(self):
+		set_representation = '''0.100/1.000 + 0.200/2.000
+				+ 0.300/3.000 + 0.400/4.000'''
+		t1fs = Type1FuzzySet.from_representation(set_representation, 'test')
+
+		self.assertEqual(t1fs.name, 'test')
+
+	def test_name_property_trian(self):
+		low = 0
+		mid = 0.5
+		hi = 1
+		univ_low = 0
+		univ_hi = 1
+		univ_res = 11
+
+		t1fs = Type1FuzzySet.create_triangular(univ_low, univ_hi, univ_res, low, mid, hi, 'test')
+
+		self.assertEqual(t1fs.name, 'test')
+
+
+
+
+
 	def test_from_representation(self):
 
 		set_representation = '''0.100/1.000 + 0.200/2.000

@@ -9,10 +9,11 @@ class Type1FuzzySet:
 	application to approximate reasoning—I." Information sciences 8.3 (1975): 199-249.
 
 	'''
-	def __init__(self):
+	def __init__(self, name=''):
 		self._elements = {}
 		self._empty = True
 		self._precision = 3
+		self._name = name
 
 	def __eq__(self, value):
 		current_domain_len = len(self.domain_elements())
@@ -72,8 +73,12 @@ class Type1FuzzySet:
 	def __repr__(self):
 		return f'{self.__class__.__name__}({str(self)})'
 
+	@property
+	def name(self):
+		return self._name
+
 	@ classmethod
-	def from_representation(cls, set_representation):
+	def from_representation(cls, set_representation, name=''):
 		'''
 		Creates a type-1 fuzzy set from a set representation of the form
 		'a1/u1 + a2/u2 + ... + an/un'
@@ -120,10 +125,12 @@ class Type1FuzzySet:
 		except ValueError:
 			raise Exception('Invalid set type-1 format')
 
+		t1fs._name = name
+
 		return t1fs
 
 	@ classmethod
-	def from_alphacut_type1_set(cls, alphacut_set):
+	def from_alphacut_type1_set(cls, alphacut_set, name=''):
 		
 		t1fs = cls()
 		for cut in alphacut_set.cuts():
@@ -140,10 +147,12 @@ class Type1FuzzySet:
 			new_elements[domain_value] = t1fs._elements[domain_value]
 		t1fs._elements = new_elements
 
+		t1fs._name = name
+
 		return t1fs
 
 	@classmethod
-	def create_triangular(cls, univ_low, univ_hi, univ_res, set_low, set_mid, set_hi):
+	def create_triangular(cls, univ_low, univ_hi, univ_res, set_low, set_mid, set_hi, name=''):
 
 		'''
 		Creates a triangular type 1 fuzzy set in a defined universe of discourse
@@ -201,10 +210,12 @@ class Type1FuzzySet:
 				dom = dom = max(min((domain_val - set_low)/(set_mid - set_low), (set_hi - domain_val)/(set_hi - set_mid)), 0)
 				t1fs.add_element(domain_val, round(dom, precision))
 
+		t1fs._name = name
+
 		return t1fs
 
 	@classmethod
-	def create_triangular_ex(cls, primary_domain, a, b, c):
+	def create_triangular_ex(cls, primary_domain, a, b, c, name=''):
 
 		'''
 		Creates a triangular type 1 fuzzy set in a defined universe of discourse
@@ -241,8 +252,9 @@ class Type1FuzzySet:
 			dom = max(min((x - a)/(b - a), (c - x)/(c - b)), 0)
 			t1fs.add_element(x, dom)
 
-		return t1fs
+		t1fs._name = name
 
+		return t1fs
 
 	@staticmethod
 	def adjust_value(val, val_array):
@@ -250,7 +262,7 @@ class Type1FuzzySet:
 		return val_array[idx]
 
 	@classmethod
-	def create_trapezoidal(cls, domain, a, b, c, d):
+	def create_trapezoidal(cls, domain, a, b, c, d, name=''):
 		'''
 		'''
 		t1fs = cls()
@@ -265,6 +277,8 @@ class Type1FuzzySet:
 					dom = min(max(min((domain_val-a)/(b-a), (d-domain_val)/(d-c)), 0), 1)
 
 				t1fs.add_element(domain_val, dom)
+
+		t1fs._name = name
 
 		return t1fs
 
