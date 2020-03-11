@@ -36,6 +36,8 @@ class Type1FuzzyVariable():
         '''
         self._sets[name] = f_set
 
+    def get_set(self, name):
+        return self._sets[name]
 
     def add_triangular(self, name, low, mid, high):
         '''[summary]
@@ -47,8 +49,12 @@ class Type1FuzzyVariable():
             high {[type]} -- [description]
         '''
 
-        self._add_set(name, Type1FuzzySet.create_triangular(self._min_val, 
-                    self._max_val, self._res, low, mid, high, name))
+        new_set = Type1FuzzySet.create_triangular(self._min_val, 
+                    self._max_val, self._res, low, mid, high, name)
+
+        self._add_set(name, new_set)
+
+        return new_set
 
 
     def generate_sets(self, n):
@@ -104,6 +110,11 @@ class Type1FuzzyVariable():
         ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
         plt.show()
+
+    def __str__(self):
+        return ', '.join(self._sets.keys())
+
+
 
 if __name__=="__main__":
     var = Type1FuzzyVariable(0,100,100)

@@ -26,6 +26,12 @@ http://t2fuzz.com
 
 ## Change History
 
+### version 0.1.42 - 11.03.2020
+
+1. type-1 fuzzy variable implemented __str__
+2. type-1 fuzzy variable implemented get_set 
+3. type-1 fuzzy variable add_triangular_set returns created set
+
 ### version 0.1.41 - 10.03.2020
 
 1. Type-1 fuzzy set has a name attribute and a name property
