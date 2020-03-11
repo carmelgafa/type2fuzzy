@@ -35,10 +35,11 @@ class Type1FuzzySet:
         application to approximate reasoning—I.&#34; Information sciences 8.3 (1975): 199-249.
 
         &#39;&#39;&#39;
-        def __init__(self):
+        def __init__(self, name=&#39;&#39;):
                 self._elements = {}
                 self._empty = True
                 self._precision = 3
+                self._name = name
 
         def __eq__(self, value):
                 current_domain_len = len(self.domain_elements())
@@ -98,8 +99,12 @@ class Type1FuzzySet:
         def __repr__(self):
                 return f&#39;{self.__class__.__name__}({str(self)})&#39;
 
+        @property
+        def name(self):
+                return self._name
+
         @ classmethod
-        def from_representation(cls, set_representation):
+        def from_representation(cls, set_representation, name=&#39;&#39;):
                 &#39;&#39;&#39;
                 Creates a type-1 fuzzy set from a set representation of the form
                 &#39;a1/u1 + a2/u2 + ... + an/un&#39;
@@ -146,10 +151,12 @@ class Type1FuzzySet:
                 except ValueError:
                         raise Exception(&#39;Invalid set type-1 format&#39;)
 
+                t1fs._name = name
+
                 return t1fs
 
         @ classmethod
-        def from_alphacut_type1_set(cls, alphacut_set):
+        def from_alphacut_type1_set(cls, alphacut_set, name=&#39;&#39;):
                 
                 t1fs = cls()
                 for cut in alphacut_set.cuts():
@@ -166,10 +173,12 @@ class Type1FuzzySet:
                         new_elements[domain_value] = t1fs._elements[domain_value]
                 t1fs._elements = new_elements
 
+                t1fs._name = name
+
                 return t1fs
 
         @classmethod
-        def create_triangular(cls, univ_low, univ_hi, univ_res, set_low, set_mid, set_hi):
+        def create_triangular(cls, univ_low, univ_hi, univ_res, set_low, set_mid, set_hi, name=&#39;&#39;):
 
                 &#39;&#39;&#39;
                 Creates a triangular type 1 fuzzy set in a defined universe of discourse
@@ -205,28 +214,34 @@ class Type1FuzzySet:
                 precision = len(str(univ_res))
                 domain_elements =  np.round(np.linspace(univ_low, univ_hi, univ_res), precision)
 
-                idx = (np.abs(domain_elements - set_mid)).argmin()
-                set_mid = domain_elements[idx]
+                idx_mid = (np.abs(domain_elements - set_mid)).argmin()
+                set_mid = domain_elements[idx_mid]
 
-                idx = (np.abs(domain_elements - set_low)).argmin()
-                set_low = domain_elements[idx]
+                idx_low = (np.abs(domain_elements - set_low)).argmin()
+                set_low = domain_elements[idx_low]
 
-                idx = (np.abs(domain_elements - set_hi)).argmin()
-                set_hi = domain_elements[idx]
+                idx_hi = (np.abs(domain_elements - set_hi)).argmin()
+                set_hi = domain_elements[idx_hi]
 
-                for domain_val in domain_elements:
-                        # get the dom of the set at the point
-                        dom = max(min((domain_val-set_low)/(set_mid-set_low), (set_hi-domain_val)/(set_hi-set_mid)), 0)
+                if idx_hi == idx_mid:
+                        for domain_val in domain_elements[idx_low:idx_mid+1]:
+                                dom = (domain_val-set_low)/(set_mid-set_low)
+                                t1fs.add_element(domain_val, round(dom, precision))                     
+                elif idx_low == idx_mid:
+                        for domain_val in domain_elements[idx_mid:idx_hi+1]:
+                                dom = (set_hi-domain_val)/(set_hi-set_mid)
+                                t1fs.add_element(domain_val, round(dom, precision))
+                else:
+                        for domain_val in domain_elements[idx_low:idx_hi+1]:
+                                dom = dom = max(min((domain_val - set_low)/(set_mid - set_low), (set_hi - domain_val)/(set_hi - set_mid)), 0)
+                                t1fs.add_element(domain_val, round(dom, precision))
 
-                        # idx = (np.abs(domain_elements - set_mid)).argmin()
-                        # dom = domain_elements[idx]
-
-                        t1fs.add_element(domain_val, dom)
+                t1fs._name = name
 
                 return t1fs
 
         @classmethod
-        def create_triangular_ex(cls, primary_domain, a, b, c):
+        def create_triangular_ex(cls, primary_domain, a, b, c, name=&#39;&#39;):
 
                 &#39;&#39;&#39;
                 Creates a triangular type 1 fuzzy set in a defined universe of discourse
@@ -248,6 +263,11 @@ class Type1FuzzySet:
                 Returns:
                 --------
                 The new type1 triangular fuzzy set
+
+                Exceptions:
+                -----------
+                        Raises exception if lower value or higher value is equal to middle value.
+                        Unlike create_triangular, create_triangular_ex requires a non-right triangle.
                 &#39;&#39;&#39;
                 if (c &lt;= b) or (b &lt;= a):
                         raise Exception(&#39;Error in triangular set definition&#39;)
@@ -258,6 +278,8 @@ class Type1FuzzySet:
                         dom = max(min((x - a)/(b - a), (c - x)/(c - b)), 0)
                         t1fs.add_element(x, dom)
 
+                t1fs._name = name
+
                 return t1fs
 
         @staticmethod
@@ -266,7 +288,7 @@ class Type1FuzzySet:
                 return val_array[idx]
 
         @classmethod
-        def create_trapezoidal(cls, domain, a, b, c, d):
+        def create_trapezoidal(cls, domain, a, b, c, d, name=&#39;&#39;):
                 &#39;&#39;&#39;
                 &#39;&#39;&#39;
                 t1fs = cls()
@@ -281,6 +303,8 @@ class Type1FuzzySet:
                                         dom = min(max(min((domain_val-a)/(b-a), (d-domain_val)/(d-c)), 0), 1)
 
                                 t1fs.add_element(domain_val, dom)
+
+                t1fs._name = name
 
                 return t1fs
 
@@ -385,6 +409,7 @@ class Type1FuzzySet:
                 --------
                 limits -- CrispSet containting the smallest an largest domain value
                 &#39;&#39;&#39;
+
                 limits = CrispSet(min(self._elements.keys()), max(self._elements.keys()))
                 return limits
         
@@ -483,6 +508,7 @@ class Type1FuzzySet:
 <dl>
 <dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet"><code class="flex name class">
 <span>class <span class="ident">Type1FuzzySet</span></span>
+<span>(</span><span>name='')</span>
 </code></dt>
 <dd>
 <section class="desc"><h2 id="reference">Reference:</h2>
@@ -500,10 +526,11 @@ application to approximate reasoning—I." Information sciences 8.3 (1975): 199-
         application to approximate reasoning—I.&#34; Information sciences 8.3 (1975): 199-249.
 
         &#39;&#39;&#39;
-        def __init__(self):
+        def __init__(self, name=&#39;&#39;):
                 self._elements = {}
                 self._empty = True
                 self._precision = 3
+                self._name = name
 
         def __eq__(self, value):
                 current_domain_len = len(self.domain_elements())
@@ -563,8 +590,12 @@ application to approximate reasoning—I." Information sciences 8.3 (1975): 199-
         def __repr__(self):
                 return f&#39;{self.__class__.__name__}({str(self)})&#39;
 
+        @property
+        def name(self):
+                return self._name
+
         @ classmethod
-        def from_representation(cls, set_representation):
+        def from_representation(cls, set_representation, name=&#39;&#39;):
                 &#39;&#39;&#39;
                 Creates a type-1 fuzzy set from a set representation of the form
                 &#39;a1/u1 + a2/u2 + ... + an/un&#39;
@@ -611,10 +642,12 @@ application to approximate reasoning—I." Information sciences 8.3 (1975): 199-
                 except ValueError:
                         raise Exception(&#39;Invalid set type-1 format&#39;)
 
+                t1fs._name = name
+
                 return t1fs
 
         @ classmethod
-        def from_alphacut_type1_set(cls, alphacut_set):
+        def from_alphacut_type1_set(cls, alphacut_set, name=&#39;&#39;):
                 
                 t1fs = cls()
                 for cut in alphacut_set.cuts():
@@ -631,10 +664,12 @@ application to approximate reasoning—I." Information sciences 8.3 (1975): 199-
                         new_elements[domain_value] = t1fs._elements[domain_value]
                 t1fs._elements = new_elements
 
+                t1fs._name = name
+
                 return t1fs
 
         @classmethod
-        def create_triangular(cls, univ_low, univ_hi, univ_res, set_low, set_mid, set_hi):
+        def create_triangular(cls, univ_low, univ_hi, univ_res, set_low, set_mid, set_hi, name=&#39;&#39;):
 
                 &#39;&#39;&#39;
                 Creates a triangular type 1 fuzzy set in a defined universe of discourse
@@ -670,28 +705,34 @@ application to approximate reasoning—I." Information sciences 8.3 (1975): 199-
                 precision = len(str(univ_res))
                 domain_elements =  np.round(np.linspace(univ_low, univ_hi, univ_res), precision)
 
-                idx = (np.abs(domain_elements - set_mid)).argmin()
-                set_mid = domain_elements[idx]
+                idx_mid = (np.abs(domain_elements - set_mid)).argmin()
+                set_mid = domain_elements[idx_mid]
 
-                idx = (np.abs(domain_elements - set_low)).argmin()
-                set_low = domain_elements[idx]
+                idx_low = (np.abs(domain_elements - set_low)).argmin()
+                set_low = domain_elements[idx_low]
 
-                idx = (np.abs(domain_elements - set_hi)).argmin()
-                set_hi = domain_elements[idx]
+                idx_hi = (np.abs(domain_elements - set_hi)).argmin()
+                set_hi = domain_elements[idx_hi]
 
-                for domain_val in domain_elements:
-                        # get the dom of the set at the point
-                        dom = max(min((domain_val-set_low)/(set_mid-set_low), (set_hi-domain_val)/(set_hi-set_mid)), 0)
+                if idx_hi == idx_mid:
+                        for domain_val in domain_elements[idx_low:idx_mid+1]:
+                                dom = (domain_val-set_low)/(set_mid-set_low)
+                                t1fs.add_element(domain_val, round(dom, precision))                     
+                elif idx_low == idx_mid:
+                        for domain_val in domain_elements[idx_mid:idx_hi+1]:
+                                dom = (set_hi-domain_val)/(set_hi-set_mid)
+                                t1fs.add_element(domain_val, round(dom, precision))
+                else:
+                        for domain_val in domain_elements[idx_low:idx_hi+1]:
+                                dom = dom = max(min((domain_val - set_low)/(set_mid - set_low), (set_hi - domain_val)/(set_hi - set_mid)), 0)
+                                t1fs.add_element(domain_val, round(dom, precision))
 
-                        # idx = (np.abs(domain_elements - set_mid)).argmin()
-                        # dom = domain_elements[idx]
-
-                        t1fs.add_element(domain_val, dom)
+                t1fs._name = name
 
                 return t1fs
 
         @classmethod
-        def create_triangular_ex(cls, primary_domain, a, b, c):
+        def create_triangular_ex(cls, primary_domain, a, b, c, name=&#39;&#39;):
 
                 &#39;&#39;&#39;
                 Creates a triangular type 1 fuzzy set in a defined universe of discourse
@@ -713,6 +754,11 @@ application to approximate reasoning—I." Information sciences 8.3 (1975): 199-
                 Returns:
                 --------
                 The new type1 triangular fuzzy set
+
+                Exceptions:
+                -----------
+                        Raises exception if lower value or higher value is equal to middle value.
+                        Unlike create_triangular, create_triangular_ex requires a non-right triangle.
                 &#39;&#39;&#39;
                 if (c &lt;= b) or (b &lt;= a):
                         raise Exception(&#39;Error in triangular set definition&#39;)
@@ -723,6 +769,8 @@ application to approximate reasoning—I." Information sciences 8.3 (1975): 199-
                         dom = max(min((x - a)/(b - a), (c - x)/(c - b)), 0)
                         t1fs.add_element(x, dom)
 
+                t1fs._name = name
+
                 return t1fs
 
         @staticmethod
@@ -731,7 +779,7 @@ application to approximate reasoning—I." Information sciences 8.3 (1975): 199-
                 return val_array[idx]
 
         @classmethod
-        def create_trapezoidal(cls, domain, a, b, c, d):
+        def create_trapezoidal(cls, domain, a, b, c, d, name=&#39;&#39;):
                 &#39;&#39;&#39;
                 &#39;&#39;&#39;
                 t1fs = cls()
@@ -746,6 +794,8 @@ application to approximate reasoning—I." Information sciences 8.3 (1975): 199-
                                         dom = min(max(min((domain_val-a)/(b-a), (d-domain_val)/(d-c)), 0), 1)
 
                                 t1fs.add_element(domain_val, dom)
+
+                t1fs._name = name
 
                 return t1fs
 
@@ -850,6 +900,7 @@ application to approximate reasoning—I." Information sciences 8.3 (1975): 199-
                 --------
                 limits -- CrispSet containting the smallest an largest domain value
                 &#39;&#39;&#39;
+
                 limits = CrispSet(min(self._elements.keys()), max(self._elements.keys()))
                 return limits
         
@@ -958,7 +1009,7 @@ def adjust_value(val, val_array):
 </details>
 </dd>
 <dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_trapezoidal"><code class="name flex">
-<span>def <span class="ident">create_trapezoidal</span></span>(<span>domain, a, b, c, d)</span>
+<span>def <span class="ident">create_trapezoidal</span></span>(<span>domain, a, b, c, d, name='')</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
@@ -967,7 +1018,7 @@ def adjust_value(val, val_array):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@classmethod
-def create_trapezoidal(cls, domain, a, b, c, d):
+def create_trapezoidal(cls, domain, a, b, c, d, name=&#39;&#39;):
         &#39;&#39;&#39;
         &#39;&#39;&#39;
         t1fs = cls()
@@ -983,11 +1034,13 @@ def create_trapezoidal(cls, domain, a, b, c, d):
 
                         t1fs.add_element(domain_val, dom)
 
+        t1fs._name = name
+
         return t1fs</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_triangular"><code class="name flex">
-<span>def <span class="ident">create_triangular</span></span>(<span>univ_low, univ_hi, univ_res, set_low, set_mid, set_hi)</span>
+<span>def <span class="ident">create_triangular</span></span>(<span>univ_low, univ_hi, univ_res, set_low, set_mid, set_hi, name='')</span>
 </code></dt>
 <dd>
 <section class="desc"><p>Creates a triangular type 1 fuzzy set in a defined universe of discourse
@@ -1010,7 +1063,7 @@ set_hi &ndash; sel high point, where dom is 0</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@classmethod
-def create_triangular(cls, univ_low, univ_hi, univ_res, set_low, set_mid, set_hi):
+def create_triangular(cls, univ_low, univ_hi, univ_res, set_low, set_mid, set_hi, name=&#39;&#39;):
 
         &#39;&#39;&#39;
         Creates a triangular type 1 fuzzy set in a defined universe of discourse
@@ -1046,29 +1099,35 @@ def create_triangular(cls, univ_low, univ_hi, univ_res, set_low, set_mid, set_hi
         precision = len(str(univ_res))
         domain_elements =  np.round(np.linspace(univ_low, univ_hi, univ_res), precision)
 
-        idx = (np.abs(domain_elements - set_mid)).argmin()
-        set_mid = domain_elements[idx]
+        idx_mid = (np.abs(domain_elements - set_mid)).argmin()
+        set_mid = domain_elements[idx_mid]
 
-        idx = (np.abs(domain_elements - set_low)).argmin()
-        set_low = domain_elements[idx]
+        idx_low = (np.abs(domain_elements - set_low)).argmin()
+        set_low = domain_elements[idx_low]
 
-        idx = (np.abs(domain_elements - set_hi)).argmin()
-        set_hi = domain_elements[idx]
+        idx_hi = (np.abs(domain_elements - set_hi)).argmin()
+        set_hi = domain_elements[idx_hi]
 
-        for domain_val in domain_elements:
-                # get the dom of the set at the point
-                dom = max(min((domain_val-set_low)/(set_mid-set_low), (set_hi-domain_val)/(set_hi-set_mid)), 0)
+        if idx_hi == idx_mid:
+                for domain_val in domain_elements[idx_low:idx_mid+1]:
+                        dom = (domain_val-set_low)/(set_mid-set_low)
+                        t1fs.add_element(domain_val, round(dom, precision))                     
+        elif idx_low == idx_mid:
+                for domain_val in domain_elements[idx_mid:idx_hi+1]:
+                        dom = (set_hi-domain_val)/(set_hi-set_mid)
+                        t1fs.add_element(domain_val, round(dom, precision))
+        else:
+                for domain_val in domain_elements[idx_low:idx_hi+1]:
+                        dom = dom = max(min((domain_val - set_low)/(set_mid - set_low), (set_hi - domain_val)/(set_hi - set_mid)), 0)
+                        t1fs.add_element(domain_val, round(dom, precision))
 
-                # idx = (np.abs(domain_elements - set_mid)).argmin()
-                # dom = domain_elements[idx]
-
-                t1fs.add_element(domain_val, dom)
+        t1fs._name = name
 
         return t1fs</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.create_triangular_ex"><code class="name flex">
-<span>def <span class="ident">create_triangular_ex</span></span>(<span>primary_domain, a, b, c)</span>
+<span>def <span class="ident">create_triangular_ex</span></span>(<span>primary_domain, a, b, c, name='')</span>
 </code></dt>
 <dd>
 <section class="desc"><p>Creates a triangular type 1 fuzzy set in a defined universe of discourse
@@ -1082,13 +1141,17 @@ An introduction to fuzzy sets: analysis and design. Mit Press, 1998.</p>
 b &ndash; set mid point, where dom is 1
 c &ndash; set high point, where dom is 0</p>
 <h2 id="returns">Returns:</h2>
-<p>The new type1 triangular fuzzy set</p></section>
+<p>The new type1 triangular fuzzy set</p>
+<h2 id="exceptions">Exceptions:</h2>
+<pre><code>    Raises exception if lower value or higher value is equal to middle value.
+    Unlike create_triangular, create_triangular_ex requires a non-right triangle.
+</code></pre></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@classmethod
-def create_triangular_ex(cls, primary_domain, a, b, c):
+def create_triangular_ex(cls, primary_domain, a, b, c, name=&#39;&#39;):
 
         &#39;&#39;&#39;
         Creates a triangular type 1 fuzzy set in a defined universe of discourse
@@ -1110,6 +1173,11 @@ def create_triangular_ex(cls, primary_domain, a, b, c):
         Returns:
         --------
         The new type1 triangular fuzzy set
+
+        Exceptions:
+        -----------
+                Raises exception if lower value or higher value is equal to middle value.
+                Unlike create_triangular, create_triangular_ex requires a non-right triangle.
         &#39;&#39;&#39;
         if (c &lt;= b) or (b &lt;= a):
                 raise Exception(&#39;Error in triangular set definition&#39;)
@@ -1120,11 +1188,13 @@ def create_triangular_ex(cls, primary_domain, a, b, c):
                 dom = max(min((x - a)/(b - a), (c - x)/(c - b)), 0)
                 t1fs.add_element(x, dom)
 
+        t1fs._name = name
+
         return t1fs</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.from_alphacut_type1_set"><code class="name flex">
-<span>def <span class="ident">from_alphacut_type1_set</span></span>(<span>alphacut_set)</span>
+<span>def <span class="ident">from_alphacut_type1_set</span></span>(<span>alphacut_set, name='')</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
@@ -1133,7 +1203,7 @@ def create_triangular_ex(cls, primary_domain, a, b, c):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@ classmethod
-def from_alphacut_type1_set(cls, alphacut_set):
+def from_alphacut_type1_set(cls, alphacut_set, name=&#39;&#39;):
         
         t1fs = cls()
         for cut in alphacut_set.cuts():
@@ -1150,11 +1220,13 @@ def from_alphacut_type1_set(cls, alphacut_set):
                 new_elements[domain_value] = t1fs._elements[domain_value]
         t1fs._elements = new_elements
 
+        t1fs._name = name
+
         return t1fs</code></pre>
 </details>
 </dd>
 <dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.from_representation"><code class="name flex">
-<span>def <span class="ident">from_representation</span></span>(<span>set_representation)</span>
+<span>def <span class="ident">from_representation</span></span>(<span>set_representation, name='')</span>
 </code></dt>
 <dd>
 <section class="desc"><p>Creates a type-1 fuzzy set from a set representation of the form
@@ -1173,7 +1245,7 @@ application to approximate reasoning—I." Information sciences 8.3 (1975): 199-
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@ classmethod
-def from_representation(cls, set_representation):
+def from_representation(cls, set_representation, name=&#39;&#39;):
         &#39;&#39;&#39;
         Creates a type-1 fuzzy set from a set representation of the form
         &#39;a1/u1 + a2/u2 + ... + an/un&#39;
@@ -1220,6 +1292,8 @@ def from_representation(cls, set_representation):
         except ValueError:
                 raise Exception(&#39;Invalid set type-1 format&#39;)
 
+        t1fs._name = name
+
         return t1fs</code></pre>
 </details>
 </dd>
@@ -1239,6 +1313,18 @@ def empty(self):
         True if the set is empty, i.e. there is no element with dom &gt; 0
         &#39;&#39;&#39;
         return self._empty</code></pre>
+</details>
+</dd>
+<dt id="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.name"><code class="name">var <span class="ident">name</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def name(self):
+        return self._name</code></pre>
 </details>
 </dd>
 </dl>
@@ -1403,6 +1489,7 @@ degree_of_membership, float value between 0 and 1. The degree of membership</p><
         --------
         limits -- CrispSet containting the smallest an largest domain value
         &#39;&#39;&#39;
+
         limits = CrispSet(min(self._elements.keys()), max(self._elements.keys()))
         return limits</code></pre>
 </details>
@@ -1632,6 +1719,7 @@ degree_of_membership, float value between 0 and 1. The degree of membership</p><
 <li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.intersection" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.intersection">intersection</a></code></li>
 <li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.join" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.join">join</a></code></li>
 <li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.meet" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.meet">meet</a></code></li>
+<li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.name" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.name">name</a></code></li>
 <li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.negation" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.negation">negation</a></code></li>
 <li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.size" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.size">size</a></code></li>
 <li><code><a title="type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.union" href="#type2fuzzy.membership.type1fuzzyset.Type1FuzzySet.union">union</a></code></li>

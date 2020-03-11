@@ -2,6 +2,8 @@
 
 A type-2 fuzzy logic library providing:
 
+A type-2 fuzzy logic library providing:
+
 1. Ways to define and work with general type-2 fuzzy sets
 2. Ways to define and work with interval type-2 fuzzy sets
 3. Ways to generate z-sliced sets from general type-2 fuzzy sets
@@ -9,8 +11,11 @@ A type-2 fuzzy logic library providing:
 5. Functions to perform interval type-2 reduction (Karnik-Mendel)
 6. Functions to perform partial-centroid type-reduction on general type-2 fuzzy sets
 7. Functions to perform defuzzification of type-1 fuzzy sets
-7. Tools to measure the performance of algorithms
-8. Tools to plot general, interval and z-sliced type-2 fuzzy sets and type-1 fuzzy sets.
+8. Tools to measure the performance of algorithms
+9. Tools to plot general, interval and z-sliced type-2 fuzzy sets and type-1 fuzzy sets and more
+10. Ways to define and work with type-1 fuzzy sets
+11. Ways to define and work with linguistic variables
+
 and more
 
 All type2fuzzy wheels distributed on PyPI are BSD licensed.
@@ -25,6 +30,10 @@ https://github.com/carmelgafa/type2fuzzy_examples
 http://t2fuzz.com
 
 ## Change History
+
+### version 0.1.42 - 11.03.2020
+
+1. new version of documentation in html
 
 ### version 0.1.42 - 11.03.2020
 
