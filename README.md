@@ -18,14 +18,11 @@ and more
 
 All type2fuzzy wheels distributed on PyPI are BSD licensed.
 
-Examples of how this library was used to work some famous type-2 fuzzy logic papers can be found here:
-
-https://github.com/carmelgafa/type2fuzzy_examples
-
+Examples of how this library was used to work some famous type-2 fuzzy logic papers can be found [here](https://github.com/carmelgafa/type2fuzzy_examples).
 
 ## Website
 
-http://t2fuzz.com
+The official website for this library can be found [here](http://t2fuzz.com).
 
 ## Change History
 
@@ -36,7 +33,7 @@ http://t2fuzz.com
 ### version 0.1.42 - 11.03.2020
 
 1. type-1 fuzzy variable implemented __str__
-2. type-1 fuzzy variable implemented get_set 
+2. type-1 fuzzy variable implemented get_set
 3. type-1 fuzzy variable add_triangular_set returns created set
 
 ### version 0.1.41 - 10.03.2020
@@ -66,7 +63,7 @@ http://t2fuzz.com
 ### version 0.1.34 - 18.11.2019
 
 1. Ability to [create Interval Type-2 fuzzy sets having a gaussian function with fixed mean and fixed standard deviation](http://t2fuzz.com/type2fuzzy/membership/generate_it2fs.html) as per Karnik and Mendel 1996 - Karnik, Nilesh N., and Jerry M. Mendel. "Introduction to type-2 fuzzy logic systems." 1998 IEEE International Conference on Fuzzy Systems Proceedings. IEEE World Congress on Computational Intelligence (Cat. No. 98CH36228). Vol. 2. IEEE, 1998.
-2. An experimental way to [define General Type-2 fuzzy sets through horizonal slices](http://t2fuzz.com/membership/type2fuzzy/generate_gt2mf.html)
+2. An experimental way to [define General Type-2 fuzzy sets through horizontal slices](http://t2fuzz.com/membership/type2fuzzy/generate_gt2mf.html)
 
 ### version 0.1.33 - 15.11.2019
 
