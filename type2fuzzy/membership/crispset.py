@@ -1,6 +1,8 @@
 class CrispSet:
 	'''
 	Implements a Crisp set
+	todo: implement better properties
+
 	'''
 	def __init__(self, left_val=None, right_val=None):
 		'''
