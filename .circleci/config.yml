@@ -33,6 +33,7 @@ jobs:
             . venv/bin/activate
             pip install --upgrade pip
             pip install -r requirements.txt
+            pip install --upgrade twine
 
       - save_cache:
           paths:
