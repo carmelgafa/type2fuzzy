@@ -469,3 +469,10 @@ class Type1FuzzySet:
 			resultant_smf[domain_val] = min(self._elements[domain_val], other_smf.elements[domain_val])
 
 		return resultant_smf
+
+	def plot_set(self, ax, col=''):
+		ax.plot(self.domain_elements(), self.dom_elements(), col)
+		ax.set_ylim([-0.1,1.1])
+		ax.set_title(self._name)
+		ax.grid(True, which='both', alpha=0.4)
+		ax.set(xlabel='x', ylabel='$\mu(x)$')
