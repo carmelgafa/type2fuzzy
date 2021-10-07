@@ -277,6 +277,8 @@ class Type1FuzzySet:
 					dom = min(max(min((domain_val-a)/(b-a), (d-domain_val)/(d-c)), 0), 1)
 
 				t1fs.add_element(domain_val, dom)
+			else:
+				t1fs.add_element(domain_val, 0)
 
 		t1fs._name = name
 

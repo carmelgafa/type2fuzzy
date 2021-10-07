@@ -4,7 +4,7 @@ from os import path
 
 DESCRIPTION = 'Library for type-2 fuzzy logic research'
 
-VERSION = '0.1.44'
+VERSION = '0.1.45'
 
 setup(
 	author = 'Carmel Gafa',
