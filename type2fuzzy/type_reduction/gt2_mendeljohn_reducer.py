@@ -54,10 +54,10 @@ def _gt2_mendeljohn_noinfo(gt2fs, precision=5):
 		cog_denominator = 0
 		for point in embedded:
 			dom = min(dom, point[0])
-			cog_numerator = round(cog_numerator +(point[1] * point[2]), precision)
-			cog_denominator = round(cog_denominator +(point[1]), precision)
+			cog_numerator = cog_numerator +(point[1] * point[2])
+			cog_denominator = cog_denominator +(point[1])
 
 		if cog_denominator > 0:
-			reduced_set.add_element(cog_numerator/cog_denominator, dom)
-
+			reduced_set.add_element(round(cog_numerator/cog_denominator, precision), dom)
+			
 	return reduced_set
