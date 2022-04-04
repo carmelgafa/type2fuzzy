@@ -26,6 +26,10 @@ The official website for this library can be found [here](http://t2fuzz.com).
 
 ## Change History
 
+### version 0.1.49 - 04.04.2022
+
+1. updated numpy and matplotlib versions
+
 ### version 0.1.48 - 04.04.2022
 
 1. Renamed add_element in IntervalType2FuzzySet to add_element_from_crispset
