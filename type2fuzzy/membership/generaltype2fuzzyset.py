@@ -534,7 +534,7 @@ class GeneralType2FuzzySet:
             cut = self.vertical_slices[primary_domain_val].alpha_cut(slice_value)
 
             if not cut.empty:
-                sliced_set.add_element(primary_domain_val, cut)
+                sliced_set.add_element_from_crispset(primary_domain_val, cut)
 
         return sliced_set
 
