@@ -26,6 +26,11 @@ The official website for this library can be found [here](http://t2fuzz.com).
 
 ## Change History
 
+### version 0.1.47 - 04.04.2022
+
+1. Renamed add_element in IntervalType2FuzzySet to add_element_from_crispset
+2. Added add_element_from_values to IntervalType2FuzzySet
+
 ### version 0.1.43 - 11.03.2020
 
 1. new version of documentation in html
