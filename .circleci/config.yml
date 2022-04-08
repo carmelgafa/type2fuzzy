@@ -8,11 +8,10 @@ jobs:
     branches:
       only:
         - master
-
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: circleci/python:3.10.0
+      - image: cimg/python:3.10.0
 
     working_directory: ~/repo
 
