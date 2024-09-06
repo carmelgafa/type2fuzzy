@@ -26,6 +26,10 @@ The official website for this library can be found [here](http://t2fuzz.com).
 
 ## Change History
 
+### version 0.1.62 - 06.09.2024
+
+1. moved to github actions from circle ci
+
 ### version 0.1.49 - 04.04.2022
 
 1. updated numpy and matplotlib versions
