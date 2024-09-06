@@ -26,8 +26,8 @@ jobs:
       - name: Build package
         run: python -m build
 
-      - name: Publish to PyPI
-        env:
-          TWINE_USERNAME: __token__  # Always use __token__ for PyPI API token
-          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}  # Referencing the secret stored in GitHub
-        run: python -m twine upload dist/*
+      - name: Publish package
+        uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
