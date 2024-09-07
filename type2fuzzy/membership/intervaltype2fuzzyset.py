@@ -1,12 +1,25 @@
+'''
+Interval Type-2 Fuzzy Set
+contains the following classes:
+- IntervalType2FuzzySet
+- IntervalType2FuzzySetException
+'''
 from type2fuzzy.membership.crispset import CrispSet
 
+
+class IntervalType2FuzzySetException(Exception):
+    '''Interval Type-2 Fuzzy Set Exception'''
+    def __init__(self, message):
+        super().__init__(message)
+
 class IntervalType2FuzzySet:
+    '''An interval type-2 fuzzy set class'''
 
     def __init__(self):
         self._interval_set_elements = {}
         self._empty=True
 
-    def __getitem__(self, primary_domain_val):
+    def __getitem__(self, primary_domain_val:float)->CrispSet:
         '''
         For a given value of the primary domain, 
         return the crisp set
@@ -20,7 +33,8 @@ class IntervalType2FuzzySet:
         crisp_set - corresponding crisp set
         '''
         if primary_domain_val not in self._interval_set_elements:
-            raise Exception(f'Primary domain value of {primary_domain_val} not in this set.')
+            raise IntervalType2FuzzySetException(
+                f'Primary domain value of {primary_domain_val} not in this set.')
 
         return self._interval_set_elements[primary_domain_val]
 
@@ -32,7 +46,7 @@ class IntervalType2FuzzySet:
         return self._empty
 
     @ classmethod
-    def from_general_type2_set(cls, gt2fs):
+    def from_general_type2_set(cls, gt2fs)->'IntervalType2FuzzySet':
         '''
         Creates an Interval Type-2 Fuzzy Set from a General
         Type-2 Fuzzy Set
@@ -52,11 +66,14 @@ class IntervalType2FuzzySet:
         return it2fs
 
     @classmethod
-    def from_representation(cls, set_representation):
-        if set_representation == None:
-            raise Exception('Interval Type-2 Set Representation cannot be null')
+    def from_representation(cls, set_representation:str)->'IntervalType2FuzzySet':
+        '''creates an interval type-2 fuzzy set from a string representation'''
+        if set_representation is None:
+            raise IntervalType2FuzzySetException(
+                'Interval Type-2 Set Representation cannot be null')
         if set_representation == '':
-            raise Exception('Interval Type-2 Set Representation cannot be empty')
+            raise IntervalType2FuzzySetException(
+                'Interval Type-2 Set Representation cannot be empty')
 
         it2fs = cls()
 
@@ -79,7 +96,7 @@ class IntervalType2FuzzySet:
                 # index
                 primary_domain_val = float(pri_dom_val_s)
 
-                # the vertical slice points is represnted by [left, right]
+                # the vertical slice points is represented by [left, right]
                 # remove the braces
                 translation_table = dict.fromkeys(map(ord, '[]'), None)
                 vslice_points_s = vslice_points_s.translate(translation_table)
@@ -91,14 +108,14 @@ class IntervalType2FuzzySet:
                 left = float(left_s)
                 right = float(right_s)
 
-                it2fs.add_element(primary_domain_val, CrispSet(left, right))
-        except ValueError:
-            raise Exception('Invalid set format')
+                it2fs.add_element_from_crispset(primary_domain_val, CrispSet(left, right))
+        except ValueError as exp:
+            raise IntervalType2FuzzySetException('Invalid set format') from exp
 
         return it2fs
 
     @classmethod
-    def load_file(cls, set_filename):
+    def load_file(cls, set_filename:str)->'IntervalType2FuzzySet':
         '''
         Loads a interval type-2 fuzzy set from a file. File must have the
         following format:
@@ -120,29 +137,28 @@ class IntervalType2FuzzySet:
         Exception -- if set_filename is empty, None or invalid
         '''
         representation = ''
-        
+
         try:
-            with open(set_filename, 'r') as file:
+            with open(set_filename, 'r', encoding='utf-8') as file:
                 representation = file.read()
-        except IOError:
-            raise Exception('Could not read file {}'.format(set_filename))
-        
+        except IOError as exp:
+            raise IntervalType2FuzzySetException(f'Could not read file {set_filename}') from exp
+
         it2fs = cls()
         it2fs = IntervalType2FuzzySet.from_representation(representation)
 
         return it2fs
 
     @classmethod
-    def from_hmf_lmf(cls, primary_domain, hmf, lmf):
-        '''
-        '''
+    def from_hmf_lmf(cls, primary_domain, hmf, lmf)->'IntervalType2FuzzySet':
+        '''creates an interval type-2 fuzzy set from a hmf and lmf'''
         it2fs = cls()
         for idx, primary_domain_element in enumerate(primary_domain):
-            it2fs.add_element(primary_domain_element, CrispSet(lmf[idx], hmf[idx]))
+            it2fs.add_element_from_crispset(primary_domain_element, CrispSet(lmf[idx], hmf[idx]))
 
         return it2fs
 
-    def primary_domain(self):
+    def primary_domain(self)->list[float]:
         '''
         The primary domain of this fuzzy set
 
@@ -157,13 +173,13 @@ class IntervalType2FuzzySet:
         primary_domain = list(self._interval_set_elements.keys())
         return primary_domain
 
-    def mid_domain_element(self):
+    def mid_domain_element(self)->float:
         '''
         returns the middle domain element
         '''
         return self.primary_domain()[int(len(self.primary_domain())/2)]
 
-    def __str__(self):
+    def __str__(self)->str:
         '''
         Creates a string representation of the interval type 2 fuzzy set in the form:
         (lower_1, upper_1)/domain_1 + ... + (lower_n, upper_n)/domain_n
@@ -171,13 +187,14 @@ class IntervalType2FuzzySet:
         set_representation_list = []
 
         for primary_domain_element in self.primary_domain():
-            set_representation_list.append(f'{self._interval_set_elements[primary_domain_element]}/{primary_domain_element}\n')
+            set_representation_list.append(
+                f'{self._interval_set_elements[primary_domain_element]}/{primary_domain_element}\n')
 
         set_representation = '+'.join(set_representation_list)
 
         return set_representation
 
-    def __repr__(self):
+    def __repr__(self)->str:
         return f'{self.__class__.__name__}(str(self))'
 
     def add_element_from_values(self, primary_domain_val, left, right):
@@ -197,7 +214,7 @@ class IntervalType2FuzzySet:
         self.add_element_from_crispset(primary_domain_val, CrispSet(left, right))
 
 
-    def add_element_from_crispset(self, primary_domain_val, crisp_set):
+    def add_element_from_crispset(self, primary_domain_val:float, crisp_set:CrispSet)->None:
         '''
         adds an element to the set from the given crisp set
 
@@ -219,20 +236,20 @@ class IntervalType2FuzzySet:
             self._empty = False
 
 
-    def lower_membership_function(self):
-
+    def lower_membership_function(self)->list[float]:
+        '''returns the lower membership function'''
         umf = []
 
         for limits in self._interval_set_elements.values():
             umf.append(limits.left)
-        
+
         return umf
 
-    def higher_membership_function(self):
-
+    def higher_membership_function(self)->list[float]:
+        '''returns the higher membership function'''
         hmf = []
 
         for limits in self._interval_set_elements.values():
             hmf.append(limits.right)
-        
+
         return hmf

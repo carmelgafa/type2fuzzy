@@ -1,10 +1,11 @@
-from setuptools import setup, find_packages
-from distutils.core import setup
-from os import path
+'''setup file for type2fuzzy'''
+from setuptools import setup
+# from distutils.core import setup
+
 
 DESCRIPTION = 'Library for type-2 fuzzy logic research'
 
-VERSION = '0.1.62'
+VERSION = '0.1.63'
 # VERSION = {{VERSION_PLACEHOLDER}}
 
 setup(
@@ -13,7 +14,7 @@ setup(
 	name = 'type2fuzzy',
 	version = VERSION,
 	description = DESCRIPTION,
-	long_description=open('README.md').read(),	
+	long_description=open('README.md', encoding='utf-8').read(),
 	long_description_content_type = 'text/markdown',
 	classifiers=
 	[
@@ -27,7 +28,7 @@ setup(
 		'Programming Language :: Python :: 3.6',
 	],
 	url = 'https://github.com/carmelgafa/type2fuzzy',
-	packages = 
+	packages =
 	[
 		'type2fuzzy', 
 		'type2fuzzy/membership',
@@ -42,7 +43,7 @@ setup(
 		'numpy',
 		'matplotlib',
 	],
-	keywords = 
+	keywords =
 	[
 		'type-2 fuzzy',
 		'type reduction', 
