@@ -1,6 +1,9 @@
-from type2fuzzy.membership.type1fuzzyset import Type1FuzzySet
+'''
+Type1FuzzyVariable class implementation
+'''
+
 import matplotlib.pyplot as plt
-import numpy as np
+from type2fuzzy.membership.type1fuzzyset import Type1FuzzySet
 
 class Type1FuzzyVariable():
     '''
@@ -14,7 +17,7 @@ class Type1FuzzyVariable():
         Arguments:
             min_val {number} -- minimum value of variable
             max_val {number} -- maximum value of variable
-            res {int} -- resolution of variable, number of ufic
+            res {int} -- resolution of variable
         '''
         self._sets={}
         self._max_val = max_val
@@ -24,6 +27,7 @@ class Type1FuzzyVariable():
 
     @property
     def name(self):
+        '''returns the name of the variable'''
         return self._name
 
     def _add_set(self, name, f_set):
@@ -36,20 +40,25 @@ class Type1FuzzyVariable():
         '''
         self._sets[name] = f_set
 
-    def get_set(self, name):
+    def get_set(self, name: str)-> Type1FuzzySet:
+        '''returns the fuzzy set with the given name'''
         return self._sets[name]
 
     def add_triangular(self, name, low, mid, high):
-        '''[summary]
-        
+        '''
+        adds a triangular fuzzy set to the variable
+
         Arguments:
-            name {[type]} -- [description]
-            low {[type]} -- [description]
-            mid {[type]} -- [description]
-            high {[type]} -- [description]
+            name {string} -- name of the set
+            low {number} -- set low point, where dom is 0
+            mid {number} -- set mid point, where dom is 1
+            high {number} -- set high point, where dom is 0
+
+        Returns:
+            [Type1FuzzySet] -- the new set
         '''
 
-        new_set = Type1FuzzySet.create_triangular(self._min_val, 
+        new_set = Type1FuzzySet.create_triangular(self._min_val,
                     self._max_val, self._res, low, mid, high, name)
 
         self._add_set(name, new_set)
@@ -71,21 +80,22 @@ class Type1FuzzyVariable():
         set_count = 1
 
         # first set will be half triangle with both low and mid point at the min value
-        s = Type1FuzzySet.create_triangular(self._min_val, self._max_val, self._res, 0, 0, set_half_support)
+        s = Type1FuzzySet.create_triangular(
+            self._min_val, self._max_val, self._res, 0, 0, set_half_support)
         self._add_set(str(set_count), s)
 
         set_count = set_count + 1
 
         for i in range(0, no_sets-2):
             s = Type1FuzzySet.create_triangular(self._min_val, self._max_val, self._res,
-                    i*set_half_support, 
+                    i*set_half_support,
                     (i+1)*set_half_support,
                     (i+2)*set_half_support)
             self._add_set(str(set_count), s)
             set_count = set_count + 1
 
         # last set will be half triangle with both mid and high point at the hight value
-        s = Type1FuzzySet.create_triangular(self._min_val, self._max_val, self._res, 
+        s = Type1FuzzySet.create_triangular(self._min_val, self._max_val, self._res,
                 self._max_val - set_half_support, self._max_val, self._max_val)
         self._add_set(str(set_count), s)
 
