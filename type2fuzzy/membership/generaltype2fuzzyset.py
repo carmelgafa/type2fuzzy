@@ -327,7 +327,7 @@ class GeneralType2FuzzySet:
         '''
         return self[primary_domain_val]
 
-    def save_file(self, set_filename, num_dec_places=4):
+    def save_file(self, set_filename):
         '''
         Writes a formal representation of the general type-2 fuzzy set of the form:
         '(a1/u1 + a2/u2 + ... + an/un)/x1 + ... + (b1/u1 + b2/u2 + ... + bn/un)/xn'
@@ -670,7 +670,13 @@ class GeneralType2FuzzySet:
         results = []
         # for every combination of the column elements create a type 2 embedded fuzzy set
         for t in itertools.product(*col_gen):
-            embedded = list(map(lambda i: (set_array[t[i]][i], secondary_domain[t[i]], primary_domain[i]) , domain_index))
+            embedded = list(
+                map(
+                    lambda i: (
+                        set_array[t[i]][i],
+                        secondary_domain[t[i]],
+                        primary_domain[i]),
+                    domain_index))
             results.append(embedded)
 
         return results
