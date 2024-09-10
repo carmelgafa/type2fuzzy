@@ -25,7 +25,6 @@ def _it2_kernikmendel_reduce_noinfo(it2fs, precision=5):
         primary_domain_elements[0],
         primary_domain_elements[len(primary_domain_elements)-1])
 
-
     centroid_left = it2fs.mid_domain_element()
     while True:
 
@@ -103,7 +102,9 @@ def _it2_kernikmendel_reduce_fullinfo(it2fs, precision=5):
     counter = 0
     primary_domain_elements = it2fs.primary_domain()
 
-    centroid = CrispSet(primary_domain_elements[0], primary_domain_elements[len(primary_domain_elements)-1])
+    centroid = CrispSet(
+        primary_domain_elements[0],
+        primary_domain_elements[len(primary_domain_elements)-1])
 
     logging.log(logging.INFO,'starting recursion...')
 
@@ -112,7 +113,7 @@ def _it2_kernikmendel_reduce_fullinfo(it2fs, precision=5):
         logging.DEBUG,
         'Initial value of centroid left= %s',
         centroid_left)
-    
+
     while True:
 
         centroid.left = centroid_left
