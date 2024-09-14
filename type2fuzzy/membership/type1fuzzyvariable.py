@@ -3,6 +3,7 @@ Type1FuzzyVariable class implementation
 '''
 
 import matplotlib.pyplot as plt
+import numpy as np
 from type2fuzzy.membership.type1fuzzyset import Type1FuzzySet
 
 class Type1FuzzyVariable():
@@ -24,6 +25,7 @@ class Type1FuzzyVariable():
         self._min_val = min_val
         self._res = res
         self._name = name
+        self._domain = np.range(min_val, max_val, res)
 
     @property
     def name(self):
@@ -125,6 +127,8 @@ class Type1FuzzyVariable():
         return ', '.join(self._sets.keys())
 
 
+    def _get_domain_index(self, domain_point:float):
+        return (np.abs(self._domain - domain_point)).argmin()
 
 if __name__=="__main__":
     var = Type1FuzzyVariable(0,100,100)
