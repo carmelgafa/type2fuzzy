@@ -1,6 +1,6 @@
 '''Generation of type-1 fuzzy sets'''
 
-from type1fuzzyset import Type1FuzzySet
+from type1_fuzzyset import Type1FuzzySet
 
 def create_triangular_set(
     idx_a:int,
@@ -28,16 +28,18 @@ def create_triangular_set(
             dom = (point - idx_a) / (idx_b - idx_a)
             t1fs.add_element(point, round(dom, precision))
     elif idx_a == idx_b:
-        for point in range(idx_b, idx_c):
+        for point in range(idx_b, idx_c+1):
             dom = (idx_c - point) / (idx_c - idx_b)
             t1fs.add_element(point, round(dom, precision))
     else:
-        for point in range(idx_a, idx_c):
+        for point in range(idx_a, idx_c+1):
             dom = max(
                 min(
                     (point - idx_a) / (idx_b - idx_a),
                     (idx_c - point) / (idx_c - idx_b))
                 , 0)
+            element = (point, round(dom, precision))
+            print(element)
             t1fs.add_element(point, round(dom, precision))
 
     return t1fs

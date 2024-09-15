@@ -191,24 +191,25 @@ class Type1FuzzySet:
 
         return resultant_smf
 
-    def intersection(self, other_smf):
+    def intersection(self, other_set):
         ''' intersects two t1fs'''
-        resultant_set = set.intersection(set(self._elements), set(other_smf.elements))
 
-        resultant_smf = {}
-        for  domain_val in resultant_set:
-            resultant_smf[domain_val] = min(
-                self._elements[domain_val],
-                other_smf.elements[domain_val])
+        if self.element_count() != other_set.element_count():
+            raise Type1FuzzySetException(
+                'the two sets must have the same number of elements')
 
-        return resultant_smf
+        resultant_set = Type1FuzzySet(resolution=self.element_count())
+        for  idx in range(self.element_count()):
+            resultant_set.add_element(idx, min(self[idx], other_set[idx]))
+
+        return resultant_set
 
     def plot_set(self, ax=None, col='', name='set'):
         '''plots the t1fs'''
-        
+
         if ax is None:
             ax = plt.gca()
-        
+
         ax.plot(self._elements)
         ax.set_ylim([-0.1,1.1])
         ax.set_title(name)
@@ -218,6 +219,7 @@ class Type1FuzzySet:
 
 if __name__ == '__main__':
     f_set = Type1FuzzySet(resolution=10)
+
     f_set.add_element(0, 0)
     f_set.add_element(1, 0)
     f_set.add_element(2, 0.2)

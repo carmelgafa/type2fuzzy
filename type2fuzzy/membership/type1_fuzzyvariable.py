@@ -1,10 +1,10 @@
 '''
 Type1FuzzyVariable class implementation
 '''
-from math import ceil
 import numpy as np
-from type1fuzzyset import Type1FuzzySet
-from type1fuzzysetcreation import create_triangular_set
+import matplotlib.pyplot as plt
+from type2fuzzy.membership.type1_fuzzyset import Type1FuzzySet
+from type2fuzzy.membership.type1_fuzzyset_creation import create_triangular_set
 
 class Type1FuzzyVariable():
     '''
@@ -35,7 +35,10 @@ class Type1FuzzyVariable():
 
     def convert_domain_to_index(self, value:float)->int:
         ''' converts a domain value to the nearest domain index'''
-        return ceil((self._max_val - self._min_val)/self._resolution * (value - self._min_val))
+        return int(
+            (self._resolution - 1) *
+            (value - self._min_val) /
+            (self._max_val - self._min_val))
 
     def add_triangular_set(self, name:str, low:float, mid:float, high:float):
         '''
@@ -53,7 +56,7 @@ class Type1FuzzyVariable():
         idx_a = self.convert_domain_to_index(low)
         idx_b = self.convert_domain_to_index(mid)
         idx_c = self.convert_domain_to_index(high)
-        new_set = create_triangular_set(idx_a, idx_b, idx_c)
+        new_set = create_triangular_set(idx_a, idx_b, idx_c, resolution=self._resolution)
         self.add_set(name, new_set)
 
 
@@ -134,7 +137,6 @@ class Type1FuzzyVariable():
         Reference:
             https://stackoverflow.com/questions/4700614/how-to-put-the-legend-out-of-the-plot
         '''
-        import matplotlib.pyplot as plt
 
         ax = plt.subplot(111)
 
@@ -158,7 +160,9 @@ class Type1FuzzyVariable():
         return (np.abs(self._domain - domain_point)).argmin()
 
 if __name__=="__main__":
-    var = Type1FuzzyVariable("test", 0.0, 50.0)
+
+    var = Type1FuzzyVariable("test", 0.0, 50.0, resolution=101)
+
     var.add_triangular_set("low", 0.0, 0.0, 25.0)
     var.add_triangular_set("mid", 0.0, 25.0, 50.0)
     var.add_triangular_set("high", 25.0, 50.0, 50.0)

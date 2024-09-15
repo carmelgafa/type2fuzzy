@@ -1,6 +1,6 @@
 '''A secondary membership function implementation'''
 
-from type2fuzzy.membership.type1fuzzyset import Type1FuzzySet
+from type2fuzzy.membership.type1_fuzzyset import Type1FuzzySet
 
 class SecondaryMembershipFunction(Type1FuzzySet):
     '''
