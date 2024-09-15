@@ -1,6 +1,6 @@
 '''Type1FuzzySet class implementation'''
 import numpy as np
-
+import matplotlib.pyplot as plt
 
 class Type1FuzzySetException(Exception):
     '''Type-1 Fuzzy Set Exception'''
@@ -68,23 +68,27 @@ class Type1FuzzySet:
             raise Type1FuzzySetException(
                 'degree of membership must not be greater than 1')
 
-        if idx > len(self._elements):
+        if idx > len(self._elements)-1:
             raise Type1FuzzySetException(
-                'domain index out of range. maximum domain index is ' + str(len(self._elements)-1))
+                f'domain index {idx} out of range. maximum domain index is {len(self._elements)-1}')
 
+        # try:
         self._elements[idx] = dom_val
+        # except IndexError:
+        #     print(f'error on index {idx}')
+    
         self._empty = False
 
-    def domain_elements(self):
-        '''
-        Return a list of all the domain elements
+    # def domain_elements(self):
+    #     '''
+    #     Return a list of all the domain elements
 
-        Returns:
-        --------
-        domain_vals -- list, containing all the values of the domain
-        '''
-        domain_vals = list(self._elements.keys())
-        return domain_vals
+    #     Returns:
+    #     --------
+    #     domain_vals -- list, containing all the values of the domain
+    #     '''
+    #     domain_vals = list(self._elements.keys())
+    #     return domain_vals
 
     def size(self):
         '''
@@ -199,8 +203,12 @@ class Type1FuzzySet:
 
         return resultant_smf
 
-    def plot_set(self, ax, col='', name='set'):
+    def plot_set(self, ax=None, col='', name='set'):
         '''plots the t1fs'''
+        
+        if ax is None:
+            ax = plt.gca()
+        
         ax.plot(self._elements)
         ax.set_ylim([-0.1,1.1])
         ax.set_title(name)
@@ -220,8 +228,6 @@ if __name__ == '__main__':
     f_set.add_element(7, 0.5)
     f_set.add_element(8, 0)
     f_set.add_element(9, 0)
-
-    import matplotlib.pyplot as plt
 
     f_set.plot_set()
     plt.show()
