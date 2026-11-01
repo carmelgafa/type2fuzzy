@@ -1,5 +1,5 @@
 matplotlib==3.3.4
-pylint==2.3.1
+pylint==4.0.9
 pyparsing==2.4.0
 numpy
 
